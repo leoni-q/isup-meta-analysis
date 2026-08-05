@@ -1,0 +1,80 @@
+"analysis","scale","group","k","estimate","ci_lower","ci_upper","Q","df_Q","p_Q","I2_pct"
+"GG1 detection per man (RR)","RR","Overall (not interpreted across families)",9,1.1668,0.6205,2.1942,388.263,8,6.062e-79,97.9
+"GG1 detection per man (RR)","RR","A. Screening invitation vs no screening / usual care",5,1.7559,1.0851,2.8416,231.42,7,6.53e-49,98.3
+"GG1 detection per man (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,0.5626,0.1521,2.0812,11.792,NA,0.008129,74.6
+"csPCa detection per man (RR)","RR","Overall (not interpreted across families)",9,1.1527,0.8862,1.4994,55.482,8,3.558e-09,85.6
+"csPCa detection per man (RR)","RR","A. Screening invitation vs no screening / usual care",5,1.1564,0.7565,1.7677,43.97,7,6.51e-09,90.9
+"csPCa detection per man (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,1.2918,0.5706,2.9246,11.437,NA,0.009584,73.8
+"Any PCa detection per man (RR)","RR","Overall (not interpreted across families)",9,1.2969,0.828,2.0315,371.541,8,2.274e-75,97.8
+"Any PCa detection per man (RR)","RR","A. Screening invitation vs no screening / usual care",5,1.5254,0.8025,2.8991,280.348,7,1.875e-59,98.6
+"Any PCa detection per man (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,1.0599,0.3909,2.8741,21.746,NA,7.365e-05,86.2
+"GG1 share of detected PCa (RR)","RR","Overall (not interpreted across families)",9,0.8835,0.5977,1.306,181.446,8,5.117e-35,95.6
+"GG1 share of detected PCa (RR)","RR","A. Screening invitation vs no screening / usual care",5,1.0788,0.6385,1.8227,107.819,7,2.124e-22,96.3
+"GG1 share of detected PCa (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,0.5668,0.3019,1.0641,9.646,NA,0.02183,68.9
+"Biopsies per man (RR)","RR","Overall (not interpreted across families)",5,1.0118,0.3328,3.0758,131.789,4,1.613e-27,97
+"Biopsies per man (RR)","RR","A. Screening invitation vs no screening / usual care",1,3.2377,2.2406,4.6785,0,3,NA,NA
+"Biopsies per man (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,0.7127,0.2361,2.1516,37.524,NA,3.564e-08,92
+"GG1 rate per man screened (proportion)","Proportion (%)","All arms pooled",18,1.0308,0.481,2.1952,8702.544,17,0,99.8
+"GG1 rate per man screened (proportion)","Proportion (%)","No screening / usual care",4,1.1976,0.3257,4.3031,2771.127,NA,0,99.9
+"GG1 rate per man screened (proportion)","Proportion (%)","PSA + DRE",1,6.9618,6.6878,7.2435,NA,NA,NA,NA
+"GG1 rate per man screened (proportion)","Proportion (%)","PSA",6,0.6008,0.0846,4.1372,883.972,NA,7.831e-189,99.4
+"GG1 rate per man screened (proportion)","Proportion (%)","PSA -> MRI",3,1.4638,0.872,2.4474,36.322,NA,1.296e-08,94.5
+"GG1 rate per man screened (proportion)","Proportion (%)","Biomarker -> MRI",2,0.4755,0.3782,0.5977,0.261,NA,0.6093,0
+"GG1 rate per man screened (proportion)","Proportion (%)","MRI-first",2,2.1138,1.2313,3.6059,0.465,NA,0.4952,0
+"csPCa rate per man screened (proportion)","Proportion (%)","All arms pooled",18,1.478,0.7295,2.9716,3988.148,17,0,99.6
+"csPCa rate per man screened (proportion)","Proportion (%)","No screening / usual care",4,1.6888,0.9458,2.998,560.006,NA,4.71e-121,99.5
+"csPCa rate per man screened (proportion)","Proportion (%)","PSA + DRE",1,3.3873,3.1936,3.5895,NA,NA,NA,NA
+"csPCa rate per man screened (proportion)","Proportion (%)","PSA",6,0.4734,0.0446,4.8252,1210.807,NA,1.34e-259,99.6
+"csPCa rate per man screened (proportion)","Proportion (%)","PSA -> MRI",3,1.943,1.7236,2.1897,1.944,NA,0.3783,0
+"csPCa rate per man screened (proportion)","Proportion (%)","Biomarker -> MRI",2,2.3709,2.1418,2.6238,1.513,NA,0.2187,33.9
+"csPCa rate per man screened (proportion)","Proportion (%)","MRI-first",2,4.5528,3.1616,6.515,0.006,NA,0.9371,0
+"GG1 share of detected PCa (proportion)","Proportion (%)","All arms pooled",18,40.287,31.5034,49.7413,3252.933,17,0,99.5
+"GG1 share of detected PCa (proportion)","Proportion (%)","No screening / usual care",4,39.7903,23.7598,58.3576,1110.864,NA,1.6e-240,99.7
+"GG1 share of detected PCa (proportion)","Proportion (%)","PSA + DRE",1,65.73,64.1195,67.3139,NA,NA,NA,NA
+"GG1 share of detected PCa (proportion)","Proportion (%)","PSA",6,49.4371,35.0927,63.8748,1349.635,NA,1.126e-289,99.6
+"GG1 share of detected PCa (proportion)","Proportion (%)","PSA -> MRI",3,44.3098,33.9303,55.2111,12.974,NA,0.001523,84.6
+"GG1 share of detected PCa (proportion)","Proportion (%)","Biomarker -> MRI",2,16.4045,13.2466,20.1405,0.618,NA,0.4317,0
+"GG1 share of detected PCa (proportion)","Proportion (%)","MRI-first",2,31.7073,19.3871,47.2662,0.276,NA,0.5992,0
+"Biopsies per man screened (proportion)","Proportion (%)","All arms pooled",13,4.836,2.3275,9.7773,14345.319,12,0,99.9
+"Biopsies per man screened (proportion)","Proportion (%)","PSA",6,3.7961,0.8203,15.8428,11276.764,NA,0,100
+"Biopsies per man screened (proportion)","Proportion (%)","PSA -> MRI",3,5.6964,3.6853,8.7056,135.431,NA,3.904e-30,98.5
+"Biopsies per man screened (proportion)","Proportion (%)","Biomarker -> MRI",2,3.7242,3.2658,4.244,5.279,NA,0.02158,81.1
+"Biopsies per man screened (proportion)","Proportion (%)","MRI-first",2,10.4065,8.2286,13.0787,0.186,NA,0.6664,0
+"SENS: GG1 rate per man randomized (proportion)","Proportion (%)","All arms pooled",18,0.9089,0.4333,1.8965,8460.671,17,0,99.8
+"SENS: GG1 rate per man randomized (proportion)","Proportion (%)","No screening / usual care",4,1.1976,0.3257,4.3031,2771.127,NA,0,99.9
+"SENS: GG1 rate per man randomized (proportion)","Proportion (%)","PSA + DRE",1,5.9176,5.6835,6.1585,NA,NA,NA,NA
+"SENS: GG1 rate per man randomized (proportion)","Proportion (%)","PSA",6,0.4818,0.0784,2.9025,3315.082,NA,0,99.8
+"SENS: GG1 rate per man randomized (proportion)","Proportion (%)","PSA -> MRI",3,1.4622,0.8705,2.4462,36.347,NA,1.281e-08,94.5
+"SENS: GG1 rate per man randomized (proportion)","Proportion (%)","Biomarker -> MRI",2,0.3317,0.2256,0.4874,5.61,NA,0.01786,82.2
+"SENS: GG1 rate per man randomized (proportion)","Proportion (%)","MRI-first",2,2.0537,1.1961,3.5043,0.556,NA,0.4558,0
+"SENS: csPCa rate per man randomized (proportion)","Proportion (%)","All arms pooled",18,1.3077,0.6654,2.5539,1015.777,17,3.796e-205,98.3
+"SENS: csPCa rate per man randomized (proportion)","Proportion (%)","No screening / usual care",4,1.6888,0.9458,2.998,560.006,NA,4.71e-121,99.5
+"SENS: csPCa rate per man randomized (proportion)","Proportion (%)","PSA + DRE",1,2.8793,2.7142,3.0516,NA,NA,NA,NA
+"SENS: csPCa rate per man randomized (proportion)","Proportion (%)","PSA",6,0.3887,0.0441,3.3358,255.081,NA,4.464e-53,98
+"SENS: csPCa rate per man randomized (proportion)","Proportion (%)","PSA -> MRI",3,1.9427,1.7233,2.1893,1.949,NA,0.3774,0
+"SENS: csPCa rate per man randomized (proportion)","Proportion (%)","Biomarker -> MRI",2,1.6887,0.9661,2.9359,59.356,NA,1.316e-14,98.3
+"SENS: csPCa rate per man randomized (proportion)","Proportion (%)","MRI-first",2,4.4234,3.0712,6.3319,0.032,NA,0.8576,0
+"SENS no PROBASE: GG1 detection (RR)","RR","Overall (not interpreted across families)",8,1.0978,0.5827,2.0683,384.252,7,5.673e-79,98.2
+"SENS no PROBASE: GG1 detection (RR)","RR","A. Screening invitation vs no screening / usual care",4,1.6679,1.1183,2.4876,227.543,6,4.698e-49,98.7
+"SENS no PROBASE: GG1 detection (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,0.5626,0.1521,2.0812,11.792,NA,0.008129,74.6
+"SENS no PROBASE: csPCa detection (RR)","RR","Overall (not interpreted across families)",8,1.1378,0.9018,1.4357,46.992,7,5.601e-08,85.1
+"SENS no PROBASE: csPCa detection (RR)","RR","A. Screening invitation vs no screening / usual care",4,1.1385,0.7555,1.7156,35.477,6,9.661e-08,91.5
+"SENS no PROBASE: csPCa detection (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,1.2918,0.5706,2.9246,11.437,NA,0.009584,73.8
+"SENS no PROBASE: any PCa detection (RR)","RR","Overall (not interpreted across families)",8,1.2324,0.8628,1.7603,355.339,7,8.866e-73,98
+"SENS no PROBASE: any PCa detection (RR)","RR","A. Screening invitation vs no screening / usual care",4,1.4324,0.9791,2.0956,264.307,6,5.261e-57,98.9
+"SENS no PROBASE: any PCa detection (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,1.0599,0.3909,2.8741,21.746,NA,7.365e-05,86.2
+"SENS no PROBASE: GG1 share of detected PCa (RR)","RR","Overall (not interpreted across families)",8,0.9804,0.6957,1.3816,140.335,7,4.325e-27,95
+"SENS no PROBASE: GG1 share of detected PCa (RR)","RR","A. Screening invitation vs no screening / usual care",4,1.21,0.9976,1.4677,66.099,6,2.918e-14,95.5
+"SENS no PROBASE: GG1 share of detected PCa (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,0.5668,0.3019,1.0641,9.646,NA,0.02183,68.9
+"SENS no ERSPC: GG1 detection (RR)","RR","Overall (not interpreted across families)",8,1.0151,0.5103,2.0192,152.002,7,1.542e-29,95.4
+"SENS no ERSPC: GG1 detection (RR)","RR","A. Screening invitation vs no screening / usual care",4,1.4959,0.9549,2.3433,30.956,6,8.684e-07,90.3
+"SENS no ERSPC: GG1 detection (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,0.5626,0.1521,2.0812,11.792,NA,0.008129,74.6
+"SENS no ERSPC: csPCa detection (RR)","RR","Overall (not interpreted across families)",8,1.2131,0.8433,1.7451,55.452,7,1.213e-09,87.4
+"SENS no ERSPC: csPCa detection (RR)","RR","A. Screening invitation vs no screening / usual care",4,1.2375,0.5699,2.6875,43.949,6,1.547e-09,93.2
+"SENS no ERSPC: csPCa detection (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,1.2918,0.5706,2.9246,11.437,NA,0.009584,73.8
+"SENS randomized denom: GG1 detection (RR)","RR","Overall (not interpreted across families)",9,1.1668,0.6205,2.1942,388.263,8,6.062e-79,97.9
+"SENS randomized denom: GG1 detection (RR)","RR","A. Screening invitation vs no screening / usual care",5,1.7559,1.0851,2.8416,231.42,7,6.53e-49,98.3
+"SENS randomized denom: GG1 detection (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,0.5626,0.1521,2.0812,11.792,NA,0.008129,74.6
+"SENS randomized denom: csPCa detection (RR)","RR","Overall (not interpreted across families)",9,1.1527,0.8862,1.4994,55.482,8,3.558e-09,85.6
+"SENS randomized denom: csPCa detection (RR)","RR","A. Screening invitation vs no screening / usual care",5,1.1564,0.7565,1.7677,43.97,7,6.51e-09,90.9
+"SENS randomized denom: csPCa detection (RR)","RR","B. Diagnostic / biopsy strategy (both arms screened)",4,1.2918,0.5706,2.9246,11.437,NA,0.009584,73.8
