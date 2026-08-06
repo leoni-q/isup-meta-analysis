@@ -21,6 +21,8 @@ The aim of this systematic review is to evaluate how the detection of ISUP (Inte
 
 ## 2. PICOS Framework
 
+
+
 ### Patients
 
 Inclusion criteria:
@@ -31,6 +33,8 @@ Inclusion criteria:
 Exclusion criteria:
 
 - Patients previously diagnosed with or treated for prostate cancer.
+
+
 
 ### Intervention
 
@@ -43,10 +47,14 @@ Exclusion criteria:
 
 - Work-up diagnostic in patients considered for prostate cancer treatment.
 
+
+
 ### Comparator
 
 - Different screening strategies.
 - Different biopsy strategies.
+
+
 
 ### Outcome
 
@@ -60,12 +68,16 @@ Secondary outcomes:
 - Number of prostate biopsies performed.
 - Percentage of patients receiving curative treatment over the course of follow-up.
 
+
+
 ### Study
 
 Inclusion criteria:
 
 - Randomized controlled clinical trials.
 - Secondary analyses of large randomized controlled trials, such as ERSPC, CAP, PLCO, and Göteborg trials, that include additional diagnostic analyses relevant to screening strategy, diagnostic work-up, biopsy strategy, or ISUP grade group detection.
+
+
 
 ## 3. Inclusion and Exclusion Criteria
 
@@ -168,8 +180,10 @@ Study authors who will provide additional data for the meta-analysis will be inc
 - 01/07/2026 to 30/07/2026: search strategy update, and formal analysis.
 - 01/08/2026 to 31/08/2026: drafting of the manuscript.
 
+
+
 ## 12. References
 
-Ouzzani, M. et al. (2016) "Rayyan-a web and mobile app for systematic reviews", *Systematic Reviews*, 5(1), p. 210. Available at: https://doi.org/10.1186/s13643-016-0384-4.
+Ouzzani, M. et al. (2016) "Rayyan-a web and mobile app for systematic reviews", *Systematic Reviews*, 5(1), p. 210. Available at: [https://doi.org/10.1186/s13643-016-0384-4](https://doi.org/10.1186/s13643-016-0384-4).
 
-Page, M.J. et al. (2021) "The PRISMA 2020 statement: an updated guideline for reporting systematic reviews", *BMJ (Clinical research ed.)*, 372, p. n71. Available at: https://doi.org/10.1136/bmj.n71.
+Page, M.J. et al. (2021) "The PRISMA 2020 statement: an updated guideline for reporting systematic reviews", *BMJ (Clinical research ed.)*, 372, p. n71. Available at: [https://doi.org/10.1136/bmj.n71](https://doi.org/10.1136/bmj.n71).
