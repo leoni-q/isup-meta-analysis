@@ -1,19 +1,19 @@
-"trial","arm","strategy","n_itt","n_screened","gg1","cs","pca","bx","gg1_pct_screened","cs_pct_screened","gg1_of_pca_pct","bx_pct_screened"
-"ERSPC","I","PSA",72890,59923,4325,1665,5990,17543,7.218,2.779,72.2,29.28
-"ERSPC","C","No screening / usual care",89353,89353,2360,1947,4307,NA,2.641,2.179,54.8,NA
-"PLCO","I","PSA + DRE",38343,32592,2269,1104,3452,NA,6.962,3.387,65.7,NA
-"PLCO","C","No screening / usual care",38350,38350,1793,1120,2974,NA,4.675,2.92,60.3,NA
-"CAP","I","PSA",189386,67313,3263,4013,8054,5850,4.848,5.962,40.5,8.69
-"CAP","C","No screening / usual care",219439,219439,2440,4459,7853,NA,1.112,2.032,31.1,NA
-"ProScreen","I","Biomarker -> MRI",15201,7744,39,172,219,262,0.504,2.221,17.8,3.38
-"ProScreen","C","No screening / usual care",45544,45544,65,282,355,NA,0.143,0.619,18.3,NA
-"PROBASE","I","PSA",23341,23301,15,33,48,120,0.064,0.142,31.2,0.51
-"PROBASE","C","PSA",23301,23301,2,0,2,37,0.009,0,100,0.16
-"STHLM3-MRI","I","Biomarker -> MRI",7609,7609,34,192,226,311,0.447,2.523,15,4.09
-"STHLM3-MRI","C","PSA",5134,5134,73,106,179,438,1.422,2.065,40.8,8.53
-"MVP","I","MRI-first",259,246,4,11,15,24,1.626,4.472,26.7,9.76
-"MVP","C","PSA",266,248,4,4,8,28,1.613,1.613,50,11.29
-"GOTEBORG-2","I","PSA -> MRI",6575,6575,68,117,185,254,1.034,1.779,36.8,3.86
-"GOTEBORG-2","C","PSA -> MRI",6578,6578,159,139,298,588,2.417,2.113,53.4,8.94
-"PROSA","I","MRI-first",374,369,9,17,26,40,2.439,4.607,34.6,10.84
-"PROSA","C","PSA -> MRI",385,383,4,7,11,20,1.044,1.828,36.4,5.22
+"trial","arm","strategy","n_itt","n_screened","n_screened_source","gg1","cs","pca","bx","gg1_bx_n","cs_bx_n","flag","gg1_pct_itt","cs_pct_itt","gg1_of_pca_pct","cs_of_pca_pct","gg1_of_bx_pct","cs_of_bx_pct","bx_pct_screened"
+"ERSPC","I","PSA",72890,59923,"screened at least once (82.2%)",4325,1665,5990,17543,17543,17543,"Gleason counts back-calculated from reported percentages",5.934,2.284,72.2,27.8,24.7,9.5,29.28
+"ERSPC","C","No screening / usual care",89353,89353,"not screened; invited N carried forward",2360,1947,4307,NA,NA,NA,"Gleason counts back-calculated from reported percentages; biopsies NR",2.641,2.179,54.8,45.2,NA,NA,NA
+"PLCO","I","PSA + DRE",38343,32592,"approx. PSA-screened (~85%)",2269,1104,3452,NA,NA,NA,"biopsies NR",5.918,2.879,65.7,32,NA,NA,NA
+"PLCO","C","No screening / usual care",38350,38350,"not screened; randomized N carried forward",1793,1120,2974,NA,NA,NA,"heavy opportunistic screening contamination (PSA 40-52%); biopsies NR",4.675,2.92,60.3,37.7,NA,NA,NA
+"CAP","I","PSA",189326,75694,"attended PSA clinic (40.0%)",4111,6649,12013,5848,NA,NA,"Martin 2024 15-year follow-up; biopsy count is intervention first-round; cluster-randomized trial; mature grade counts not divided by first-round biopsies",2.171,3.512,34.2,55.3,NA,NA,7.73
+"CAP","C","No screening / usual care",219395,219395,"not screened; invited N carried forward",3482,8019,12958,NA,NA,NA,"Martin 2024 15-year follow-up; biopsies NR; cluster-randomized trial",1.587,3.655,26.9,61.9,NA,NA,NA
+"ProScreen","I","Biomarker -> MRI",15201,7744,"screened (50.9%)",39,172,219,262,262,262,"",0.257,1.132,17.8,78.5,14.9,65.6,3.38
+"ProScreen","C","No screening / usual care",45544,45544,"not screened; invited N carried forward",65,282,355,NA,NA,NA,"biopsies NR",0.143,0.619,18.3,79.4,NA,NA,NA
+"PROBASE","I","PSA",23341,23301,"baseline PSA screened",15,33,48,120,120,120,"immediate risk-adapted PSA at age 45",0.064,0.141,31.2,68.8,12.5,27.5,0.51
+"PROBASE","C","Delayed screening / DRE subset",23301,NA,"PSA not yet performed at this endpoint; DRE subset n=6537",2,0,2,37,37,37,"timing contrast (immediate PSA at age 45 vs delayed PSA at age 50); control-arm ISUP>=2 count of 0 inferred by extractor, NOT explicitly reported",0.009,0,100,0,5.4,0,NA
+"STHLM3-MRI","I","Biomarker -> MRI",7609,7609,"tested men in workflow",34,192,226,311,311,331,"Stockholm3 >=0.15 contrast only (>=0.11 contrast not used, avoids double-counting); supplied CSV reports GG>=2 as 192/331 despite N biopsied = 311",0.447,2.523,15,85,10.9,58,4.09
+"STHLM3-MRI","C","PSA",5134,5134,"tested men in workflow",73,106,179,438,438,438,"PSA >=3 + standard systematic biopsy",1.422,2.065,40.8,59.2,16.7,24.2,8.53
+"MVP","I","MRI-first",259,246,"received MRI / assessed (95.0%)",4,11,15,24,24,24,"terminated early, underpowered; denominators are assessed not randomized",1.544,4.247,26.7,73.3,16.7,45.8,9.76
+"MVP","C","PSA",266,248,"received PSA / assessed (93.2%)",4,4,8,28,28,28,"denominators are assessed not randomized",1.504,1.504,50,50,14.3,14.3,11.29
+"GOTEBORG-2","I","PSA -> MRI",6575,6575,"randomized = screened",68,117,185,254,254,254,"MRI-targeted biopsy only; Hugosson 2024 used instead of 2022",1.034,1.779,36.8,63.2,26.8,46.1,3.86
+"GOTEBORG-2","C","PSA -> MRI",6578,6578,"randomized = screened",159,139,298,588,588,588,"systematic +/- targeted biopsy",2.417,2.113,53.4,46.6,27,23.6,8.94
+"PROSA","I","MRI-first",374,369,"analysed",9,17,26,40,40,40,"bpMRI-first; denominators are analysed not randomized",2.406,4.545,34.6,65.4,22.5,42.5,10.84
+"PROSA","C","PSA -> MRI",385,383,"analysed",4,7,11,20,20,20,"PSA-triggered bpMRI; denominators are analysed not randomized",1.039,1.818,36.4,63.6,20,35,5.22

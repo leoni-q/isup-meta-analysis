@@ -1,648 +1,988 @@
 ==============================================================================
 TABLE 1. Extracted data, internal consistency check
 ==============================================================================
-      trial arm                  strategy  n_itt n_screened  gg1   cs  pca
-      ERSPC   I                       PSA  72890      59923 4325 1665 5990
-      ERSPC   C No screening / usual care  89353      89353 2360 1947 4307
-       PLCO   I                 PSA + DRE  38343      32592 2269 1104 3452
-       PLCO   C No screening / usual care  38350      38350 1793 1120 2974
-        CAP   I                       PSA 189386      67313 3263 4013 8054
-        CAP   C No screening / usual care 219439     219439 2440 4459 7853
-  ProScreen   I          Biomarker -> MRI  15201       7744   39  172  219
-  ProScreen   C No screening / usual care  45544      45544   65  282  355
-    PROBASE   I                       PSA  23341      23301   15   33   48
-    PROBASE   C                       PSA  23301      23301    2    0    2
- STHLM3-MRI   I          Biomarker -> MRI   7609       7609   34  192  226
- STHLM3-MRI   C                       PSA   5134       5134   73  106  179
-        MVP   I                 MRI-first    259        246    4   11   15
-        MVP   C                       PSA    266        248    4    4    8
- GOTEBORG-2   I                PSA -> MRI   6575       6575   68  117  185
- GOTEBORG-2   C                PSA -> MRI   6578       6578  159  139  298
-      PROSA   I                 MRI-first    374        369    9   17   26
-      PROSA   C                PSA -> MRI    385        383    4    7   11
-    bx gg1_pct_screened cs_pct_screened gg1_of_pca_pct bx_pct_screened
- 17543            7.218           2.779           72.2           29.28
-    NA            2.641           2.179           54.8              NA
-    NA            6.962           3.387           65.7              NA
-    NA            4.675           2.920           60.3              NA
-  5850            4.848           5.962           40.5            8.69
-    NA            1.112           2.032           31.1              NA
-   262            0.504           2.221           17.8            3.38
-    NA            0.143           0.619           18.3              NA
-   120            0.064           0.142           31.2            0.51
-    37            0.009           0.000          100.0            0.16
-   311            0.447           2.523           15.0            4.09
-   438            1.422           2.065           40.8            8.53
-    24            1.626           4.472           26.7            9.76
-    28            1.613           1.613           50.0           11.29
-   254            1.034           1.779           36.8            3.86
-   588            2.417           2.113           53.4            8.94
-    40            2.439           4.607           34.6           10.84
-    20            1.044           1.828           36.4            5.22
+      trial arm                       strategy  n_itt n_screened
+      ERSPC   I                            PSA  72890      59923
+      ERSPC   C      No screening / usual care  89353      89353
+       PLCO   I                      PSA + DRE  38343      32592
+       PLCO   C      No screening / usual care  38350      38350
+        CAP   I                            PSA 189326      75694
+        CAP   C      No screening / usual care 219395     219395
+  ProScreen   I               Biomarker -> MRI  15201       7744
+  ProScreen   C      No screening / usual care  45544      45544
+    PROBASE   I                            PSA  23341      23301
+    PROBASE   C Delayed screening / DRE subset  23301         NA
+ STHLM3-MRI   I               Biomarker -> MRI   7609       7609
+ STHLM3-MRI   C                            PSA   5134       5134
+        MVP   I                      MRI-first    259        246
+        MVP   C                            PSA    266        248
+ GOTEBORG-2   I                     PSA -> MRI   6575       6575
+ GOTEBORG-2   C                     PSA -> MRI   6578       6578
+      PROSA   I                      MRI-first    374        369
+      PROSA   C                     PSA -> MRI    385        383
+                                         n_screened_source  gg1   cs   pca
+                            screened at least once (82.2%) 4325 1665  5990
+                   not screened; invited N carried forward 2360 1947  4307
+                               approx. PSA-screened (~85%) 2269 1104  3452
+                not screened; randomized N carried forward 1793 1120  2974
+                               attended PSA clinic (40.0%) 4111 6649 12013
+                   not screened; invited N carried forward 3482 8019 12958
+                                          screened (50.9%)   39  172   219
+                   not screened; invited N carried forward   65  282   355
+                                     baseline PSA screened   15   33    48
+ PSA not yet performed at this endpoint; DRE subset n=6537    2    0     2
+                                    tested men in workflow   34  192   226
+                                    tested men in workflow   73  106   179
+                           received MRI / assessed (95.0%)    4   11    15
+                           received PSA / assessed (93.2%)    4    4     8
+                                     randomized = screened   68  117   185
+                                     randomized = screened  159  139   298
+                                                  analysed    9   17    26
+                                                  analysed    4    7    11
+    bx gg1_bx_n cs_bx_n
+ 17543    17543   17543
+    NA       NA      NA
+    NA       NA      NA
+    NA       NA      NA
+  5848       NA      NA
+    NA       NA      NA
+   262      262     262
+    NA       NA      NA
+   120      120     120
+    37       37      37
+   311      311     331
+   438      438     438
+    24       24      24
+    28       28      28
+   254      254     254
+   588      588     588
+    40       40      40
+    20       20      20
+                                                                                                                                                       flag
+                                                                                                   Gleason counts back-calculated from reported percentages
+                                                                                      Gleason counts back-calculated from reported percentages; biopsies NR
+                                                                                                                                                biopsies NR
+                                                                                      heavy opportunistic screening contamination (PSA 40-52%); biopsies NR
+ Martin 2024 15-year follow-up; biopsy count is intervention first-round; cluster-randomized trial; mature grade counts not divided by first-round biopsies
+                                                                                       Martin 2024 15-year follow-up; biopsies NR; cluster-randomized trial
+
+                                                                                                                                                biopsies NR
+                                                                                                                       immediate risk-adapted PSA at age 45
+          timing contrast (immediate PSA at age 45 vs delayed PSA at age 50); control-arm ISUP>=2 count of 0 inferred by extractor, NOT explicitly reported
+         Stockholm3 >=0.15 contrast only (>=0.11 contrast not used, avoids double-counting); supplied CSV reports GG>=2 as 192/331 despite N biopsied = 311
+                                                                                                                       PSA >=3 + standard systematic biopsy
+                                                                                   terminated early, underpowered; denominators are assessed not randomized
+                                                                                                                   denominators are assessed not randomized
+                                                                                               MRI-targeted biopsy only; Hugosson 2024 used instead of 2022
+                                                                                                                             systematic +/- targeted biopsy
+                                                                                                      bpMRI-first; denominators are analysed not randomized
+                                                                                              PSA-triggered bpMRI; denominators are analysed not randomized
+ gg1_pct_itt cs_pct_itt gg1_of_pca_pct cs_of_pca_pct gg1_of_bx_pct cs_of_bx_pct
+       5.934      2.284           72.2          27.8          24.7          9.5
+       2.641      2.179           54.8          45.2            NA           NA
+       5.918      2.879           65.7          32.0            NA           NA
+       4.675      2.920           60.3          37.7            NA           NA
+       2.171      3.512           34.2          55.3            NA           NA
+       1.587      3.655           26.9          61.9            NA           NA
+       0.257      1.132           17.8          78.5          14.9         65.6
+       0.143      0.619           18.3          79.4            NA           NA
+       0.064      0.141           31.2          68.8          12.5         27.5
+       0.009      0.000          100.0           0.0           5.4          0.0
+       0.447      2.523           15.0          85.0          10.9         58.0
+       1.422      2.065           40.8          59.2          16.7         24.2
+       1.544      4.247           26.7          73.3          16.7         45.8
+       1.504      1.504           50.0          50.0          14.3         14.3
+       1.034      1.779           36.8          63.2          26.8         46.1
+       2.417      2.113           53.4          46.6          27.0         23.6
+       2.406      4.545           34.6          65.4          22.5         42.5
+       1.039      1.818           36.4          63.6          20.0         35.0
+ bx_pct_screened
+           29.28
+              NA
+              NA
+              NA
+            7.73
+              NA
+            3.38
+              NA
+            0.51
+              NA
+            4.09
+            8.53
+            9.76
+           11.29
+            3.86
+            8.94
+           10.84
+            5.22
 ==============================================================================
-PART 1. COMPARATIVE META-ANALYSES (RISK RATIOS, ITT DENOMINATORS)
+PART 1. COMPARATIVE META-ANALYSES (RISK RATIOS)
 ==============================================================================
-Denominators are randomized / invited N throughout, preserving the
-randomized comparison. Subgrouped by contrast family; the overall pooled
-RR across both families is computed but NOT interpreted (protocol s.8/s.9).
+Denominators are randomized / invited N for detection outcomes.
+Grade-mix outcomes use all detected cancers as denominator.
+Biopsy-yield outcomes use outcome-specific biopsy denominators from
+the supplied CSV and require data for both randomized arms.
+Invitation and diagnostic-strategy contrasts are fitted separately;
+no pooled estimate is calculated across incompatible contrast families.
+PROBASE is reported separately as a timing-of-screening contrast.
+CAP remains in invitation-family models; its precision is not adjusted
+for practice-level clustering. Excluding-CAP models are in Part 3.
 ==============================================================================
-1.1 PRIMARY OUTCOME - ISUP GG1 detection per man randomized/invited (RR)
+1.1 GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - A. Screening invitation vs no screening / usual care
 ==============================================================================
-k = 9 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.167 (95% CI 0.620 to 2.194), p = 0.5887
-  Heterogeneity: Cochran's Q = 388.26, df = 8, p = < 1e-04; I2 = 97.9%; tau2 = 0.1355  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=5  RR = 1.756 (1.085 to 2.842)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 0.563 (0.152 to 2.081)
-    Test for subgroup differences: Q = 6.51, df = 1, p = 0.01073
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.613 (95% CI 1.048 to 2.483), p = 0.03859
+  Heterogeneity: Cochran's Q = 288.27, df = 3, p = < 1e-04; I2 = 99.0%; tau2 = 0.0953  ** significant heterogeneity **
+  95% prediction interval: 0.533 to 4.887
   Per-trial risk ratios:
     ERSPC 2009               4325/72890   vs   2360/89353     RR = 2.247 (2.139 to 2.360)
     PLCO 2009                2269/38343   vs   1793/38350     RR = 1.266 (1.192 to 1.344)
-    CAP 2018                 3263/189386  vs   2440/219439    RR = 1.550 (1.471 to 1.632)
-    PROBASE 2022               15/23341   vs      2/23301     RR = 7.487 (1.712 to 32.736)
+    CAP 2024                 4111/189326  vs   3482/219395    RR = 1.368 (1.308 to 1.431)
     ProScreen 2024             39/15201   vs     65/45544     RR = 1.798 (1.209 to 2.673)
+  Leave-one-study-out (GG1 detection per randomized/invited participant; A. Screening invitation vs no screening / usual care):
+    omitting ERSPC                  RR = 1.336 (1.071 to 1.666)  I2 = 68.4%
+    omitting PLCO                   RR = 1.765 (0.927 to 3.362)  I2 = 99.1%
+    omitting CAP                    RR = 1.718 (0.817 to 3.611)  I2 = 99.0%
+    omitting ProScreen              RR = 1.573 (0.726 to 3.408)  I2 = 99.3%
+==============================================================================
+1.1 GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - B. Diagnostic / biopsy strategy (both arms screened)
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 0.563 (95% CI 0.152 to 2.081), p = 0.2562
+  Heterogeneity: Cochran's Q = 11.79, df = 3, p = 0.008129; I2 = 74.6%; tau2 = 0.2270  ** significant heterogeneity **
+  95% prediction interval: 0.093 to 3.397
+  Per-trial risk ratios:
     STHLM3-MRI 2021            34/7609    vs     73/5134      RR = 0.314 (0.210 to 0.471)
     MVP 2022                    4/259     vs      4/266       RR = 1.027 (0.260 to 4.063)
     GOTEBORG-2 2024            68/6575    vs    159/6578      RR = 0.428 (0.323 to 0.567)
     PROSA 2026                  9/374     vs      4/385       RR = 2.316 (0.719 to 7.456)
-  Leave-one-out (random effects, GG1 detection RR):
-    omitting Omitting ERSPC 2009    RR = 1.015 (0.510 to 2.019)  I2 = 95.4%
-    omitting Omitting PLCO 2009     RR = 1.157 (0.539 to 2.487)  I2 = 97.5%
-    omitting Omitting CAP 2018      RR = 1.143 (0.527 to 2.480)  I2 = 98.1%
-    omitting Omitting PROBASE 2022  RR = 1.098 (0.583 to 2.068)  I2 = 98.2%
-    omitting Omitting ProScreen 2024 RR = 1.096 (0.531 to 2.263)  I2 = 98.2%
-    omitting Omitting STHLM3-MRI 2021 RR = 1.399 (0.799 to 2.450)  I2 = 97.8%
-    omitting Omitting MVP 2022      RR = 1.172 (0.579 to 2.372)  I2 = 98.2%
-    omitting Omitting GOTEBORG-2 2024 RR = 1.375 (0.740 to 2.557)  I2 = 97.7%
-    omitting Omitting PROSA 2026    RR = 1.129 (0.563 to 2.264)  I2 = 98.2%
+  Leave-one-study-out (GG1 detection per randomized/invited participant; B. Diagnostic / biopsy strategy (both arms screened)):
+    omitting STHLM3-MRI             RR = 0.899 (0.102 to 7.929)  I2 = 77.2%
+    omitting MVP                    RR = 0.515 (0.057 to 4.636)  I2 = 80.3%
+    omitting GOTEBORG-2             RR = 0.829 (0.063 to 10.936)  I2 = 83.0%
+    omitting PROSA                  RR = 0.400 (0.169 to 0.947)  I2 = 40.9%
 ==============================================================================
-1.2 SECONDARY - ISUP >=2 (csPCa) detection per man randomized/invited (RR)
+1.1 PROBASE STANDALONE TIMING CONTRAST
 ==============================================================================
-k = 9 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.153 (95% CI 0.886 to 1.499), p = 0.2479
-  Heterogeneity: Cochran's Q = 55.48, df = 8, p = < 1e-04; I2 = 85.6%; tau2 = 0.0198  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=5  RR = 1.156 (0.756 to 1.768)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 1.292 (0.571 to 2.925)
-    Test for subgroup differences: Q = 0.14, df = 1, p = 0.7109
+k = 1 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 7.487 (95% CI 1.712 to 32.736), p = 0.007483
+  Heterogeneity: Cochran's Q = 0.00, df = 0, p = NA; I2 = NA; tau2 = NA
   Per-trial risk ratios:
-    ERSPC 2009               1665/72890   vs   1947/89353     RR = 1.048 (0.983 to 1.118)
-    PLCO 2009                1104/38343   vs   1120/38350     RR = 0.986 (0.908 to 1.070)
-    CAP 2018                 4013/189386  vs   4459/219439    RR = 1.043 (1.000 to 1.088)
-    PROBASE 2022               33/23341   vs      0/23301     RR = 66.885 (4.098 to 1091.529)
-    ProScreen 2024            172/15201   vs    282/45544     RR = 1.827 (1.513 to 2.207)
-    STHLM3-MRI 2021           192/7609    vs    106/5134      RR = 1.222 (0.967 to 1.545)
-    MVP 2022                   11/259     vs      4/266       RR = 2.824 (0.911 to 8.756)
-    GOTEBORG-2 2024           117/6575    vs    139/6578      RR = 0.842 (0.660 to 1.074)
-    PROSA 2026                 17/374     vs      7/385       RR = 2.500 (1.049 to 5.959)
-  Leave-one-out (random effects, csPCa detection RR):
-    omitting Omitting ERSPC 2009    RR = 1.213 (0.843 to 1.745)  I2 = 87.4%
-    omitting Omitting PLCO 2009     RR = 1.211 (0.868 to 1.691)  I2 = 86.7%
-    omitting Omitting CAP 2018      RR = 1.228 (0.839 to 1.797)  I2 = 87.3%
-    omitting Omitting PROBASE 2022  RR = 1.138 (0.902 to 1.436)  I2 = 85.1%
-    omitting Omitting ProScreen 2024 RR = 1.045 (0.878 to 1.245)  I2 = 67.9%
-    omitting Omitting STHLM3-MRI 2021 RR = 1.145 (0.841 to 1.559)  I2 = 87.0%
-    omitting Omitting MVP 2022      RR = 1.139 (0.866 to 1.499)  I2 = 86.7%
-    omitting Omitting GOTEBORG-2 2024 RR = 1.201 (0.902 to 1.598)  I2 = 86.6%
-    omitting Omitting PROSA 2026    RR = 1.134 (0.865 to 1.487)  I2 = 86.5%
+    PROBASE 2022               15/23341   vs      2/23301     RR = 7.487 (1.712 to 32.736)
 ==============================================================================
-1.3 CONTEXT - Any prostate cancer detection per man randomized/invited (RR)
+1.2 GG1 AMONG ALL DETECTED PROSTATE CANCERS - A. Screening invitation vs no screening / usual care
 ==============================================================================
-k = 9 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.297 (95% CI 0.828 to 2.031), p = 0.2183
-  Heterogeneity: Cochran's Q = 371.54, df = 8, p = < 1e-04; I2 = 97.8%; tau2 = 0.0620  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=5  RR = 1.525 (0.803 to 2.899)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 1.060 (0.391 to 2.874)
-    Test for subgroup differences: Q = 0.87, df = 1, p = 0.3501
-  Per-trial risk ratios:
-    ERSPC 2009               5990/72890   vs   4307/89353     RR = 1.705 (1.641 to 1.771)
-    PLCO 2009                3452/38343   vs   2974/38350     RR = 1.161 (1.108 to 1.217)
-    CAP 2018                 8054/189386  vs   7853/219439    RR = 1.188 (1.153 to 1.225)
-    PROBASE 2022               48/23341   vs      2/23301     RR = 23.959 (5.824 to 98.564)
-    ProScreen 2024            219/15201   vs    355/45544     RR = 1.848 (1.563 to 2.185)
-    STHLM3-MRI 2021           226/7609    vs    179/5134      RR = 0.852 (0.702 to 1.033)
-    MVP 2022                   15/259     vs      8/266       RR = 1.926 (0.831 to 4.464)
-    GOTEBORG-2 2024           185/6575    vs    298/6578      RR = 0.621 (0.519 to 0.744)
-    PROSA 2026                 26/374     vs     11/385       RR = 2.433 (1.220 to 4.853)
-  Leave-one-out (random effects, any PCa detection RR):
-    omitting Omitting ERSPC 2009    RR = 1.183 (0.745 to 1.878)  I2 = 93.7%
-    omitting Omitting PLCO 2009     RR = 1.361 (0.770 to 2.404)  I2 = 97.9%
-    omitting Omitting CAP 2018      RR = 1.382 (0.763 to 2.504)  I2 = 97.6%
-    omitting Omitting PROBASE 2022  RR = 1.232 (0.863 to 1.760)  I2 = 98.0%
-    omitting Omitting ProScreen 2024 RR = 1.222 (0.733 to 2.038)  I2 = 98.0%
-    omitting Omitting STHLM3-MRI 2021 RR = 1.384 (0.838 to 2.285)  I2 = 98.0%
-    omitting Omitting MVP 2022      RR = 1.276 (0.776 to 2.097)  I2 = 98.1%
-    omitting Omitting GOTEBORG-2 2024 RR = 1.444 (0.941 to 2.216)  I2 = 97.7%
-    omitting Omitting PROSA 2026    RR = 1.252 (0.770 to 2.036)  I2 = 98.1%
-==============================================================================
-1.4 PRIMARY (grade mix) - GG1 as a share of all detected PCa (RR)
-==============================================================================
-k = 9 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 0.883 (95% CI 0.598 to 1.306), p = 0.4856
-  Heterogeneity: Cochran's Q = 181.45, df = 8, p = < 1e-04; I2 = 95.6%; tau2 = 0.0295  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=5  RR = 1.079 (0.639 to 1.823)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 0.567 (0.302 to 1.064)
-    Test for subgroup differences: Q = 5.53, df = 1, p = 0.01865
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.204 (95% CI 1.003 to 1.444), p = 0.04786
+  Heterogeneity: Cochran's Q = 62.39, df = 3, p = < 1e-04; I2 = 95.2%; tau2 = 0.0097  ** significant heterogeneity **
+  95% prediction interval: 0.840 to 1.725
   Per-trial risk ratios:
     ERSPC 2009               4325/5990    vs   2360/4307      RR = 1.318 (1.277 to 1.360)
     PLCO 2009                2269/3452    vs   1793/2974      RR = 1.090 (1.050 to 1.132)
-    CAP 2018                 3263/8054    vs   2440/7853      RR = 1.304 (1.250 to 1.360)
-    PROBASE 2022               15/48      vs      2/2         RR = 0.320 (0.212 to 0.482)
+    CAP 2024                 4111/12013   vs   3482/12958     RR = 1.274 (1.226 to 1.322)
     ProScreen 2024             39/219     vs     65/355       RR = 0.973 (0.679 to 1.393)
+  Leave-one-study-out (GG1 among all detected prostate cancers; A. Screening invitation vs no screening / usual care):
+    omitting ERSPC                  RR = 1.152 (0.862 to 1.541)  I2 = 94.0%
+    omitting PLCO                   RR = 1.291 (1.148 to 1.452)  I2 = 54.0%
+    omitting CAP                    RR = 1.162 (0.820 to 1.648)  I2 = 96.6%
+    omitting ProScreen              RR = 1.223 (0.952 to 1.572)  I2 = 96.7%
+==============================================================================
+1.2 GG1 AMONG ALL DETECTED PROSTATE CANCERS - B. Diagnostic / biopsy strategy (both arms screened)
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 0.567 (95% CI 0.302 to 1.064), p = 0.06412
+  Heterogeneity: Cochran's Q = 9.65, df = 3, p = 0.02183; I2 = 68.9%; tau2 = 0.1193  ** significant heterogeneity **
+  95% prediction interval: 0.152 to 2.113
+  Per-trial risk ratios:
     STHLM3-MRI 2021            34/226     vs     73/179       RR = 0.369 (0.258 to 0.527)
     MVP 2022                    4/15      vs      4/8         RR = 0.533 (0.180 to 1.584)
     GOTEBORG-2 2024            68/185     vs    159/298       RR = 0.689 (0.555 to 0.856)
     PROSA 2026                  9/26      vs      4/11        RR = 0.952 (0.371 to 2.445)
-  Leave-one-out (random effects, GG1 share of detected PCa RR):
-    omitting Omitting ERSPC 2009    RR = 0.767 (0.491 to 1.199)  I2 = 95.1%
-    omitting Omitting PLCO 2009     RR = 0.814 (0.508 to 1.304)  I2 = 94.7%
-    omitting Omitting CAP 2018      RR = 0.774 (0.495 to 1.210)  I2 = 95.9%
-    omitting Omitting PROBASE 2022  RR = 0.980 (0.696 to 1.382)  I2 = 95.0%
-    omitting Omitting ProScreen 2024 RR = 0.875 (0.559 to 1.370)  I2 = 96.1%
-    omitting Omitting STHLM3-MRI 2021 RR = 0.985 (0.691 to 1.405)  I2 = 94.9%
-    omitting Omitting MVP 2022      RR = 0.892 (0.581 to 1.368)  I2 = 96.1%
-    omitting Omitting GOTEBORG-2 2024 RR = 0.934 (0.599 to 1.454)  I2 = 95.5%
-    omitting Omitting PROSA 2026    RR = 0.882 (0.572 to 1.360)  I2 = 96.1%
+  Leave-one-study-out (GG1 among all detected prostate cancers; B. Diagnostic / biopsy strategy (both arms screened)):
+    omitting STHLM3-MRI             RR = 0.693 (0.534 to 0.901)  I2 = 0.0%
+    omitting MVP                    RR = 0.575 (0.187 to 1.770)  I2 = 79.2%
+    omitting GOTEBORG-2             RR = 0.501 (0.152 to 1.649)  I2 = 44.1%
+    omitting PROSA                  RR = 0.517 (0.216 to 1.241)  I2 = 76.8%
 ==============================================================================
-1.5 SECONDARY - Biopsies performed per man randomized (RR)
+1.2 PROBASE STANDALONE TIMING CONTRAST
 ==============================================================================
-k = 5 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.012 (95% CI 0.333 to 3.076), p = 0.9781
-  Heterogeneity: Cochran's Q = 131.79, df = 4, p = < 1e-04; I2 = 97.0%; tau2 = 0.4743  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=1  RR = 3.238 (2.241 to 4.678)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 0.713 (0.236 to 2.152)
-    Test for subgroup differences: Q = 14.70, df = 1, p = 0.0001259
+k = 1 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 0.380 (95% CI 0.198 to 0.729), p = 0.00361
+  Heterogeneity: Cochran's Q = 0.00, df = 0, p = NA; I2 = NA; tau2 = NA
   Per-trial risk ratios:
-    PROBASE 2022              120/23341   vs     37/23301     RR = 3.238 (2.241 to 4.678)
-    STHLM3-MRI 2021           311/7609    vs    438/5134      RR = 0.479 (0.416 to 0.552)
-    MVP 2022                   24/259     vs     28/266       RR = 0.880 (0.525 to 1.477)
-    GOTEBORG-2 2024           254/6575    vs    588/6578      RR = 0.432 (0.375 to 0.499)
-    PROSA 2026                 40/374     vs     20/385       RR = 2.059 (1.227 to 3.455)
-  NOTE: restricted to trials reporting biopsies in BOTH arms.
-  ERSPC, CAP and ProScreen report intervention-arm biopsies only; PLCO reports neither.
-  Leave-one-out (random effects, biopsy RR):
-    omitting Omitting PROBASE 2022  RR = 0.713 (0.236 to 2.152)  I2 = 92.0%
-    omitting Omitting STHLM3-MRI 2021 RR = 1.253 (0.298 to 5.262)  I2 = 97.6%
-    omitting Omitting MVP 2022      RR = 1.047 (0.206 to 5.325)  I2 = 97.7%
-    omitting Omitting GOTEBORG-2 2024 RR = 1.286 (0.327 to 5.061)  I2 = 97.3%
-    omitting Omitting PROSA 2026    RR = 0.856 (0.195 to 3.752)  I2 = 97.2%
+    PROBASE 2022               15/48      vs      2/2         RR = 0.380 (0.198 to 0.729)
+==============================================================================
+1.3 GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - A. Screening invitation vs no screening / usual care
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.117 (95% CI 0.721 to 1.732), p = 0.4803
+  Heterogeneity: Cochran's Q = 46.90, df = 3, p = < 1e-04; I2 = 93.6%; tau2 = 0.0176  ** significant heterogeneity **
+  95% prediction interval: 0.692 to 1.802
+  Per-trial risk ratios:
+    ERSPC 2009               1665/72890   vs   1947/89353     RR = 1.048 (0.983 to 1.118)
+    PLCO 2009                1104/38343   vs   1120/38350     RR = 0.986 (0.908 to 1.070)
+    CAP 2024                 6649/189326  vs   8019/219395    RR = 0.961 (0.931 to 0.992)
+    ProScreen 2024            172/15201   vs    282/45544     RR = 1.827 (1.513 to 2.207)
+  Leave-one-study-out (GG>=2 detection per randomized/invited participant; A. Screening invitation vs no screening / usual care):
+    omitting ERSPC                  RR = 1.167 (0.489 to 2.786)  I2 = 95.4%
+    omitting PLCO                   RR = 1.184 (0.519 to 2.699)  I2 = 95.7%
+    omitting CAP                    RR = 1.209 (0.534 to 2.735)  I2 = 94.3%
+    omitting ProScreen              RR = 0.993 (0.886 to 1.113)  I2 = 64.6%
+==============================================================================
+1.3 GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - B. Diagnostic / biopsy strategy (both arms screened)
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.292 (95% CI 0.571 to 2.925), p = 0.3922
+  Heterogeneity: Cochran's Q = 11.44, df = 3, p = 0.009584; I2 = 73.8%; tau2 = 0.1069  ** significant heterogeneity **
+  95% prediction interval: 0.373 to 4.475
+  Per-trial risk ratios:
+    STHLM3-MRI 2021           192/7609    vs    106/5134      RR = 1.222 (0.967 to 1.545)
+    MVP 2022                   11/259     vs      4/266       RR = 2.824 (0.911 to 8.756)
+    GOTEBORG-2 2024           117/6575    vs    139/6578      RR = 0.842 (0.660 to 1.074)
+    PROSA 2026                 17/374     vs      7/385       RR = 2.500 (1.049 to 5.959)
+  Leave-one-study-out (GG>=2 detection per randomized/invited participant; B. Diagnostic / biopsy strategy (both arms screened)):
+    omitting STHLM3-MRI             RR = 1.625 (0.289 to 9.127)  I2 = 78.4%
+    omitting MVP                    RR = 1.166 (0.382 to 3.563)  I2 = 76.7%
+    omitting GOTEBORG-2             RR = 1.723 (0.537 to 5.533)  I2 = 52.7%
+    omitting PROSA                  RR = 1.128 (0.381 to 3.342)  I2 = 74.0%
+==============================================================================
+1.3 PROBASE STANDALONE TIMING CONTRAST
+==============================================================================
+k = 1 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 66.885 (95% CI 4.098 to 1091.529), p = 0.003177
+  Heterogeneity: Cochran's Q = 0.00, df = 0, p = NA; I2 = NA; tau2 = NA
+  Per-trial risk ratios:
+    PROBASE 2022               33/23341   vs      0/23301     RR = 66.885 (4.098 to 1091.529)
+==============================================================================
+1.4 GG>=2 AMONG ALL DETECTED PROSTATE CANCERS - A. Screening invitation vs no screening / usual care
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 0.823 (95% CI 0.594 to 1.141), p = 0.1546
+  Heterogeneity: Cochran's Q = 180.37, df = 3, p = < 1e-04; I2 = 98.3%; tau2 = 0.0386  ** significant heterogeneity **
+  95% prediction interval: 0.409 to 1.659
+  Per-trial risk ratios:
+    ERSPC 2009               1665/5990    vs   1947/4307      RR = 0.615 (0.583 to 0.648)
+    PLCO 2009                1104/3452    vs   1120/2974      RR = 0.849 (0.794 to 0.908)
+    CAP 2024                 6649/12013   vs   8019/12958     RR = 0.894 (0.876 to 0.913)
+    ProScreen 2024            172/219     vs    282/355       RR = 0.989 (0.906 to 1.079)
+  Leave-one-study-out (GG>=2 among all detected prostate cancers; A. Screening invitation vs no screening / usual care):
+    omitting ERSPC                  RR = 0.902 (0.759 to 1.073)  I2 = 72.9%
+    omitting PLCO                   RR = 0.815 (0.438 to 1.517)  I2 = 98.9%
+    omitting CAP                    RR = 0.801 (0.438 to 1.464)  I2 = 98.1%
+    omitting ProScreen              RR = 0.776 (0.469 to 1.286)  I2 = 98.8%
+==============================================================================
+1.4 GG>=2 AMONG ALL DETECTED PROSTATE CANCERS - B. Diagnostic / biopsy strategy (both arms screened)
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.388 (95% CI 1.233 to 1.563), p = 0.003105
+  Heterogeneity: Cochran's Q = 1.59, df = 3, p = 0.6626; I2 = 0.0%; tau2 = 0.0000
+  95% prediction interval: 1.179 to 1.634
+  Per-trial risk ratios:
+    STHLM3-MRI 2021           192/226     vs    106/179       RR = 1.435 (1.255 to 1.639)
+    MVP 2022                   11/15      vs      4/8         RR = 1.467 (0.688 to 3.127)
+    GOTEBORG-2 2024           117/185     vs    139/298       RR = 1.356 (1.151 to 1.597)
+    PROSA 2026                 17/26      vs      7/11        RR = 1.027 (0.607 to 1.740)
+  Leave-one-study-out (GG>=2 among all detected prostate cancers; B. Diagnostic / biopsy strategy (both arms screened)):
+    omitting STHLM3-MRI             RR = 1.329 (1.043 to 1.693)  I2 = 0.0%
+    omitting MVP                    RR = 1.387 (1.139 to 1.689)  I2 = 0.0%
+    omitting GOTEBORG-2             RR = 1.408 (1.108 to 1.788)  I2 = 0.0%
+    omitting PROSA                  RR = 1.404 (1.289 to 1.529)  I2 = 0.0%
+==============================================================================
+1.4 PROBASE STANDALONE TIMING CONTRAST
+==============================================================================
+k = 1 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 4.102 (95% CI 0.324 to 51.881), p = 0.2756
+  Heterogeneity: Cochran's Q = 0.00, df = 0, p = NA; I2 = NA; tau2 = NA
+  Per-trial risk ratios:
+    PROBASE 2022               33/48      vs      0/2         RR = 4.102 (0.324 to 51.881)
+Skipping GG1 among participants biopsied - A. Screening invitation vs no screening / usual care: no trial reports both arms.
+==============================================================================
+1.5 GG1 AMONG PARTICIPANTS BIOPSIED - B. Diagnostic / biopsy strategy (both arms screened)
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 0.878 (95% CI 0.601 to 1.281), p = 0.3525
+  Heterogeneity: Cochran's Q = 3.58, df = 3, p = 0.3107; I2 = 16.2%; tau2 = 0.0124
+  95% prediction interval: 0.512 to 1.504
+  Per-trial risk ratios:
+    STHLM3-MRI 2021            34/311     vs     73/438       RR = 0.656 (0.449 to 0.959)
+    MVP 2022                    4/24      vs      4/28        RR = 1.167 (0.326 to 4.172)
+    GOTEBORG-2 2024            68/254     vs    159/588       RR = 0.990 (0.777 to 1.262)
+    PROSA 2026                  9/40      vs      4/20        RR = 1.125 (0.394 to 3.210)
+  Leave-one-study-out (GG1 among participants biopsied; B. Diagnostic / biopsy strategy (both arms screened)):
+    omitting STHLM3-MRI             RR = 1.002 (0.888 to 1.130)  I2 = 0.0%
+    omitting MVP                    RR = 0.858 (0.453 to 1.625)  I2 = 41.3%
+    omitting GOTEBORG-2             RR = 0.725 (0.379 to 1.387)  I2 = 0.0%
+    omitting PROSA                  RR = 0.854 (0.449 to 1.624)  I2 = 40.9%
+==============================================================================
+1.5 PROBASE STANDALONE TIMING CONTRAST
+==============================================================================
+k = 1 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 2.312 (95% CI 0.554 to 9.650), p = 0.2501
+  Heterogeneity: Cochran's Q = 0.00, df = 0, p = NA; I2 = NA; tau2 = NA
+  Per-trial risk ratios:
+    PROBASE 2022               15/120     vs      2/37        RR = 2.312 (0.554 to 9.650)
+Skipping GG>=2 among participants biopsied - A. Screening invitation vs no screening / usual care: no trial reports both arms.
+==============================================================================
+1.6 GG>=2 AMONG PARTICIPANTS BIOPSIED - B. Diagnostic / biopsy strategy (both arms screened)
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 2.094 (95% CI 1.420 to 3.087), p = 0.009014
+  Heterogeneity: Cochran's Q = 5.40, df = 3, p = 0.1446; I2 = 44.5%; tau2 = 0.0201
+  95% prediction interval: 1.175 to 3.732
+  Per-trial risk ratios:
+    STHLM3-MRI 2021           192/331     vs    106/438       RR = 2.397 (1.983 to 2.897)
+    MVP 2022                   11/24      vs      4/28        RR = 3.208 (1.173 to 8.775)
+    GOTEBORG-2 2024           117/254     vs    139/588       RR = 1.949 (1.600 to 2.373)
+    PROSA 2026                 17/40      vs      7/20        RR = 1.214 (0.604 to 2.439)
+  Leave-one-study-out (GG>=2 among participants biopsied; B. Diagnostic / biopsy strategy (both arms screened)):
+    omitting STHLM3-MRI             RR = 1.875 (0.861 to 4.085)  I2 = 25.3%
+    omitting MVP                    RR = 2.041 (1.111 to 3.749)  I2 = 58.1%
+    omitting GOTEBORG-2             RR = 2.104 (0.746 to 5.935)  I2 = 47.6%
+    omitting PROSA                  RR = 2.192 (1.512 to 3.178)  I2 = 27.9%
+==============================================================================
+1.6 PROBASE STANDALONE TIMING CONTRAST
+==============================================================================
+k = 1 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 21.041 (95% CI 1.320 to 335.297), p = 0.03103
+  Heterogeneity: Cochran's Q = 0.00, df = 0, p = NA; I2 = NA; tau2 = NA
+  Per-trial risk ratios:
+    PROBASE 2022               33/120     vs      0/37        RR = 21.041 (1.320 to 335.297)
 ==============================================================================
 PART 2. POOLED PROPORTIONS BY SCREENING STRATEGY (GLMM)
 ==============================================================================
-Arms are classified by the triage test that triggers work-up. Denominators
-are the number of men actually screened where reported; control arms of
-invitation trials were not screened and retain the invited/randomized N.
+Each trial contributes at most one independent unit to a strategy.
+Same-strategy arms within a trial are combined before model fitting.
+PROBASE contributes only its immediate-PSA arm.
+GG1 and GG>=2 detection rates use the full randomized/invited arm.
+Grade mix uses all detected prostate cancers as denominator.
+Biopsy yield uses outcome-specific biopsy denominators from the CSV.
+Strategies are fitted separately; no all-strategy estimate or test is run.
 
-IMPORTANT CAVEAT: in ERSPC, PLCO and CAP the numerators are cancers
-accrued across the whole randomized arm over 9-10 years of follow-up,
-whereas the per-screened denominator counts only men actually tested.
-These per-screened rates are therefore upward-biased for those three
-trials. Part 3 repeats the analysis on ITT denominators.
-
-Arms per strategy group:
-  No screening / usual care    ERSPC-C, PLCO-C, CAP-C, ProScreen-C
-  PSA + DRE                    PLCO-I
-  PSA                          ERSPC-I, CAP-I, PROBASE-I, PROBASE-C, STHLM3-MRI-C, MVP-C
-  PSA -> MRI                   GOTEBORG-2-I, GOTEBORG-2-C, PROSA-C
-  Biomarker -> MRI             ProScreen-I, STHLM3-MRI-I
-  MRI-first                    MVP-I, PROSA-I
+Study-strategy units:
+  No screening / usual care    ERSPC (C), PLCO (C), CAP (C), ProScreen (C)
+  PSA + DRE                    PLCO (I)
+  PSA                          ERSPC (I), STHLM3-MRI (C), MVP (C), PROBASE (I), CAP (I)
+  PSA -> MRI                   GOTEBORG-2 (I+C), PROSA (C)
+  Biomarker -> MRI             STHLM3-MRI (I), ProScreen (I)
+  MRI-first                    MVP (I), PROSA (I)
 ==============================================================================
-2.1 PRIMARY - GG1 detection rate per man screened, by strategy
+2.1 GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - No screening / usual care
 ==============================================================================
-k = 18 arms | model: random effects GLMM (logit-normal), back-transformed
-  Overall pooled proportion = 1.0308% (95% CI 0.4810% to 2.1952%)
-  Heterogeneity: Cochran's Q = 8702.54, df = 17, p = < 1e-04; I2 = 99.8%; tau2 = 2.6825; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
-  By screening strategy (random effects):
-    No screening / usual care    k=4  1.1976% (95% CI 0.3257% to 4.3031%)  Q p = <1e-04
-    PSA + DRE                    k=1  6.9618% (exact 95% CI 6.6878% to 7.2435%)  [PLCO 2009 (I)]
-    PSA                          k=6  0.6008% (95% CI 0.0846% to 4.1372%)  Q p = <1e-04
-    PSA -> MRI                   k=3  1.4638% (95% CI 0.8720% to 2.4474%)  Q p = <1e-04
-    Biomarker -> MRI             k=2  0.4755% (95% CI 0.3782% to 0.5977%)  Q p = 0.609
-    MRI-first                    k=2  2.1138% (95% CI 1.2313% to 3.6059%)  Q p = 0.495
-  Per-arm observed proportions:
-    ERSPC 2009 (I)             PSA                             4325/59923   = 7.2176%
-    ERSPC 2009 (C)             No screening / usual care       2360/89353   = 2.6412%
-    PLCO 2009 (I)              PSA + DRE                       2269/32592   = 6.9618%
-    PLCO 2009 (C)              No screening / usual care       1793/38350   = 4.6754%
-    CAP 2018 (I)               PSA                             3263/67313   = 4.8475%
-    CAP 2018 (C)               No screening / usual care       2440/219439  = 1.1119%
-    ProScreen 2024 (I)         Biomarker -> MRI                  39/7744    = 0.5036%
-    ProScreen 2024 (C)         No screening / usual care         65/45544   = 0.1427%
-    PROBASE 2022 (I)           PSA                               15/23301   = 0.0644%
-    PROBASE 2022 (C)           PSA                                2/23301   = 0.0086%
-    STHLM3-MRI 2021 (I)        Biomarker -> MRI                  34/7609    = 0.4468%
-    STHLM3-MRI 2021 (C)        PSA                               73/5134    = 1.4219%
-    MVP 2022 (I)               MRI-first                          4/246     = 1.6260%
-    MVP 2022 (C)               PSA                                4/248     = 1.6129%
-    GOTEBORG-2 2024 (I)        PSA -> MRI                        68/6575    = 1.0342%
-    GOTEBORG-2 2024 (C)        PSA -> MRI                       159/6578    = 2.4171%
-    PROSA 2026 (I)             MRI-first                          9/369     = 2.4390%
-    PROSA 2026 (C)             PSA -> MRI                         4/383     = 1.0444%
-  Leave-one-out (random effects, GG1 rate per screened man):
-    omitting Omitting ERSPC 2009 (I)    0.9145% (0.4228% to 1.9669%)
-    omitting Omitting ERSPC 2009 (C)    0.9721% (0.4360% to 2.1532%)
-    omitting Omitting PLCO 2009 (I)     0.9166% (0.4231% to 1.9741%)
-    omitting Omitting PLCO 2009 (C)     0.9392% (0.4273% to 2.0515%)
-    omitting Omitting CAP 2018 (I)      0.9371% (0.4269% to 2.0446%)
-    omitting Omitting CAP 2018 (C)      1.0242% (0.4558% to 2.2850%)
-    omitting Omitting ProScreen 2024 (I) 1.0751% (0.4815% to 2.3834%)
-    omitting Omitting ProScreen 2024 (C) 1.1623% (0.5389% to 2.4889%)
-    omitting Omitting PROBASE 2022 (I)  1.2205% (0.5888% to 2.5128%)
-    omitting Omitting PROBASE 2022 (C)  1.3406% (0.7277% to 2.4567%)
-    omitting Omitting STHLM3-MRI 2021 (I) 1.0830% (0.4859% to 2.3964%)
-    omitting Omitting STHLM3-MRI 2021 (C) 1.0096% (0.4498% to 2.2501%)
-    omitting Omitting MVP 2022 (I)      1.0100% (0.4519% to 2.2418%)
-    omitting Omitting MVP 2022 (C)      1.0105% (0.4521% to 2.2429%)
-    omitting Omitting GOTEBORG-2 2024 (I) 1.0291% (0.4582% to 2.2952%)
-    omitting Omitting GOTEBORG-2 2024 (C) 0.9776% (0.4380% to 2.1677%)
-    omitting Omitting PROSA 2026 (I)    0.9820% (0.4403% to 2.1758%)
-    omitting Omitting PROSA 2026 (C)    1.0349% (0.4628% to 2.2980%)
+k = 4 studies | model: random effects GLMM (logit-normal), back-transformed
+  No screening / usual care: 1.3093% (95% CI 0.3551% to 4.7063%)
+  Heterogeneity: Cochran's Q = 1965.48, df = 3, p = < 1e-04; I2 = 99.8%; tau2 = 1.7969; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 0.0112% to 61.0071%
+  Per-study observed proportions:
+    ERSPC 2009 (C)                  2360/89353   = 2.6412%
+    PLCO 2009 (C)                   1793/38350   = 4.6754%
+    CAP 2024 (C)                    3482/219395  = 1.5871%
+    ProScreen 2024 (C)                65/45544   = 0.1427%
+  Leave-one-study-out (GG1 detection per randomized/invited participant; No screening / usual care):
+    omitting ERSPC                  1.0329% (0.1959% to 5.2575%)
+    omitting PLCO                   0.8502% (0.2006% to 3.5299%)
+    omitting CAP                    1.2259% (0.2151% to 6.6688%)
+    omitting ProScreen              2.7024% (1.6339% to 4.4382%)
 ==============================================================================
-2.2 SECONDARY - csPCa detection rate per man screened, by strategy
+2.1 GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - PSA + DRE
 ==============================================================================
-k = 18 arms | model: random effects GLMM (logit-normal), back-transformed
-  Overall pooled proportion = 1.4780% (95% CI 0.7295% to 2.9716%)
-  Heterogeneity: Cochran's Q = 3988.15, df = 17, p = < 1e-04; I2 = 99.6%; tau2 = 2.3193; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
-  By screening strategy (random effects):
-    No screening / usual care    k=4  1.6888% (95% CI 0.9458% to 2.9980%)  Q p = <1e-04
-    PSA + DRE                    k=1  3.3873% (exact 95% CI 3.1936% to 3.5895%)  [PLCO 2009 (I)]
-    PSA                          k=6  0.4734% (95% CI 0.0446% to 4.8252%)  Q p = <1e-04
-    PSA -> MRI                   k=3  1.9430% (95% CI 1.7236% to 2.1897%)  Q p = 0.378
-    Biomarker -> MRI             k=2  2.3709% (95% CI 2.1418% to 2.6238%)  Q p = 0.219
-    MRI-first                    k=2  4.5528% (95% CI 3.1616% to 6.5150%)  Q p = 0.937
-  Per-arm observed proportions:
-    ERSPC 2009 (I)             PSA                             1665/59923   = 2.7786%
-    ERSPC 2009 (C)             No screening / usual care       1947/89353   = 2.1790%
-    PLCO 2009 (I)              PSA + DRE                       1104/32592   = 3.3873%
-    PLCO 2009 (C)              No screening / usual care       1120/38350   = 2.9205%
-    CAP 2018 (I)               PSA                             4013/67313   = 5.9617%
-    CAP 2018 (C)               No screening / usual care       4459/219439  = 2.0320%
-    ProScreen 2024 (I)         Biomarker -> MRI                 172/7744    = 2.2211%
-    ProScreen 2024 (C)         No screening / usual care        282/45544   = 0.6192%
-    PROBASE 2022 (I)           PSA                               33/23301   = 0.1416%
-    PROBASE 2022 (C)           PSA                                0/23301   = 0.0000%
-    STHLM3-MRI 2021 (I)        Biomarker -> MRI                 192/7609    = 2.5233%
-    STHLM3-MRI 2021 (C)        PSA                              106/5134    = 2.0647%
-    MVP 2022 (I)               MRI-first                         11/246     = 4.4715%
-    MVP 2022 (C)               PSA                                4/248     = 1.6129%
-    GOTEBORG-2 2024 (I)        PSA -> MRI                       117/6575    = 1.7795%
-    GOTEBORG-2 2024 (C)        PSA -> MRI                       139/6578    = 2.1131%
-    PROSA 2026 (I)             MRI-first                         17/369     = 4.6070%
-    PROSA 2026 (C)             PSA -> MRI                         7/383     = 1.8277%
-  Leave-one-out (random effects, csPCa rate per screened man):
-    omitting Omitting ERSPC 2009 (I)    1.4172% (0.6682% to 2.9805%)
-    omitting Omitting ERSPC 2009 (C)    1.4377% (0.6761% to 3.0310%)
-    omitting Omitting PLCO 2009 (I)     1.4008% (0.6630% to 2.9357%)
-    omitting Omitting PLCO 2009 (C)     1.4130% (0.6668% to 2.9694%)
-    omitting Omitting CAP 2018 (I)      1.3557% (0.6523% to 2.7961%)
-    omitting Omitting CAP 2018 (C)      1.4437% (0.6784% to 3.0456%)
-    omitting Omitting ProScreen 2024 (I) 1.4364% (0.6755% to 3.0282%)
-    omitting Omitting ProScreen 2024 (C) 1.5532% (0.7378% to 3.2403%)
-    omitting Omitting PROBASE 2022 (I)  1.7127% (0.8719% to 3.3369%)
-    omitting Omitting PROBASE 2022 (C)  2.0176% (1.3592% to 2.9852%)
-    omitting Omitting STHLM3-MRI 2021 (I) 1.4255% (0.6713% to 3.0017%)
-    omitting Omitting STHLM3-MRI 2021 (C) 1.4428% (0.6782% to 3.0431%)
-    omitting Omitting MVP 2022 (I)      1.3854% (0.6599% to 2.8853%)
-    omitting Omitting MVP 2022 (C)      1.4742% (0.6961% to 3.0950%)
-    omitting Omitting GOTEBORG-2 2024 (I) 1.4556% (0.6837% to 3.0719%)
-    omitting Omitting GOTEBORG-2 2024 (C) 1.4407% (0.6773% to 3.0384%)
-    omitting Omitting PROSA 2026 (I)    1.3806% (0.6582% to 2.8730%)
-    omitting Omitting PROSA 2026 (C)    1.4598% (0.6877% to 3.0719%)
+k = 1 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA + DRE: 5.9176% (exact 95% CI 5.6835% to 6.1585%)
+  Per-study observed proportions:
+    PLCO 2009 (I)                   2269/38343   = 5.9176%
+  Leave-one-study-out skipped for GG1 detection per randomized/invited participant / PSA + DRE (k = 1 < 2).
 ==============================================================================
-2.3 PRIMARY (grade mix) - GG1 share of all detected PCa, by strategy
+2.1 GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - PSA
 ==============================================================================
-k = 18 arms | model: random effects GLMM (logit-normal), back-transformed
-  Overall pooled proportion = 40.2870% (95% CI 31.5034% to 49.7413%)
-  Heterogeneity: Cochran's Q = 3252.93, df = 17, p = < 1e-04; I2 = 99.5%; tau2 = 0.5867; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
-  By screening strategy (random effects):
-    No screening / usual care    k=4  39.7903% (95% CI 23.7598% to 58.3576%)  Q p = <1e-04
-    PSA + DRE                    k=1  65.7300% (exact 95% CI 64.1195% to 67.3139%)  [PLCO 2009 (I)]
-    PSA                          k=6  49.4371% (95% CI 35.0927% to 63.8748%)  Q p = <1e-04
-    PSA -> MRI                   k=3  44.3098% (95% CI 33.9303% to 55.2111%)  Q p = 0.00152
-    Biomarker -> MRI             k=2  16.4045% (95% CI 13.2466% to 20.1405%)  Q p = 0.432
-    MRI-first                    k=2  31.7073% (95% CI 19.3871% to 47.2662%)  Q p = 0.599
-  Per-arm observed proportions:
-    ERSPC 2009 (I)             PSA                             4325/5990    = 72.2037%
-    ERSPC 2009 (C)             No screening / usual care       2360/4307    = 54.7945%
-    PLCO 2009 (I)              PSA + DRE                       2269/3452    = 65.7300%
-    PLCO 2009 (C)              No screening / usual care       1793/2974    = 60.2892%
-    CAP 2018 (I)               PSA                             3263/8054    = 40.5140%
-    CAP 2018 (C)               No screening / usual care       2440/7853    = 31.0709%
-    ProScreen 2024 (I)         Biomarker -> MRI                  39/219     = 17.8082%
-    ProScreen 2024 (C)         No screening / usual care         65/355     = 18.3099%
-    PROBASE 2022 (I)           PSA                               15/48      = 31.2500%
-    PROBASE 2022 (C)           PSA                                2/2       = 100.0000%
-    STHLM3-MRI 2021 (I)        Biomarker -> MRI                  34/226     = 15.0442%
-    STHLM3-MRI 2021 (C)        PSA                               73/179     = 40.7821%
-    MVP 2022 (I)               MRI-first                          4/15      = 26.6667%
-    MVP 2022 (C)               PSA                                4/8       = 50.0000%
-    GOTEBORG-2 2024 (I)        PSA -> MRI                        68/185     = 36.7568%
-    GOTEBORG-2 2024 (C)        PSA -> MRI                       159/298     = 53.3557%
-    PROSA 2026 (I)             MRI-first                          9/26      = 34.6154%
-    PROSA 2026 (C)             PSA -> MRI                         4/11      = 36.3636%
-  Leave-one-out (random effects, GG1 share of detected PCa):
-    omitting Omitting ERSPC 2009 (I)    38.0027% (29.8649% to 46.8759%)
-    omitting Omitting ERSPC 2009 (C)    39.3160% (30.2580% to 49.1736%)
-    omitting Omitting PLCO 2009 (I)     38.5329% (29.9435% to 47.9014%)
-    omitting Omitting PLCO 2009 (C)     38.9344% (30.0771% to 48.5875%)
-    omitting Omitting CAP 2018 (I)      40.2816% (30.9444% to 50.3809%)
-    omitting Omitting CAP 2018 (C)      40.9680% (31.6348% to 51.0005%)
-    omitting Omitting ProScreen 2024 (I) 42.1158% (33.2310% to 51.5424%)
-    omitting Omitting ProScreen 2024 (C) 42.0965% (33.1884% to 51.5507%)
-    omitting Omitting PROBASE 2022 (I)  40.8801% (31.6157% to 50.8410%)
-    omitting Omitting PROBASE 2022 (C)  39.4319% (30.7481% to 48.8386%)
-    omitting Omitting STHLM3-MRI 2021 (I) 42.4349% (33.7701% to 51.5911%)
-    omitting Omitting STHLM3-MRI 2021 (C) 40.2673% (30.9522% to 50.3418%)
-    omitting Omitting MVP 2022 (I)      40.9878% (31.8575% to 50.7846%)
-    omitting Omitting MVP 2022 (C)      39.9535% (30.9411% to 49.7017%)
-    omitting Omitting GOTEBORG-2 2024 (I) 40.5402% (31.2049% to 50.6137%)
-    omitting Omitting GOTEBORG-2 2024 (C) 39.4320% (30.3350% to 49.3255%)
-    omitting Omitting PROSA 2026 (I)    40.6312% (31.4010% to 50.5744%)
-    omitting Omitting PROSA 2026 (C)    40.4848% (31.3603% to 50.3181%)
+k = 5 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA: 1.1123% (95% CI 0.2866% to 4.2165%)
+  Heterogeneity: Cochran's Q = 2521.11, df = 4, p = < 1e-04; I2 = 99.8%; tau2 = 2.3555; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 0.0104% to 54.7731%
+  Per-study observed proportions:
+    ERSPC 2009 (I)                  4325/72890   = 5.9336%
+    STHLM3-MRI 2021 (C)               73/5134    = 1.4219%
+    MVP 2022 (C)                       4/266     = 1.5038%
+    PROBASE 2022 (I)                  15/23341   = 0.0643%
+    CAP 2024 (I)                    4111/189326  = 2.1714%
+  Leave-one-study-out (GG1 detection per randomized/invited participant; PSA):
+    omitting ERSPC                  0.7145% (0.1743% to 2.8802%)
+    omitting STHLM3-MRI             1.0426% (0.1908% to 5.4888%)
+    omitting MVP                    1.0622% (0.2014% to 5.4029%)
+    omitting PROBASE                2.3939% (1.3010% to 4.3643%)
+    omitting CAP                    0.9326% (0.1767% to 4.7679%)
 ==============================================================================
-2.4 SECONDARY - Biopsies per man screened, by strategy
+2.1 GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - PSA -> MRI
 ==============================================================================
-k = 13 arms | model: random effects GLMM (logit-normal), back-transformed
-  Overall pooled proportion = 4.8360% (95% CI 2.3275% to 9.7773%)
-  Heterogeneity: Cochran's Q = 14345.32, df = 12, p = < 1e-04; I2 = 99.9%; tau2 = 1.9240; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
-  By screening strategy (random effects):
-    PSA                          k=6  3.7961% (95% CI 0.8203% to 15.8428%)  Q p = <1e-04
-    PSA -> MRI                   k=3  5.6964% (95% CI 3.6853% to 8.7056%)  Q p = <1e-04
-    Biomarker -> MRI             k=2  3.7242% (95% CI 3.2658% to 4.2440%)  Q p = 0.0216
-    MRI-first                    k=2  10.4065% (95% CI 8.2286% to 13.0787%)  Q p = 0.666
-  Per-arm observed proportions:
-    ERSPC 2009 (I)             PSA                            17543/59923   = 29.2759%
-    CAP 2018 (I)               PSA                             5850/67313   = 8.6907%
-    ProScreen 2024 (I)         Biomarker -> MRI                 262/7744    = 3.3833%
-    PROBASE 2022 (I)           PSA                              120/23301   = 0.5150%
-    PROBASE 2022 (C)           PSA                               37/23301   = 0.1588%
-    STHLM3-MRI 2021 (I)        Biomarker -> MRI                 311/7609    = 4.0873%
-    STHLM3-MRI 2021 (C)        PSA                              438/5134    = 8.5314%
-    MVP 2022 (I)               MRI-first                         24/246     = 9.7561%
-    MVP 2022 (C)               PSA                               28/248     = 11.2903%
-    GOTEBORG-2 2024 (I)        PSA -> MRI                       254/6575    = 3.8631%
-    GOTEBORG-2 2024 (C)        PSA -> MRI                       588/6578    = 8.9389%
-    PROSA 2026 (I)             MRI-first                         40/369     = 10.8401%
-    PROSA 2026 (C)             PSA -> MRI                        20/383     = 5.2219%
-  Arms with biopsy counts NR are excluded (ERSPC-C, PLCO both arms, CAP-C, ProScreen-C).
-  Leave-one-out (random effects, biopsies per screened man):
-    omitting Omitting ERSPC 2009 (I)    4.0850% (1.9962% to 8.1773%)
-    omitting Omitting CAP 2018 (I)      4.5987% (2.0914% to 9.8109%)
-    omitting Omitting ProScreen 2024 (I) 4.9823% (2.2609% to 10.6235%)
-    omitting Omitting PROBASE 2022 (I)  5.7996% (2.9059% to 11.2411%)
-    omitting Omitting PROBASE 2022 (C)  6.3442% (3.6753% to 10.7352%)
-    omitting Omitting STHLM3-MRI 2021 (I) 4.9048% (2.2205% to 10.4861%)
-    omitting Omitting STHLM3-MRI 2021 (C) 4.6068% (2.0941% to 9.8316%)
-    omitting Omitting MVP 2022 (I)      4.5653% (2.0834% to 9.7107%)
-    omitting Omitting MVP 2022 (C)      4.5053% (2.0645% to 9.5502%)
-    omitting Omitting GOTEBORG-2 2024 (I) 4.9279% (2.2323% to 10.5281%)
-    omitting Omitting GOTEBORG-2 2024 (C) 4.5878% (2.0875% to 9.7835%)
-    omitting Omitting PROSA 2026 (I)    4.5178% (2.0674% to 9.5883%)
-    omitting Omitting PROSA 2026 (C)    4.8140% (2.1804% to 10.2938%)
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA -> MRI: 1.7063% (95% CI 1.5013% to 1.9387%)
+  Heterogeneity: Cochran's Q = 1.03, df = 1, p = 0.3103; I2 = 2.9%; tau2 = 0.0000; LRT of heterogeneity p = 0.27
+  Per-study observed proportions:
+    GOTEBORG-2 2024 (I+C)            227/13153   = 1.7258%
+    PROSA 2026 (C)                     4/385     = 1.0390%
+  Leave-one-study-out (GG1 detection per randomized/invited participant; PSA -> MRI):
+    omitting GOTEBORG-2             1.0390% (0.2838% to 2.6387%)
+    omitting PROSA                  1.7258% (1.5102% to 1.9632%)
+==============================================================================
+2.1 GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - Biomarker -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  Biomarker -> MRI: 0.3317% (95% CI 0.2256% to 0.4874%)
+  Heterogeneity: Cochran's Q = 5.61, df = 1, p = 0.01786; I2 = 82.2%; tau2 = 0.0493; LRT of heterogeneity p = 0.01932  ** significant heterogeneity **
+  Per-study observed proportions:
+    STHLM3-MRI 2021 (I)               34/7609    = 0.4468%
+    ProScreen 2024 (I)                39/15201   = 0.2566%
+  Leave-one-study-out (GG1 detection per randomized/invited participant; Biomarker -> MRI):
+    omitting STHLM3-MRI             0.2566% (0.1825% to 0.3506%)
+    omitting ProScreen              0.4468% (0.3096% to 0.6239%)
+==============================================================================
+2.1 GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - MRI-first
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  MRI-first: 2.0537% (95% CI 1.1961% to 3.5043%)
+  Heterogeneity: Cochran's Q = 0.56, df = 1, p = 0.4558; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.4446
+  Per-study observed proportions:
+    MVP 2022 (I)                       4/259     = 1.5444%
+    PROSA 2026 (I)                     9/374     = 2.4064%
+  Leave-one-study-out (GG1 detection per randomized/invited participant; MRI-first):
+    omitting MVP                    2.4064% (1.1061% to 4.5188%)
+    omitting PROSA                  1.5444% (0.4224% to 3.9069%)
+==============================================================================
+2.2 GG1 AMONG ALL DETECTED PROSTATE CANCERS - No screening / usual care
+==============================================================================
+k = 4 studies | model: random effects GLMM (logit-normal), back-transformed
+  No screening / usual care: 38.5491% (95% CI 22.2945% to 57.8343%)
+  Heterogeneity: Cochran's Q = 1802.09, df = 3, p = < 1e-04; I2 = 99.8%; tau2 = 0.6319; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 3.5673% to 91.4074%
+  Per-study observed proportions:
+    ERSPC 2009 (C)                  2360/4307    = 54.7945%
+    PLCO 2009 (C)                   1793/2974    = 60.2892%
+    CAP 2024 (C)                    3482/12958   = 26.8714%
+    ProScreen 2024 (C)                65/355     = 18.3099%
+  Leave-one-study-out (GG1 among all detected prostate cancers; No screening / usual care):
+    omitting ERSPC                  33.4456% (16.6927% to 55.7585%)
+    omitting PLCO                   31.8303% (17.2971% to 51.0388%)
+    omitting CAP                    42.8642% (22.2903% to 66.2407%)
+    omitting ProScreen              46.7298% (30.2396% to 63.9668%)
+==============================================================================
+2.2 GG1 AMONG ALL DETECTED PROSTATE CANCERS - PSA + DRE
+==============================================================================
+k = 1 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA + DRE: 65.7300% (exact 95% CI 64.1195% to 67.3139%)
+  Per-study observed proportions:
+    PLCO 2009 (I)                   2269/3452    = 65.7300%
+  Leave-one-study-out skipped for GG1 among all detected prostate cancers / PSA + DRE (k = 1 < 2).
+==============================================================================
+2.2 GG1 AMONG ALL DETECTED PROSTATE CANCERS - PSA
+==============================================================================
+k = 5 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA: 45.7878% (95% CI 31.1254% to 61.2180%)
+  Heterogeneity: Cochran's Q = 2157.99, df = 4, p = < 1e-04; I2 = 99.8%; tau2 = 0.4283; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 10.0617% to 86.4432%
+  Per-study observed proportions:
+    ERSPC 2009 (I)                  4325/5990    = 72.2037%
+    STHLM3-MRI 2021 (C)               73/179     = 40.7821%
+    MVP 2022 (C)                       4/8       = 50.0000%
+    PROBASE 2022 (I)                  15/48      = 31.2500%
+    CAP 2024 (I)                    4111/12013   = 34.2213%
+  Leave-one-study-out (GG1 among all detected prostate cancers; PSA):
+    omitting ERSPC                  34.3158% (33.4800% to 35.1615%)
+    omitting STHLM3-MRI             47.1670% (29.0242% to 66.0904%)
+    omitting MVP                    45.2196% (29.1156% to 62.3909%)
+    omitting PROBASE                49.5889% (32.8669% to 66.4034%)
+    omitting CAP                    49.4834% (31.9004% to 67.1951%)
+==============================================================================
+2.2 GG1 AMONG ALL DETECTED PROSTATE CANCERS - PSA -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA -> MRI: 46.7611% (95% CI 42.3976% to 51.1748%)
+  Heterogeneity: Cochran's Q = 0.48, df = 1, p = 0.4879; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.481
+  Per-study observed proportions:
+    GOTEBORG-2 2024 (I+C)            227/483     = 46.9979%
+    PROSA 2026 (C)                     4/11      = 36.3636%
+  Leave-one-study-out (GG1 among all detected prostate cancers; PSA -> MRI):
+    omitting GOTEBORG-2             36.3636% (10.9263% to 69.2095%)
+    omitting PROSA                  46.9979% (42.4736% to 51.5592%)
+==============================================================================
+2.2 GG1 AMONG ALL DETECTED PROSTATE CANCERS - Biomarker -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  Biomarker -> MRI: 16.4045% (95% CI 13.2466% to 20.1405%)
+  Heterogeneity: Cochran's Q = 0.62, df = 1, p = 0.4317; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.4311
+  Per-study observed proportions:
+    STHLM3-MRI 2021 (I)               34/226     = 15.0442%
+    ProScreen 2024 (I)                39/219     = 17.8082%
+  Leave-one-study-out (GG1 among all detected prostate cancers; Biomarker -> MRI):
+    omitting STHLM3-MRI             17.8082% (12.9805% to 23.5303%)
+    omitting ProScreen              15.0442% (10.6490% to 20.3833%)
+==============================================================================
+2.2 GG1 AMONG ALL DETECTED PROSTATE CANCERS - MRI-first
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  MRI-first: 31.7073% (95% CI 19.3871% to 47.2662%)
+  Heterogeneity: Cochran's Q = 0.28, df = 1, p = 0.5992; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.5957
+  Per-study observed proportions:
+    MVP 2022 (I)                       4/15      = 26.6667%
+    PROSA 2026 (I)                     9/26      = 34.6154%
+  Leave-one-study-out (GG1 among all detected prostate cancers; MRI-first):
+    omitting MVP                    34.6154% (17.2144% to 55.6672%)
+    omitting PROSA                  26.6667% (7.7872% to 55.1003%)
+==============================================================================
+2.3 GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - No screening / usual care
+==============================================================================
+k = 4 studies | model: random effects GLMM (logit-normal), back-transformed
+  No screening / usual care: 1.9583% (95% CI 0.9990% to 3.8033%)
+  Heterogeneity: Cochran's Q = 1227.35, df = 3, p = < 1e-04; I2 = 99.8%; tau2 = 0.4841; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 0.1676% to 19.2002%
+  Per-study observed proportions:
+    ERSPC 2009 (C)                  1947/89353   = 2.1790%
+    PLCO 2009 (C)                   1120/38350   = 2.9205%
+    CAP 2024 (C)                    8019/219395  = 3.6551%
+    ProScreen 2024 (C)               282/45544   = 0.6192%
+  Leave-one-study-out (GG>=2 detection per randomized/invited participant; No screening / usual care):
+    omitting ERSPC                  1.8886% (0.7707% to 4.5540%)
+    omitting PLCO                   1.7121% (0.7338% to 3.9432%)
+    omitting CAP                    1.5864% (0.7397% to 3.3695%)
+    omitting ProScreen              2.8575% (2.2447% to 3.6313%)
+==============================================================================
+2.3 GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - PSA + DRE
+==============================================================================
+k = 1 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA + DRE: 2.8793% (exact 95% CI 2.7142% to 3.0516%)
+  Per-study observed proportions:
+    PLCO 2009 (I)                   1104/38343   = 2.8793%
+  Leave-one-study-out skipped for GG>=2 detection per randomized/invited participant / PSA + DRE (k = 1 < 2).
+==============================================================================
+2.3 GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - PSA
+==============================================================================
+k = 5 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA: 1.2713% (95% CI 0.4563% to 3.4908%)
+  Heterogeneity: Cochran's Q = 604.02, df = 4, p = < 1e-04; I2 = 99.3%; tau2 = 1.3333; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 0.0379% to 30.4002%
+  Per-study observed proportions:
+    ERSPC 2009 (I)                  1665/72890   = 2.2843%
+    STHLM3-MRI 2021 (C)              106/5134    = 2.0647%
+    MVP 2022 (C)                       4/266     = 1.5038%
+    PROBASE 2022 (I)                  33/23341   = 0.1414%
+    CAP 2024 (I)                    6649/189326  = 3.5119%
+  Leave-one-study-out (GG>=2 detection per randomized/invited participant; PSA):
+    omitting ERSPC                  1.0877% (0.3126% to 3.7125%)
+    omitting STHLM3-MRI             1.1193% (0.3174% to 3.8680%)
+    omitting MVP                    1.2520% (0.3617% to 4.2405%)
+    omitting PROBASE                2.4768% (1.8980% to 3.2262%)
+    omitting CAP                    0.9698% (0.3059% to 3.0305%)
+==============================================================================
+2.3 GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - PSA -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA -> MRI: 1.9427% (95% CI 1.7233% to 2.1893%)
+  Heterogeneity: Cochran's Q = 0.03, df = 1, p = 0.8575; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.856
+  Per-study observed proportions:
+    GOTEBORG-2 2024 (I+C)            256/13153   = 1.9463%
+    PROSA 2026 (C)                     7/385     = 1.8182%
+  Leave-one-study-out (GG>=2 detection per randomized/invited participant; PSA -> MRI):
+    omitting GOTEBORG-2             1.8182% (0.7341% to 3.7101%)
+    omitting PROSA                  1.9463% (1.7171% to 2.1971%)
+==============================================================================
+2.3 GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - Biomarker -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  Biomarker -> MRI: 1.6887% (95% CI 0.9661% to 2.9359%)
+  Heterogeneity: Cochran's Q = 59.36, df = 1, p = < 1e-04; I2 = 98.3%; tau2 = 0.1611; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  Per-study observed proportions:
+    STHLM3-MRI 2021 (I)              192/7609    = 2.5233%
+    ProScreen 2024 (I)               172/15201   = 1.1315%
+  Leave-one-study-out (GG>=2 detection per randomized/invited participant; Biomarker -> MRI):
+    omitting STHLM3-MRI             1.1315% (0.9695% to 1.3126%)
+    omitting ProScreen              2.5233% (2.1826% to 2.9010%)
+==============================================================================
+2.3 GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT - MRI-first
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  MRI-first: 4.4234% (95% CI 3.0712% to 6.3319%)
+  Heterogeneity: Cochran's Q = 0.03, df = 1, p = 0.8576; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.8573
+  Per-study observed proportions:
+    MVP 2022 (I)                      11/259     = 4.2471%
+    PROSA 2026 (I)                    17/374     = 4.5455%
+  Leave-one-study-out (GG>=2 detection per randomized/invited participant; MRI-first):
+    omitting MVP                    4.5455% (2.6699% to 7.1781%)
+    omitting PROSA                  4.2471% (2.1389% to 7.4720%)
+==============================================================================
+2.4 GG>=2 AMONG ALL DETECTED PROSTATE CANCERS - No screening / usual care
+==============================================================================
+k = 4 studies | model: random effects GLMM (logit-normal), back-transformed
+  No screening / usual care: 56.9012% (95% CI 39.7828% to 72.5153%)
+  Heterogeneity: Cochran's Q = 834.70, df = 3, p = < 1e-04; I2 = 99.6%; tau2 = 0.4942; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 9.7448% to 94.1671%
+  Per-study observed proportions:
+    ERSPC 2009 (C)                  1947/4307    = 45.2055%
+    PLCO 2009 (C)                   1120/2974    = 37.6597%
+    CAP 2024 (C)                    8019/12958   = 61.8846%
+    ProScreen 2024 (C)               282/355     = 79.4366%
+  Leave-one-study-out (GG>=2 among all detected prostate cancers; No screening / usual care):
+    omitting ERSPC                  60.7634% (39.6819% to 78.4737%)
+    omitting PLCO                   63.1489% (45.7033% to 77.7216%)
+    omitting CAP                    55.2490% (33.1212% to 75.4763%)
+    omitting ProScreen              48.2616% (36.8868% to 59.8195%)
+==============================================================================
+2.4 GG>=2 AMONG ALL DETECTED PROSTATE CANCERS - PSA + DRE
+==============================================================================
+k = 1 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA + DRE: 31.9815% (exact 95% CI 30.4269% to 33.5666%)
+  Per-study observed proportions:
+    PLCO 2009 (I)                   1104/3452    = 31.9815%
+  Leave-one-study-out skipped for GG>=2 among all detected prostate cancers / PSA + DRE (k = 1 < 2).
+==============================================================================
+2.4 GG>=2 AMONG ALL DETECTED PROSTATE CANCERS - PSA
+==============================================================================
+k = 5 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA: 51.4944% (95% CI 37.3202% to 65.4322%)
+  Heterogeneity: Cochran's Q = 1189.00, df = 4, p = < 1e-04; I2 = 99.7%; tau2 = 0.3580; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 14.2775% to 87.1245%
+  Per-study observed proportions:
+    ERSPC 2009 (I)                  1665/5990    = 27.7963%
+    STHLM3-MRI 2021 (C)              106/179     = 59.2179%
+    MVP 2022 (C)                       4/8       = 50.0000%
+    PROBASE 2022 (I)                  33/48      = 68.7500%
+    CAP 2024 (I)                    6649/12013   = 55.3484%
+  Leave-one-study-out (GG>=2 among all detected prostate cancers; PSA):
+    omitting ERSPC                  55.4540% (54.5721% to 56.3324%)
+    omitting STHLM3-MRI             49.3511% (32.4458% to 66.4060%)
+    omitting MVP                    51.7542% (36.0920% to 67.0791%)
+    omitting PROBASE                47.0552% (32.7721% to 61.8375%)
+    omitting CAP                    50.5165% (32.8047% to 68.0996%)
+==============================================================================
+2.4 GG>=2 AMONG ALL DETECTED PROSTATE CANCERS - PSA -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA -> MRI: 53.2389% (95% CI 48.8252% to 57.6024%)
+  Heterogeneity: Cochran's Q = 0.48, df = 1, p = 0.4879; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.481
+  Per-study observed proportions:
+    GOTEBORG-2 2024 (I+C)            256/483     = 53.0021%
+    PROSA 2026 (C)                     7/11      = 63.6364%
+  Leave-one-study-out (GG>=2 among all detected prostate cancers; PSA -> MRI):
+    omitting GOTEBORG-2             63.6364% (30.7905% to 89.0737%)
+    omitting PROSA                  53.0021% (48.4408% to 57.5264%)
+==============================================================================
+2.4 GG>=2 AMONG ALL DETECTED PROSTATE CANCERS - Biomarker -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  Biomarker -> MRI: 81.8575% (95% CI 76.9665% to 85.9002%)
+  Heterogeneity: Cochran's Q = 3.05, df = 1, p = 0.08077; I2 = 67.2%; tau2 = 0.0164; LRT of heterogeneity p = 0.07903
+  Per-study observed proportions:
+    STHLM3-MRI 2021 (I)              192/226     = 84.9558%
+    ProScreen 2024 (I)               172/219     = 78.5388%
+  Leave-one-study-out (GG>=2 among all detected prostate cancers; Biomarker -> MRI):
+    omitting STHLM3-MRI             78.5388% (72.5033% to 83.7843%)
+    omitting ProScreen              84.9558% (79.6167% to 89.3510%)
+==============================================================================
+2.4 GG>=2 AMONG ALL DETECTED PROSTATE CANCERS - MRI-first
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  MRI-first: 68.2927% (95% CI 52.7338% to 80.6129%)
+  Heterogeneity: Cochran's Q = 0.28, df = 1, p = 0.5992; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.5957
+  Per-study observed proportions:
+    MVP 2022 (I)                      11/15      = 73.3333%
+    PROSA 2026 (I)                    17/26      = 65.3846%
+  Leave-one-study-out (GG>=2 among all detected prostate cancers; MRI-first):
+    omitting MVP                    65.3846% (44.3328% to 82.7856%)
+    omitting PROSA                  73.3333% (44.8997% to 92.2128%)
+==============================================================================
+2.5 GG1 AMONG PARTICIPANTS BIOPSIED - PSA
+==============================================================================
+k = 4 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA: 18.0030% (95% CI 13.1075% to 24.2174%)
+  Heterogeneity: Cochran's Q = 24.76, df = 3, p = < 1e-04; I2 = 87.9%; tau2 = 0.0863; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 6.7103% to 40.1258%
+  Per-study observed proportions:
+    ERSPC 2009 (I)                  4325/17543   = 24.6537%
+    STHLM3-MRI 2021 (C)               73/438     = 16.6667%
+    MVP 2022 (C)                       4/28      = 14.2857%
+    PROBASE 2022 (I)                  15/120     = 12.5000%
+  Leave-one-study-out (GG1 among participants biopsied; PSA):
+    omitting ERSPC                  15.6997% (12.9735% to 18.8744%)
+    omitting STHLM3-MRI             18.1643% (11.5387% to 27.4154%)
+    omitting MVP                    18.4139% (13.2161% to 25.0655%)
+    omitting PROBASE                20.1712% (15.1793% to 26.2957%)
+==============================================================================
+2.5 GG1 AMONG PARTICIPANTS BIOPSIED - PSA -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA -> MRI: 26.7981% (95% CI 23.9466% to 29.8560%)
+  Heterogeneity: Cochran's Q = 0.48, df = 1, p = 0.49; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.4742
+  Per-study observed proportions:
+    GOTEBORG-2 2024 (I+C)            227/842     = 26.9596%
+    PROSA 2026 (C)                     4/20      = 20.0000%
+  Leave-one-study-out (GG1 among participants biopsied; PSA -> MRI):
+    omitting GOTEBORG-2             20.0000% (5.7334% to 43.6614%)
+    omitting PROSA                  26.9596% (23.9879% to 30.0935%)
+==============================================================================
+2.5 GG1 AMONG PARTICIPANTS BIOPSIED - Biomarker -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  Biomarker -> MRI: 12.7400% (95% CI 10.2503% to 15.7284%)
+  Heterogeneity: Cochran's Q = 1.99, df = 1, p = 0.1589; I2 = 49.6%; tau2 = 0.0000; LRT of heterogeneity p = 0.1583
+  Per-study observed proportions:
+    STHLM3-MRI 2021 (I)               34/311     = 10.9325%
+    ProScreen 2024 (I)                39/262     = 14.8855%
+  Leave-one-study-out (GG1 among participants biopsied; Biomarker -> MRI):
+    omitting STHLM3-MRI             14.8855% (10.8041% to 19.7825%)
+    omitting ProScreen              10.9325% (7.6908% to 14.9411%)
+==============================================================================
+2.5 GG1 AMONG PARTICIPANTS BIOPSIED - MRI-first
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  MRI-first: 20.3125% (95% CI 12.1765% to 31.9097%)
+  Heterogeneity: Cochran's Q = 0.31, df = 1, p = 0.5757; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.5704
+  Per-study observed proportions:
+    MVP 2022 (I)                       4/24      = 16.6667%
+    PROSA 2026 (I)                     9/40      = 22.5000%
+  Leave-one-study-out (GG1 among participants biopsied; MRI-first):
+    omitting MVP                    22.5000% (10.8397% to 38.4512%)
+    omitting PROSA                  16.6667% (4.7354% to 37.3842%)
+==============================================================================
+2.6 GG>=2 AMONG PARTICIPANTS BIOPSIED - PSA
+==============================================================================
+k = 4 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA: 17.6654% (95% CI 10.8834% to 27.3754%)
+  Heterogeneity: Cochran's Q = 130.70, df = 3, p = < 1e-04; I2 = 97.7%; tau2 = 0.2743; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 3.1048% to 58.9602%
+  Per-study observed proportions:
+    ERSPC 2009 (I)                  1665/17543   = 9.4910%
+    STHLM3-MRI 2021 (C)              106/438     = 24.2009%
+    MVP 2022 (C)                       4/28      = 14.2857%
+    PROBASE 2022 (I)                  33/120     = 27.5000%
+  Leave-one-study-out (GG>=2 among participants biopsied; PSA):
+    omitting ERSPC                  24.4027% (21.0946% to 28.0452%)
+    omitting STHLM3-MRI             15.4712% (8.3695% to 26.8341%)
+    omitting MVP                    18.4951% (10.5420% to 30.4087%)
+    omitting PROBASE                14.9700% (8.6188% to 24.7347%)
+==============================================================================
+2.6 GG>=2 AMONG PARTICIPANTS BIOPSIED - PSA -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA -> MRI: 30.5104% (95% CI 27.5262% to 33.6680%)
+  Heterogeneity: Cochran's Q = 0.19, df = 1, p = 0.6596; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.663
+  Per-study observed proportions:
+    GOTEBORG-2 2024 (I+C)            256/842     = 30.4038%
+    PROSA 2026 (C)                     7/20      = 35.0000%
+  Leave-one-study-out (GG>=2 among participants biopsied; PSA -> MRI):
+    omitting GOTEBORG-2             35.0000% (15.3909% to 59.2189%)
+    omitting PROSA                  30.4038% (27.3105% to 33.6349%)
+==============================================================================
+2.6 GG>=2 AMONG PARTICIPANTS BIOPSIED - Biomarker -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  Biomarker -> MRI: 61.6126% (95% CI 56.1728% to 66.7765%)
+  Heterogeneity: Cochran's Q = 3.59, df = 1, p = 0.05799; I2 = 72.2%; tau2 = 0.0116; LRT of heterogeneity p = 0.05713
+  Per-study observed proportions:
+    STHLM3-MRI 2021 (I)              192/331     = 58.0060%
+    ProScreen 2024 (I)               172/262     = 65.6489%
+  Leave-one-study-out (GG>=2 among participants biopsied; Biomarker -> MRI):
+    omitting STHLM3-MRI             65.6489% (59.5555% to 71.3835%)
+    omitting ProScreen              58.0060% (52.4862% to 63.3813%)
+==============================================================================
+2.6 GG>=2 AMONG PARTICIPANTS BIOPSIED - MRI-first
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  MRI-first: 43.7500% (95% CI 32.1873% to 56.0342%)
+  Heterogeneity: Cochran's Q = 0.07, df = 1, p = 0.7947; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.7948
+  Per-study observed proportions:
+    MVP 2022 (I)                      11/24      = 45.8333%
+    PROSA 2026 (I)                    17/40      = 42.5000%
+  Leave-one-study-out (GG>=2 among participants biopsied; MRI-first):
+    omitting MVP                    42.5000% (27.0429% to 59.1099%)
+    omitting PROSA                  45.8333% (25.5530% to 67.1792%)
+==============================================================================
+2.7 BIOPSIES PER SCREENED/ASSESSED PARTICIPANT - PSA
+==============================================================================
+k = 5 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA: 6.8112% (95% CI 2.0176% to 20.5995%)
+  Heterogeneity: Cochran's Q = 11792.90, df = 4, p = < 1e-04; I2 = 100.0%; tau2 = 2.0780; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
+  95% prediction interval: 0.0909% to 85.4481%
+  Per-study observed proportions:
+    ERSPC 2009 (I)                 17543/59923   = 29.2759%
+    STHLM3-MRI 2021 (C)              438/5134    = 8.5314%
+    MVP 2022 (C)                      28/248     = 11.2903%
+    PROBASE 2022 (I)                 120/23301   = 0.5150%
+    CAP 2024 (I)                    5848/75694   = 7.7258%
+  Leave-one-study-out (Biopsies per screened/assessed participant; PSA):
+    omitting ERSPC                  4.5091% (1.3165% to 14.3200%)
+    omitting STHLM3-MRI             6.4345% (1.3989% to 25.0004%)
+    omitting MVP                    6.0152% (1.3391% to 23.1839%)
+    omitting PROBASE                12.4626% (7.0007% to 21.2139%)
+    omitting CAP                    6.5978% (1.4309% to 25.5806%)
+==============================================================================
+2.7 BIOPSIES PER SCREENED/ASSESSED PARTICIPANT - PSA -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  PSA -> MRI: 6.3682% (95% CI 5.9690% to 6.7922%)
+  Heterogeneity: Cochran's Q = 0.87, df = 1, p = 0.3523; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.3373
+  Per-study observed proportions:
+    GOTEBORG-2 2024 (I+C)            842/13153   = 6.4016%
+    PROSA 2026 (C)                    20/383     = 5.2219%
+  Leave-one-study-out (Biopsies per screened/assessed participant; PSA -> MRI):
+    omitting GOTEBORG-2             5.2219% (3.2185% to 7.9499%)
+    omitting PROSA                  6.4016% (5.9891% to 6.8334%)
+==============================================================================
+2.7 BIOPSIES PER SCREENED/ASSESSED PARTICIPANT - Biomarker -> MRI
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  Biomarker -> MRI: 3.7242% (95% CI 3.2658% to 4.2440%)
+  Heterogeneity: Cochran's Q = 5.28, df = 1, p = 0.02158; I2 = 81.1%; tau2 = 0.0060; LRT of heterogeneity p = 0.02134  ** significant heterogeneity **
+  Per-study observed proportions:
+    STHLM3-MRI 2021 (I)              311/7609    = 4.0873%
+    ProScreen 2024 (I)               262/7744    = 3.3833%
+  Leave-one-study-out (Biopsies per screened/assessed participant; Biomarker -> MRI):
+    omitting STHLM3-MRI             3.3833% (2.9918% to 3.8103%)
+    omitting ProScreen              4.0873% (3.6535% to 4.5566%)
+==============================================================================
+2.7 BIOPSIES PER SCREENED/ASSESSED PARTICIPANT - MRI-first
+==============================================================================
+k = 2 studies | model: random effects GLMM (logit-normal), back-transformed
+  MRI-first: 10.4065% (95% CI 8.2286% to 13.0787%)
+  Heterogeneity: Cochran's Q = 0.19, df = 1, p = 0.6664; I2 = 0.0%; tau2 = 0.0000; LRT of heterogeneity p = 0.6652
+  Per-study observed proportions:
+    MVP 2022 (I)                      24/246     = 9.7561%
+    PROSA 2026 (I)                    40/369     = 10.8401%
+  Leave-one-study-out (Biopsies per screened/assessed participant; MRI-first):
+    omitting MVP                    10.8401% (7.8581% to 14.4678%)
+    omitting PROSA                  9.7561% (6.3514% to 14.1681%)
 ==============================================================================
 PART 3. SENSITIVITY ANALYSES
 ==============================================================================
 
---- 3.1 Proportions on ITT (randomized/invited) denominators ---
+--- 3.1 Invitation-family RRs excluding CAP ---
 ==============================================================================
-3.1a GG1 detection rate per man randomized/invited, by strategy
+excluding CAP - GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT
 ==============================================================================
-k = 18 arms | model: random effects GLMM (logit-normal), back-transformed
-  Overall pooled proportion = 0.9089% (95% CI 0.4333% to 1.8965%)
-  Heterogeneity: Cochran's Q = 8460.67, df = 17, p = < 1e-04; I2 = 99.8%; tau2 = 2.5273; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
-  By screening strategy (random effects):
-    No screening / usual care    k=4  1.1976% (95% CI 0.3257% to 4.3031%)  Q p = <1e-04
-    PSA + DRE                    k=1  5.9176% (exact 95% CI 5.6835% to 6.1585%)  [PLCO 2009 (I)]
-    PSA                          k=6  0.4818% (95% CI 0.0784% to 2.9025%)  Q p = <1e-04
-    PSA -> MRI                   k=3  1.4622% (95% CI 0.8705% to 2.4462%)  Q p = <1e-04
-    Biomarker -> MRI             k=2  0.3317% (95% CI 0.2256% to 0.4874%)  Q p = 0.0179
-    MRI-first                    k=2  2.0537% (95% CI 1.1961% to 3.5043%)  Q p = 0.456
-  Per-arm observed proportions:
-    ERSPC 2009 (I)             PSA                             4325/72890   = 5.9336%
-    ERSPC 2009 (C)             No screening / usual care       2360/89353   = 2.6412%
-    PLCO 2009 (I)              PSA + DRE                       2269/38343   = 5.9176%
-    PLCO 2009 (C)              No screening / usual care       1793/38350   = 4.6754%
-    CAP 2018 (I)               PSA                             3263/189386  = 1.7229%
-    CAP 2018 (C)               No screening / usual care       2440/219439  = 1.1119%
-    ProScreen 2024 (I)         Biomarker -> MRI                  39/15201   = 0.2566%
-    ProScreen 2024 (C)         No screening / usual care         65/45544   = 0.1427%
-    PROBASE 2022 (I)           PSA                               15/23341   = 0.0643%
-    PROBASE 2022 (C)           PSA                                2/23301   = 0.0086%
-    STHLM3-MRI 2021 (I)        Biomarker -> MRI                  34/7609    = 0.4468%
-    STHLM3-MRI 2021 (C)        PSA                               73/5134    = 1.4219%
-    MVP 2022 (I)               MRI-first                          4/259     = 1.5444%
-    MVP 2022 (C)               PSA                                4/266     = 1.5038%
-    GOTEBORG-2 2024 (I)        PSA -> MRI                        68/6575    = 1.0342%
-    GOTEBORG-2 2024 (C)        PSA -> MRI                       159/6578    = 2.4171%
-    PROSA 2026 (I)             MRI-first                          9/374     = 2.4064%
-    PROSA 2026 (C)             PSA -> MRI                         4/385     = 1.0390%
-==============================================================================
-3.1b csPCa detection rate per man randomized/invited, by strategy
-==============================================================================
-k = 18 arms | model: random effects GLMM (logit-normal), back-transformed
-  Overall pooled proportion = 1.3077% (95% CI 0.6654% to 2.5539%)
-  Heterogeneity: Cochran's Q = 1015.78, df = 17, p = < 1e-04; I2 = 98.3%; tau2 = 2.1152; LRT of heterogeneity p = < 1e-04  ** significant heterogeneity **
-  By screening strategy (random effects):
-    No screening / usual care    k=4  1.6888% (95% CI 0.9458% to 2.9980%)  Q p = <1e-04
-    PSA + DRE                    k=1  2.8793% (exact 95% CI 2.7142% to 3.0516%)  [PLCO 2009 (I)]
-    PSA                          k=6  0.3887% (95% CI 0.0441% to 3.3358%)  Q p = <1e-04
-    PSA -> MRI                   k=3  1.9427% (95% CI 1.7233% to 2.1893%)  Q p = 0.377
-    Biomarker -> MRI             k=2  1.6887% (95% CI 0.9661% to 2.9359%)  Q p = <1e-04
-    MRI-first                    k=2  4.4234% (95% CI 3.0712% to 6.3319%)  Q p = 0.858
-  Per-arm observed proportions:
-    ERSPC 2009 (I)             PSA                             1665/72890   = 2.2843%
-    ERSPC 2009 (C)             No screening / usual care       1947/89353   = 2.1790%
-    PLCO 2009 (I)              PSA + DRE                       1104/38343   = 2.8793%
-    PLCO 2009 (C)              No screening / usual care       1120/38350   = 2.9205%
-    CAP 2018 (I)               PSA                             4013/189386  = 2.1190%
-    CAP 2018 (C)               No screening / usual care       4459/219439  = 2.0320%
-    ProScreen 2024 (I)         Biomarker -> MRI                 172/15201   = 1.1315%
-    ProScreen 2024 (C)         No screening / usual care        282/45544   = 0.6192%
-    PROBASE 2022 (I)           PSA                               33/23341   = 0.1414%
-    PROBASE 2022 (C)           PSA                                0/23301   = 0.0000%
-    STHLM3-MRI 2021 (I)        Biomarker -> MRI                 192/7609    = 2.5233%
-    STHLM3-MRI 2021 (C)        PSA                              106/5134    = 2.0647%
-    MVP 2022 (I)               MRI-first                         11/259     = 4.2471%
-    MVP 2022 (C)               PSA                                4/266     = 1.5038%
-    GOTEBORG-2 2024 (I)        PSA -> MRI                       117/6575    = 1.7795%
-    GOTEBORG-2 2024 (C)        PSA -> MRI                       139/6578    = 2.1131%
-    PROSA 2026 (I)             MRI-first                         17/374     = 4.5455%
-    PROSA 2026 (C)             PSA -> MRI                         7/385     = 1.8182%
-
---- 3.2 RRs excluding PROBASE (delayed-screening comparator; control csPCa = 0 inferred) ---
-==============================================================================
-3.2 GG1 detection RR - PROBASE excluded
-==============================================================================
-k = 8 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.098 (95% CI 0.583 to 2.068), p = 0.7379
-  Heterogeneity: Cochran's Q = 384.25, df = 7, p = < 1e-04; I2 = 98.2%; tau2 = 0.1345  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=4  RR = 1.668 (1.118 to 2.488)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 0.563 (0.152 to 2.081)
-    Test for subgroup differences: Q = 6.39, df = 1, p = 0.01146
+k = 3 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.718 (95% CI 0.817 to 3.611), p = 0.08857
+  Heterogeneity: Cochran's Q = 208.84, df = 2, p = < 1e-04; I2 = 99.0%; tau2 = 0.1584  ** significant heterogeneity **
+  95% prediction interval: 0.233 to 12.648
   Per-trial risk ratios:
     ERSPC 2009               4325/72890   vs   2360/89353     RR = 2.247 (2.139 to 2.360)
     PLCO 2009                2269/38343   vs   1793/38350     RR = 1.266 (1.192 to 1.344)
-    CAP 2018                 3263/189386  vs   2440/219439    RR = 1.550 (1.471 to 1.632)
     ProScreen 2024             39/15201   vs     65/45544     RR = 1.798 (1.209 to 2.673)
-    STHLM3-MRI 2021            34/7609    vs     73/5134      RR = 0.314 (0.210 to 0.471)
-    MVP 2022                    4/259     vs      4/266       RR = 1.027 (0.260 to 4.063)
-    GOTEBORG-2 2024            68/6575    vs    159/6578      RR = 0.428 (0.323 to 0.567)
-    PROSA 2026                  9/374     vs      4/385       RR = 2.316 (0.719 to 7.456)
 ==============================================================================
-3.2 csPCa detection RR - PROBASE excluded
+excluding CAP - GG1 AMONG ALL DETECTED PROSTATE CANCERS
 ==============================================================================
-k = 8 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.138 (95% CI 0.902 to 1.436), p = 0.2305
-  Heterogeneity: Cochran's Q = 46.99, df = 7, p = < 1e-04; I2 = 85.1%; tau2 = 0.0167  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=4  RR = 1.138 (0.755 to 1.716)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 1.292 (0.571 to 2.925)
-    Test for subgroup differences: Q = 0.19, df = 1, p = 0.66
-  Per-trial risk ratios:
-    ERSPC 2009               1665/72890   vs   1947/89353     RR = 1.048 (0.983 to 1.118)
-    PLCO 2009                1104/38343   vs   1120/38350     RR = 0.986 (0.908 to 1.070)
-    CAP 2018                 4013/189386  vs   4459/219439    RR = 1.043 (1.000 to 1.088)
-    ProScreen 2024            172/15201   vs    282/45544     RR = 1.827 (1.513 to 2.207)
-    STHLM3-MRI 2021           192/7609    vs    106/5134      RR = 1.222 (0.967 to 1.545)
-    MVP 2022                   11/259     vs      4/266       RR = 2.824 (0.911 to 8.756)
-    GOTEBORG-2 2024           117/6575    vs    139/6578      RR = 0.842 (0.660 to 1.074)
-    PROSA 2026                 17/374     vs      7/385       RR = 2.500 (1.049 to 5.959)
-==============================================================================
-3.2 any PCa detection RR - PROBASE excluded
-==============================================================================
-k = 8 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.232 (95% CI 0.863 to 1.760), p = 0.2084
-  Heterogeneity: Cochran's Q = 355.34, df = 7, p = < 1e-04; I2 = 98.0%; tau2 = 0.0594  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=4  RR = 1.432 (0.979 to 2.096)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 1.060 (0.391 to 2.874)
-    Test for subgroup differences: Q = 0.81, df = 1, p = 0.3693
-  Per-trial risk ratios:
-    ERSPC 2009               5990/72890   vs   4307/89353     RR = 1.705 (1.641 to 1.771)
-    PLCO 2009                3452/38343   vs   2974/38350     RR = 1.161 (1.108 to 1.217)
-    CAP 2018                 8054/189386  vs   7853/219439    RR = 1.188 (1.153 to 1.225)
-    ProScreen 2024            219/15201   vs    355/45544     RR = 1.848 (1.563 to 2.185)
-    STHLM3-MRI 2021           226/7609    vs    179/5134      RR = 0.852 (0.702 to 1.033)
-    MVP 2022                   15/259     vs      8/266       RR = 1.926 (0.831 to 4.464)
-    GOTEBORG-2 2024           185/6575    vs    298/6578      RR = 0.621 (0.519 to 0.744)
-    PROSA 2026                 26/374     vs     11/385       RR = 2.433 (1.220 to 4.853)
-==============================================================================
-3.2 GG1 share of detected PCa RR - PROBASE excluded
-==============================================================================
-k = 8 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 0.980 (95% CI 0.696 to 1.382), p = 0.8954
-  Heterogeneity: Cochran's Q = 140.33, df = 7, p = < 1e-04; I2 = 95.0%; tau2 = 0.0228  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=4  RR = 1.210 (0.998 to 1.468)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 0.567 (0.302 to 1.064)
-    Test for subgroup differences: Q = 13.42, df = 1, p = 0.0002486
+k = 3 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.162 (95% CI 0.820 to 1.648), p = 0.2052
+  Heterogeneity: Cochran's Q = 58.67, df = 2, p = < 1e-04; I2 = 96.6%; tau2 = 0.0176  ** significant heterogeneity **
+  95% prediction interval: 0.587 to 2.300
   Per-trial risk ratios:
     ERSPC 2009               4325/5990    vs   2360/4307      RR = 1.318 (1.277 to 1.360)
     PLCO 2009                2269/3452    vs   1793/2974      RR = 1.090 (1.050 to 1.132)
-    CAP 2018                 3263/8054    vs   2440/7853      RR = 1.304 (1.250 to 1.360)
     ProScreen 2024             39/219     vs     65/355       RR = 0.973 (0.679 to 1.393)
-    STHLM3-MRI 2021            34/226     vs     73/179       RR = 0.369 (0.258 to 0.527)
-    MVP 2022                    4/15      vs      4/8         RR = 0.533 (0.180 to 1.584)
-    GOTEBORG-2 2024            68/185     vs    159/298       RR = 0.689 (0.555 to 0.856)
-    PROSA 2026                  9/26      vs      4/11        RR = 0.952 (0.371 to 2.445)
-
---- 3.3 RRs excluding ERSPC (Gleason counts back-calculated from reported percentages) ---
 ==============================================================================
-3.3 GG1 detection RR - ERSPC excluded
+excluding CAP - GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT
 ==============================================================================
-k = 8 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.015 (95% CI 0.510 to 2.019), p = 0.9603
-  Heterogeneity: Cochran's Q = 152.00, df = 7, p = < 1e-04; I2 = 95.4%; tau2 = 0.1065  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=4  RR = 1.496 (0.955 to 2.343)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 0.563 (0.152 to 2.081)
-    Test for subgroup differences: Q = 5.06, df = 1, p = 0.02444
-  Per-trial risk ratios:
-    PLCO 2009                2269/38343   vs   1793/38350     RR = 1.266 (1.192 to 1.344)
-    CAP 2018                 3263/189386  vs   2440/219439    RR = 1.550 (1.471 to 1.632)
-    PROBASE 2022               15/23341   vs      2/23301     RR = 7.487 (1.712 to 32.736)
-    ProScreen 2024             39/15201   vs     65/45544     RR = 1.798 (1.209 to 2.673)
-    STHLM3-MRI 2021            34/7609    vs     73/5134      RR = 0.314 (0.210 to 0.471)
-    MVP 2022                    4/259     vs      4/266       RR = 1.027 (0.260 to 4.063)
-    GOTEBORG-2 2024            68/6575    vs    159/6578      RR = 0.428 (0.323 to 0.567)
-    PROSA 2026                  9/374     vs      4/385       RR = 2.316 (0.719 to 7.456)
-==============================================================================
-3.3 csPCa detection RR - ERSPC excluded
-==============================================================================
-k = 8 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.213 (95% CI 0.843 to 1.745), p = 0.2493
-  Heterogeneity: Cochran's Q = 55.45, df = 7, p = < 1e-04; I2 = 87.4%; tau2 = 0.0372  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=4  RR = 1.238 (0.570 to 2.687)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 1.292 (0.571 to 2.925)
-    Test for subgroup differences: Q = 0.01, df = 1, p = 0.9035
-  Per-trial risk ratios:
-    PLCO 2009                1104/38343   vs   1120/38350     RR = 0.986 (0.908 to 1.070)
-    CAP 2018                 4013/189386  vs   4459/219439    RR = 1.043 (1.000 to 1.088)
-    PROBASE 2022               33/23341   vs      0/23301     RR = 66.885 (4.098 to 1091.529)
-    ProScreen 2024            172/15201   vs    282/45544     RR = 1.827 (1.513 to 2.207)
-    STHLM3-MRI 2021           192/7609    vs    106/5134      RR = 1.222 (0.967 to 1.545)
-    MVP 2022                   11/259     vs      4/266       RR = 2.824 (0.911 to 8.756)
-    GOTEBORG-2 2024           117/6575    vs    139/6578      RR = 0.842 (0.660 to 1.074)
-    PROSA 2026                 17/374     vs      7/385       RR = 2.500 (1.049 to 5.959)
-
---- 3.4 RRs with MVP and PROSA on randomized (not analysed) denominators ---
-==============================================================================
-3.4 GG1 detection RR - MVP/PROSA randomized denominators
-==============================================================================
-k = 9 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.167 (95% CI 0.620 to 2.194), p = 0.5887
-  Heterogeneity: Cochran's Q = 388.26, df = 8, p = < 1e-04; I2 = 97.9%; tau2 = 0.1355  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=5  RR = 1.756 (1.085 to 2.842)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 0.563 (0.152 to 2.081)
-    Test for subgroup differences: Q = 6.51, df = 1, p = 0.01073
-  Per-trial risk ratios:
-    ERSPC 2009               4325/72890   vs   2360/89353     RR = 2.247 (2.139 to 2.360)
-    PLCO 2009                2269/38343   vs   1793/38350     RR = 1.266 (1.192 to 1.344)
-    CAP 2018                 3263/189386  vs   2440/219439    RR = 1.550 (1.471 to 1.632)
-    PROBASE 2022               15/23341   vs      2/23301     RR = 7.487 (1.712 to 32.736)
-    ProScreen 2024             39/15201   vs     65/45544     RR = 1.798 (1.209 to 2.673)
-    STHLM3-MRI 2021            34/7609    vs     73/5134      RR = 0.314 (0.210 to 0.471)
-    MVP 2022                    4/259     vs      4/266       RR = 1.027 (0.260 to 4.063)
-    GOTEBORG-2 2024            68/6575    vs    159/6578      RR = 0.428 (0.323 to 0.567)
-    PROSA 2026                  9/374     vs      4/385       RR = 2.316 (0.719 to 7.456)
-==============================================================================
-3.4 csPCa detection RR - MVP/PROSA randomized denominators
-==============================================================================
-k = 9 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
-  Pooled RR = 1.153 (95% CI 0.886 to 1.499), p = 0.2479
-  Heterogeneity: Cochran's Q = 55.48, df = 8, p = < 1e-04; I2 = 85.6%; tau2 = 0.0198  ** significant heterogeneity **
-  Subgroup estimates (random effects):
-    A. Screening invitation vs no screening / usual care    k=5  RR = 1.156 (0.756 to 1.768)
-    B. Diagnostic / biopsy strategy (both arms screened)    k=4  RR = 1.292 (0.571 to 2.925)
-    Test for subgroup differences: Q = 0.14, df = 1, p = 0.7109
+k = 3 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.209 (95% CI 0.534 to 2.735), p = 0.4234
+  Heterogeneity: Cochran's Q = 35.08, df = 2, p = < 1e-04; I2 = 94.3%; tau2 = 0.0385  ** significant heterogeneity **
+  95% prediction interval: 0.451 to 3.242
   Per-trial risk ratios:
     ERSPC 2009               1665/72890   vs   1947/89353     RR = 1.048 (0.983 to 1.118)
     PLCO 2009                1104/38343   vs   1120/38350     RR = 0.986 (0.908 to 1.070)
-    CAP 2018                 4013/189386  vs   4459/219439    RR = 1.043 (1.000 to 1.088)
-    PROBASE 2022               33/23341   vs      0/23301     RR = 66.885 (4.098 to 1091.529)
     ProScreen 2024            172/15201   vs    282/45544     RR = 1.827 (1.513 to 2.207)
-    STHLM3-MRI 2021           192/7609    vs    106/5134      RR = 1.222 (0.967 to 1.545)
-    MVP 2022                   11/259     vs      4/266       RR = 2.824 (0.911 to 8.756)
-    GOTEBORG-2 2024           117/6575    vs    139/6578      RR = 0.842 (0.660 to 1.074)
-    PROSA 2026                 17/374     vs      7/385       RR = 2.500 (1.049 to 5.959)
+==============================================================================
+excluding CAP - GG>=2 AMONG ALL DETECTED PROSTATE CANCERS
+==============================================================================
+k = 3 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 0.801 (95% CI 0.438 to 1.464), p = 0.2541
+  Heterogeneity: Cochran's Q = 106.59, df = 2, p = < 1e-04; I2 = 98.1%; tau2 = 0.0618  ** significant heterogeneity **
+  95% prediction interval: 0.232 to 2.764
+  Per-trial risk ratios:
+    ERSPC 2009               1665/5990    vs   1947/4307      RR = 0.615 (0.583 to 0.648)
+    PLCO 2009                1104/3452    vs   1120/2974      RR = 0.849 (0.794 to 0.908)
+    ProScreen 2024            172/219     vs    282/355       RR = 0.989 (0.906 to 1.079)
+  Skipping GG1 among participants biopsied: no trial reports both arms.
+  Skipping GG>=2 among participants biopsied: no trial reports both arms.
 
---- 3.5 Continuity-correction sensitivity, csPCa RR (single zero cell: PROBASE control) ---
-  incr = 0.1 : overall RR = 1.142 (0.906 to 1.440); family A RR = 1.143 (0.802 to 1.630)
-  incr = 0.5 : overall RR = 1.153 (0.886 to 1.499); family A RR = 1.156 (0.756 to 1.768)
-  incr = 1.0 : overall RR = 1.162 (0.877 to 1.539); family A RR = 1.167 (0.733 to 1.860)
+--- 3.2 Invitation-family RRs excluding ERSPC ---
+==============================================================================
+excluding ERSPC - GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT
+==============================================================================
+k = 3 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.336 (95% CI 1.071 to 1.666), p = 0.02996
+  Heterogeneity: Cochran's Q = 6.32, df = 2, p = 0.04243; I2 = 68.4%; tau2 = 0.0031  ** significant heterogeneity **
+  95% prediction interval: 0.988 to 1.806
+  Per-trial risk ratios:
+    PLCO 2009                2269/38343   vs   1793/38350     RR = 1.266 (1.192 to 1.344)
+    CAP 2024                 4111/189326  vs   3482/219395    RR = 1.368 (1.308 to 1.431)
+    ProScreen 2024             39/15201   vs     65/45544     RR = 1.798 (1.209 to 2.673)
+==============================================================================
+excluding ERSPC - GG1 AMONG ALL DETECTED PROSTATE CANCERS
+==============================================================================
+k = 3 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.152 (95% CI 0.862 to 1.541), p = 0.1707
+  Heterogeneity: Cochran's Q = 33.61, df = 2, p = < 1e-04; I2 = 94.0%; tau2 = 0.0115  ** significant heterogeneity **
+  95% prediction interval: 0.660 to 2.013
+  Per-trial risk ratios:
+    PLCO 2009                2269/3452    vs   1793/2974      RR = 1.090 (1.050 to 1.132)
+    CAP 2024                 4111/12013   vs   3482/12958     RR = 1.274 (1.226 to 1.322)
+    ProScreen 2024             39/219     vs     65/355       RR = 0.973 (0.679 to 1.393)
+==============================================================================
+excluding ERSPC - GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT
+==============================================================================
+k = 3 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.167 (95% CI 0.489 to 2.786), p = 0.5238
+  Heterogeneity: Cochran's Q = 43.36, df = 2, p = < 1e-04; I2 = 95.4%; tau2 = 0.0350  ** significant heterogeneity **
+  95% prediction interval: 0.456 to 2.992
+  Per-trial risk ratios:
+    PLCO 2009                1104/38343   vs   1120/38350     RR = 0.986 (0.908 to 1.070)
+    CAP 2024                 6649/189326  vs   8019/219395    RR = 0.961 (0.931 to 0.992)
+    ProScreen 2024            172/15201   vs    282/45544     RR = 1.827 (1.513 to 2.207)
+==============================================================================
+excluding ERSPC - GG>=2 AMONG ALL DETECTED PROSTATE CANCERS
+==============================================================================
+k = 3 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 0.902 (95% CI 0.759 to 1.073), p = 0.1251
+  Heterogeneity: Cochran's Q = 7.37, df = 2, p = 0.02511; I2 = 72.9%; tau2 = 0.0022  ** significant heterogeneity **
+  95% prediction interval: 0.706 to 1.153
+  Per-trial risk ratios:
+    PLCO 2009                1104/3452    vs   1120/2974      RR = 0.849 (0.794 to 0.908)
+    CAP 2024                 6649/12013   vs   8019/12958     RR = 0.894 (0.876 to 0.913)
+    ProScreen 2024            172/219     vs    282/355       RR = 0.989 (0.906 to 1.079)
+  Skipping GG1 among participants biopsied: no trial reports both arms.
+  Skipping GG>=2 among participants biopsied: no trial reports both arms.
+
+--- 3.3 Diagnostic-family detection RRs using assessed denominators ---
+==============================================================================
+MVP/PROSA assessed denominators - GG1 DETECTION PER RANDOMIZED/INVITED PARTICIPANT
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 0.562 (95% CI 0.152 to 2.082), p = 0.2561
+  Heterogeneity: Cochran's Q = 11.81, df = 3, p = 0.008071; I2 = 74.6%; tau2 = 0.2274  ** significant heterogeneity **
+  95% prediction interval: 0.093 to 3.399
+  Per-trial risk ratios:
+    STHLM3-MRI 2021            34/7609    vs     73/5134      RR = 0.314 (0.210 to 0.471)
+    MVP 2022                    4/246     vs      4/248       RR = 1.008 (0.255 to 3.986)
+    GOTEBORG-2 2024            68/6575    vs    159/6578      RR = 0.428 (0.323 to 0.567)
+    PROSA 2026                  9/369     vs      4/383       RR = 2.335 (0.725 to 7.518)
+==============================================================================
+MVP/PROSA assessed denominators - GG>=2 DETECTION PER RANDOMIZED/INVITED PARTICIPANT
+==============================================================================
+k = 4 trials | model: random effects, inverse variance, DL tau, Hartung-Knapp CI
+  Pooled RR = 1.291 (95% CI 0.572 to 2.913), p = 0.3922
+  Heterogeneity: Cochran's Q = 11.41, df = 3, p = 0.00972; I2 = 73.7%; tau2 = 0.1065  ** significant heterogeneity **
+  95% prediction interval: 0.373 to 4.461
+  Per-trial risk ratios:
+    STHLM3-MRI 2021           192/7609    vs    106/5134      RR = 1.222 (0.967 to 1.545)
+    MVP 2022                   11/246     vs      4/248       RR = 2.772 (0.895 to 8.588)
+    GOTEBORG-2 2024           117/6575    vs    139/6578      RR = 0.842 (0.660 to 1.074)
+    PROSA 2026                 17/369     vs      7/383       RR = 2.521 (1.058 to 6.008)
+
+--- 3.4 PROBASE GG>=2 continuity-correction sensitivity (all-cell rule) ---
+  incr = 0.1 : PROBASE RR = 330.433 (0.666 to 164009.952)
+  incr = 0.5 : PROBASE RR = 66.885 (4.098 to 1091.529)
+  incr = 1.0 : PROBASE RR = 33.942 (4.647 to 247.929)
 ==============================================================================
 PART 4. PUBLICATION BIAS
 ==============================================================================
 The protocol restricts publication-bias assessment (Peters' regression and
 funnel plots) to analyses containing 10 or more studies. The largest
-comparative analysis here contains k = 9 trials, and every strategy
-subgroup contains fewer still. Publication bias was therefore NOT assessed,
+reported pooled analysis here contains k = 5 studies, and every model
+contains fewer than 10 studies. Publication bias was therefore NOT assessed,
 and small-study effects cannot be excluded.
 ==============================================================================
 SESSION INFO

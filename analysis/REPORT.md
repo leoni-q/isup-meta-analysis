@@ -1,262 +1,295 @@
-# Meta-analysis results
+# Meta-analysis technical report
 
 **Evolution of ISUP Grade Group 1 Detection Across Prostate Cancer Screening Strategies**
 
-Analysis performed per `protocol.md` §8 (Statistical Analysis) and §9 (Data Synthesis).
-R 4.6.0, `meta` 8.5.0, `metafor` 5.0.1. Script: [meta_analysis.R](meta_analysis.R).
-Full numeric output: [output/results.txt](output/results.txt).
+Analysis: [meta_analysis.R](meta_analysis.R) · Numeric log:
+[output/results.txt](output/results.txt) · Source:
+[primary-outcome table](../Prostate%20Cancer%20Screening%20-%20Table%203.%20Primary%20outcome%20data%20used%20in%20the%20main%20meta-analysis.csv)
+
+R 4.6.0; `meta` 8.5.0; `metafor` 5.0.1.
+
+## 1. Data and analysis units
+
+The extraction contains nine randomized trials and 18 arms. Comparative models
+use paired randomized arms; proportion models use 16 study-strategy units.
+
+| Cohort | Included trials | Use |
+| --- | --- | --- |
+| Screening invitation vs no organised screening | ERSPC, PLCO, CAP, ProScreen | Pooled comparative RRs |
+| Diagnostic/biopsy strategy; both arms screened | STHLM3-MRI, MVP, GÖTEBORG-2, PROSA | Pooled comparative RRs |
+| Timing of screening initiation | PROBASE | Standalone estimate |
+
+GÖTEBORG-2 arms assigned to the same broad `PSA → MRI` category are combined.
+Different strategies within a trial remain separate. PROBASE contributes only
+its immediate PSA arm to strategy proportions. Its delayed comparator included
+6,537 DRE assessments and two cancers, but no coherent PSA-screened denominator
+at this endpoint.
+
+CAP randomized 573 practices. No ICC or cluster-adjusted grade-specific variance
+was available, so its confidence intervals and weights are unadjusted; all
+invitation-family outcomes are also analyzed without CAP.
+
+### Grade-yield inputs
+
+`NR` denotes no coherent reported denominator.
+
+| Trial | GG1 / biopsied, I | GG1 / biopsied, C | GG≥2 / biopsied, I | GG≥2 / biopsied, C |
+| --- | ---: | ---: | ---: | ---: |
+| ERSPC | 4,325 / 17,543 (24.7%) | NR | 1,665 / 17,543 (9.5%) | NR |
+| PLCO | NR | NR | NR | NR |
+| CAP | NR | NR | NR | NR |
+| ProScreen | 39 / 262 (14.9%) | NR | 172 / 262 (65.6%) | NR |
+| PROBASE | 15 / 120 (12.5%) | 2 / 37 (5.4%) | 33 / 120 (27.5%) | 0 / 37 (0.0%) |
+| STHLM3-MRI | 34 / 311 (10.9%) | 73 / 438 (16.7%) | 192 / 331 (58.0%) | 106 / 438 (24.2%) |
+| MVP | 4 / 24 (16.7%) | 4 / 28 (14.3%) | 11 / 24 (45.8%) | 4 / 28 (14.3%) |
+| GÖTEBORG-2 | 68 / 254 (26.8%) | 159 / 588 (27.0%) | 117 / 254 (46.1%) | 139 / 588 (23.6%) |
+| PROSA | 9 / 40 (22.5%) | 4 / 20 (20.0%) | 17 / 40 (42.5%) | 7 / 20 (35.0%) |
+
+| Trial | GG≥2 / all detected cancers, I | GG≥2 / all detected cancers, C |
+| --- | ---: | ---: |
+| ERSPC | 1,665 / 5,990 (27.8%) | 1,947 / 4,307 (45.2%) |
+| PLCO | 1,104 / 3,452 (32.0%) | 1,120 / 2,974 (37.7%) |
+| CAP | 6,649 / 12,013 (55.3%) | 8,019 / 12,958 (61.9%) |
+| ProScreen | 172 / 219 (78.5%) | 282 / 355 (79.4%) |
+| PROBASE | 33 / 48 (68.8%) | 0 / 2 (0.0%) |
+| STHLM3-MRI | 192 / 226 (85.0%) | 106 / 179 (59.2%) |
+| MVP | 11 / 15 (73.3%) | 4 / 8 (50.0%) |
+| GÖTEBORG-2 | 117 / 185 (63.2%) | 139 / 298 (46.6%) |
+| PROSA | 17 / 26 (65.4%) | 7 / 11 (63.6%) |
+
+CAP is excluded from grade-per-biopsy analyses because its 5,848 biopsies concern
+the first screening round, while grade counts are cumulative over 15 years.
+STHLM3-MRI reports intervention GG≥2 as `192/331`, although its general biopsy
+count is 311; the outcome-specific denominator is retained.
 
----
+## 2. Analysis specification
 
-## 1. Included data
+- Detection-rate RRs and proportions use randomized/invited denominators.
+- Cancer-grade composition uses all detected prostate cancers.
+- Biopsy yield uses outcome-specific biopsy denominators.
+- Biopsy use is expressed per screened/assessed participant.
+- Invitation and diagnostic-strategy cohorts are fitted separately.
+- Strategy proportions are fitted separately and are not head-to-head comparisons.
+- A comparative biopsy-yield RR requires usable denominators in both arms.
+
+Models:
 
-Nine randomized trials, 18 arms, 782,328 men randomized/invited. All nine parse
-internally consistently: ISUP GG1 + ISUP ≥2 ≤ any PCa in every arm, and the
-reported "GG1 / any PCa" percentages reproduce exactly from the component counts.
+- Risk ratios: inverse-variance random effects, DerSimonian–Laird variance,
+  Hartung–Knapp confidence intervals, and a 0.5 all-cell correction for zero cells.
+- Proportions: random-effects logit-normal GLMMs; exact binomial intervals for
+  single-study groups.
+- Prediction intervals are reported for models with at least three studies.
+- Leave-one-out analysis omits each eligible contribution once within its cohort
+  or strategy.
 
-The trials divide into two contrast families, which are **never pooled into a single
-interpreted estimate** (protocol §8/§9; also required by the PROSA extraction note):
+## 3. Comparative risk ratios
+
+### 3.1 GG1 detection per randomized/invited participant
+
+| Cohort | k | RR (95% CI) | I² | 95% prediction interval |
+| --- | ---: | ---: | ---: | ---: |
+| Invitation vs usual care | 4 | 1.614 (1.049–2.483) | 99.0% | 0.533–4.887 |
+| Diagnostic/biopsy strategy | 4 | 0.563 (0.152–2.081) | 74.6% | 0.093–3.397 |
+| PROBASE timing contrast | 1 | 7.487 (1.712–32.736) | — | — |
 
+<!-- figures: fig1_rr_gg1_detection -->
 
-| Family | Trials                                                        | Contrast                                          |
-| ------ | ------------------------------------------------------------- | ------------------------------------------------- |
-| **A**  | ERSPC 2009, PLCO 2009, CAP 2018, PROBASE 2022, ProScreen 2024 | Screening invitation vs no screening / usual care |
-| **B**  | STHLM3-MRI 2021, MVP 2022, GÖTEBORG-2 2024, PROSA 2026        | Diagnostic / biopsy strategy, both arms screened  |
+### 3.2 GG1 among all detected prostate cancers
+
+| Cohort | k | RR (95% CI) | I² | 95% prediction interval |
+| --- | ---: | ---: | ---: | ---: |
+| Invitation vs usual care | 4 | 1.204 (1.003–1.444) | 95.2% | 0.840–1.725 |
+| Diagnostic/biopsy strategy | 4 | 0.567 (0.302–1.064) | 68.9% | 0.152–2.113 |
+| PROBASE timing contrast | 1 | 0.380 (0.198–0.729) | — | — |
 
+<!-- figures: fig2_rr_gg1_share_of_pca -->
 
-Arms were classified by **the triage test that triggers work-up**:
+### 3.3 GG≥2 detection per randomized/invited participant
 
+| Cohort | k | RR (95% CI) | I² | 95% prediction interval |
+| --- | ---: | ---: | ---: | ---: |
+| Invitation vs usual care | 4 | 1.117 (0.721–1.732) | 93.6% | 0.692–1.802 |
+| Diagnostic/biopsy strategy | 4 | 1.292 (0.571–2.925) | 73.8% | 0.373–4.475 |
+| PROBASE timing contrast | 1 | 66.885 (4.098–1091.529) | — | — |
 
-| Strategy                  | Arms (k)                                                  |
-| ------------------------- | --------------------------------------------------------- |
-| No screening / usual care | ERSPC-C, PLCO-C, CAP-C, ProScreen-C (4)                   |
-| PSA + DRE                 | PLCO-I (1)                                                |
-| PSA                       | ERSPC-I, CAP-I, PROBASE-I, PROBASE-C, STHLM3-C, MVP-C (6) |
-| PSA → MRI                 | GÖTEBORG-2-I, GÖTEBORG-2-C, PROSA-C (3)                   |
-| Biomarker → MRI           | ProScreen-I, STHLM3-I (2)                                 |
-| MRI-first                 | MVP-I, PROSA-I (2)                                        |
+The PROBASE comparator has zero inferred GG≥2 events; continuity-correction
+sensitivity is reported below.
 
+<!-- figures: fig3_rr_gg2plus_detection -->
 
----
+### 3.4 GG≥2 among all detected prostate cancers
 
+| Trial | Intervention strategy: GG≥2 / all cancers | Comparator strategy: GG≥2 / all cancers | Trial RR |
+| --- | ---: | ---: | ---: |
+| STHLM3-MRI | Biomarker → MRI: 192/226 (85.0%) | PSA: 106/179 (59.2%) | 1.435 |
+| MVP | MRI-first: 11/15 (73.3%) | PSA: 4/8 (50.0%) | 1.467 |
+| GÖTEBORG-2 | MRI-targeted only: 117/185 (63.2%) | Systematic ± targeted: 139/298 (46.6%) | 1.356 |
+| PROSA | MRI-first: 17/26 (65.4%) | PSA-triggered MRI: 7/11 (63.6%) | 1.027 |
 
+For STHLM3-MRI, 85.0% / 59.2% gives RR 1.435. The pooled RR is 1.388,
+equivalent to a 38.8% higher GG≥2 share among detected cancers.
 
-## 2. Primary outcome — ISUP GG1 detection
+| Cohort | k | RR (95% CI) | I² | 95% prediction interval |
+| --- | ---: | ---: | ---: | ---: |
+| Invitation vs usual care | 4 | 0.823 (0.594–1.141) | 98.3% | 0.409–1.659 |
+| Diagnostic/biopsy strategy | 4 | 1.388 (1.233–1.563) | 0.0% | 1.179–1.634 |
+| PROBASE timing contrast | 1 | 4.102 (0.324–51.881) | — | — |
 
+<!-- figures: fig4_rr_gg2plus_share_of_pca -->
 
+### 3.5 GG1 among participants biopsied
 
-### 2.1 Comparative (risk ratios, ITT denominators) — Figure 1
+| Cohort | k | RR (95% CI) | I² | 95% prediction interval |
+| --- | ---: | ---: | ---: | ---: |
+| Diagnostic/biopsy strategy | 4 | 0.878 (0.601–1.281) | 16.2% | 0.512–1.504 |
+| PROBASE timing contrast | 1 | 2.313 (0.554–9.650) | — | — |
 
-Random effects, inverse variance, DerSimonian–Laird τ, Hartung–Knapp CI, 0.5 correction for zero cells.
+<!-- figures: fig5_rr_gg1_per_biopsy -->
 
+### 3.6 GG≥2 among participants biopsied
 
-| Family                              | k   | RR (95% CI)                     |
-| ----------------------------------- | --- | ------------------------------- |
-| **A. Invitation vs no screening**   | 5   | **1.76 (1.09 – 2.84)**          |
-| **B. Diagnostic / biopsy strategy** | 4   | **0.56 (0.15 – 2.08)**          |
-| Test for subgroup differences       |     | Q = 6.51, df = 1, **p = 0.011** |
+| Cohort | k | RR (95% CI) | I² | 95% prediction interval |
+| --- | ---: | ---: | ---: | ---: |
+| Diagnostic/biopsy strategy | 4 | 2.094 (1.421–3.087) | 44.5% | 1.175–3.732 |
+| PROBASE timing contrast | 1 | 21.041 (1.320–335.297) | — | — |
 
+No invitation-family biopsy-yield RR is estimable.
 
-Inviting men to screening increases GG1 detection by roughly three quarters
-(all five family-A trials point the same way: RR 1.27 to 7.49). Within already-screened
-populations, modern pathways point toward *reduced* GG1 detection, but the estimate
-is imprecise and directionally inconsistent (STHLM3-MRI 0.31 and GÖTEBORG-2 0.43 vs
-PROSA 2.32 and MVP 1.03) — the two large trials drive the reduction, the two small
-ones oppose it. The families differ significantly.
+<!-- figures: fig6_rr_gg2plus_per_biopsy -->
 
-Heterogeneity is extreme throughout: overall Q = 388.3, df = 8, p < 0.0001, I² = 97.9%.
-Leave-one-out: family-level conclusions hold; no single trial drives the family-A result
-(omitting ERSPC gives the largest shift, overall RR 1.17 → 1.02).
+## 4. Proportions by screening strategy
 
-### 2.2 Grade mix — GG1 as a share of all detected cancers — Figure 4
+These are separate descriptive models, not randomized head-to-head comparisons.
+`k` is the number of study-strategy units.
 
-This is the more comparable outcome, because it is internally normalized within each
-trial and so is not distorted by differences in follow-up duration, screening rounds, or age.
+### 4.1 GG1 per randomized/invited participant
 
+| Strategy | k | Proportion (95% CI) | I² |
+| --- | ---: | ---: | ---: |
+| No screening / usual care | 4 | 1.309% (0.355–4.706) | 99.8% |
+| PSA + DRE | 1 | 5.918% (5.684–6.159) | — |
+| PSA | 5 | 1.112% (0.287–4.217) | 99.8% |
+| PSA → MRI | 2 | 1.706% (1.501–1.939) | 2.9% |
+| Biomarker → MRI | 2 | 0.332% (0.226–0.487) | 82.2% |
+| MRI-first | 2 | 2.054% (1.196–3.504) | 0.0% |
 
-| Family                              | k   | RR (95% CI)            | Excluding PROBASE      |
-| ----------------------------------- | --- | ---------------------- | ---------------------- |
-| A. Invitation vs no screening       | 5   | 1.08 (0.64 – 1.82)     | **1.21 (1.00 – 1.47)** |
-| **B. Diagnostic / biopsy strategy** | 4   | **0.57 (0.30 – 1.06)** | 0.57 (0.30 – 1.06)     |
-| Subgroup difference                 |     | p = 0.019              | p = 0.00025            |
+<!-- figures: fig7_prop_gg1_per_randomized -->
 
+### 4.2 GG1 among all detected prostate cancers
 
-Screening invitation shifts the detected-cancer mix *toward* low grade (ERSPC 1.32,
-CAP 1.30, PLCO 1.09 — all significant). Modern diagnostic pathways shift it *away*
-from low grade by about 43% relative, just short of conventional significance.
+| Strategy | k | Proportion (95% CI) | I² |
+| --- | ---: | ---: | ---: |
+| No screening / usual care | 4 | 38.549% (22.295–57.834) | 99.8% |
+| PSA + DRE | 1 | 65.730% (64.120–67.314) | — |
+| PSA | 5 | 45.788% (31.125–61.218) | 99.8% |
+| PSA → MRI | 2 | 46.761% (42.398–51.175) | 0.0% |
+| Biomarker → MRI | 2 | 16.405% (13.247–20.141) | 0.0% |
+| MRI-first | 2 | 31.707% (19.387–47.266) | 0.0% |
 
-### 2.3 Pooled proportions by strategy (GLMM) — Figures 6 and 8
+<!-- figures: fig8_prop_gg1_share_of_pca -->
 
-**GG1 as % of all detected prostate cancers** — the evolution signal:
+### 4.3 GG≥2 per randomized/invited participant
 
+| Strategy | k | Proportion (95% CI) | I² |
+| --- | ---: | ---: | ---: |
+| No screening / usual care | 4 | 1.958% (0.999–3.803) | 99.8% |
+| PSA + DRE | 1 | 2.879% (2.714–3.052) | — |
+| PSA | 5 | 1.271% (0.456–3.491) | 99.3% |
+| PSA → MRI | 2 | 1.943% (1.723–2.189) | 0.0% |
+| Biomarker → MRI | 2 | 1.689% (0.966–2.936) | 98.3% |
+| MRI-first | 2 | 4.423% (3.071–6.332) | 0.0% |
 
-| Strategy                    | k   | GG1 share of detected PCa (95% CI) |
-| --------------------------- | --- | ---------------------------------- |
-| PSA + DRE                   | 1   | 65.7% (64.1 – 67.3)                |
-| PSA                         | 6   | 49.4% (35.1 – 63.9)                |
-| PSA → MRI                   | 3   | 44.3% (33.9 – 55.2)                |
-| No screening / usual care   | 4   | 39.8% (23.8 – 58.4)                |
-| MRI-first                   | 2   | 31.7% (19.4 – 47.3)                |
-| Biomarker → MRI             | 2   | 16.4% (13.2 – 20.1)                |
-| Between-strategy difference |     | χ² = 325.0, df = 5, p < 0.0001     |
+<!-- figures: fig9_prop_gg2plus_per_randomized -->
 
+### 4.4 GG≥2 among all detected prostate cancers
 
-A clear gradient: roughly two thirds of screen-detected cancers were GG1 in the
-PSA + DRE era, about half under PSA alone, and one sixth to one third under
-biomarker- or MRI-triaged pathways. This is the quantitative backbone of the review's
-thesis. Heterogeneity within the two MRI/biomarker groups is nil (I² = 0%, Q p = 0.43
-and 0.60), so those two estimates are the most trustworthy in the table.
+| Strategy | k | Proportion (95% CI) | I² |
+| --- | ---: | ---: | ---: |
+| No screening / usual care | 4 | 56.901% (39.783–72.515) | 99.6% |
+| PSA + DRE | 1 | 31.982% (30.427–33.567) | — |
+| PSA | 5 | 51.494% (37.320–65.432) | 99.7% |
+| PSA → MRI | 2 | 53.239% (48.825–57.602) | 0.0% |
+| Biomarker → MRI | 2 | 81.858% (76.967–85.900) | 67.2% |
+| MRI-first | 2 | 68.293% (52.734–80.613) | 0.0% |
 
-**GG1 detection rate per man screened** (denominators = men actually screened where reported):
+<!-- figures: fig10_prop_gg2plus_share_of_pca -->
 
+### 4.5 GG1 among participants biopsied
 
-| Strategy                  | k   | GG1 per 100 screened (95% CI) |
-| ------------------------- | --- | ----------------------------- |
-| PSA + DRE                 | 1   | 6.96% (6.69 – 7.24)           |
-| MRI-first                 | 2   | 2.11% (1.23 – 3.61)           |
-| PSA → MRI                 | 3   | 1.46% (0.87 – 2.45)           |
-| No screening / usual care | 4   | 1.20% (0.33 – 4.30)           |
-| PSA                       | 6   | 0.60% (0.08 – 4.14)           |
-| Biomarker → MRI           | 2   | 0.48% (0.38 – 0.60)           |
+| Strategy | k | Proportion (95% CI) | I² |
+| --- | ---: | ---: | ---: |
+| PSA | 4 | 18.003% (13.108–24.217) | 87.9% |
+| PSA → MRI | 2 | 26.798% (23.947–29.856) | 0.0% |
+| Biomarker → MRI | 2 | 12.740% (10.250–15.728) | 49.6% |
+| MRI-first | 2 | 20.313% (12.177–31.910) | 0.0% |
 
+<!-- figures: fig11_prop_gg1_per_biopsy -->
 
-> **These per-screened rates should not be read as strategy effects.** The PSA group
-> has τ² = 5.90 and spans a 120-fold range (ERSPC-I 7.22% to PROBASE-I 0.06%), so its
-> pooled estimate of 0.60% lies *below almost every arm contributing to it* — a
-> mathematical artefact of logit-scale pooling under extreme heterogeneity, not a finding.
-> The dominant drivers are follow-up duration (9–10 years in ERSPC/PLCO/CAP vs a single
-> round elsewhere), number of screening rounds, and age at screening (45 in PROBASE),
-> not the screening strategy. Only the two homogeneous groups (Biomarker → MRI, I² = 0%;
-> MRI-first, I² = 0%) support direct interpretation.
+### 4.6 GG≥2 among participants biopsied
 
----
+| Strategy | k | Proportion (95% CI) | I² |
+| --- | ---: | ---: | ---: |
+| PSA | 4 | 17.665% (10.883–27.375) | 97.7% |
+| PSA → MRI | 2 | 30.510% (27.526–33.668) | 0.0% |
+| Biomarker → MRI | 2 | 61.613% (56.173–66.777) | 72.2% |
+| MRI-first | 2 | 43.750% (32.187–56.034) | 0.0% |
 
+<!-- figures: fig12_prop_gg2plus_per_biopsy -->
 
+### 4.7 Biopsies per screened/assessed participant
 
-## 3. Secondary outcomes
+| Strategy | k | Proportion (95% CI) | I² |
+| --- | ---: | ---: | ---: |
+| PSA | 5 | 6.811% (2.018–20.600) | 100.0% |
+| PSA → MRI | 2 | 6.368% (5.969–6.792) | 0.0% |
+| Biomarker → MRI | 2 | 3.724% (3.266–4.244) | 81.1% |
+| MRI-first | 2 | 10.407% (8.229–13.079) | 0.0% |
 
+This outcome uses screened/assessed rather than randomized/invited denominators.
+For ProScreen, the calculation is 262/7,744 (3.38%), not 262/15,201 (1.7%).
 
+<!-- figures: fig13_prop_biopsies_per_screened -->
 
-### 3.1 ISUP ≥2 (csPCa) detection — Figures 2 and 7
+## 5. Sensitivity analyses
 
+| Analysis | Outcome | k | Estimate (95% CI) |
+| --- | --- | ---: | ---: |
+| Invitation cohort excluding CAP | GG1 / randomized | 3 | RR 1.718 (0.817–3.611) |
+| Invitation cohort excluding CAP | GG1 / all cancers | 3 | RR 1.162 (0.820–1.648) |
+| Invitation cohort excluding CAP | GG≥2 / randomized | 3 | RR 1.209 (0.534–2.735) |
+| Invitation cohort excluding CAP | GG≥2 / all cancers | 3 | RR 0.801 (0.438–1.464) |
+| Invitation cohort excluding ERSPC | GG1 / randomized | 3 | RR 1.336 (1.071–1.666) |
+| Invitation cohort excluding ERSPC | GG1 / all cancers | 3 | RR 1.152 (0.862–1.541) |
+| Invitation cohort excluding ERSPC | GG≥2 / randomized | 3 | RR 1.168 (0.489–2.786) |
+| Invitation cohort excluding ERSPC | GG≥2 / all cancers | 3 | RR 0.902 (0.759–1.073) |
+| MVP/PROSA assessed denominators | GG1 / assessed | 4 | RR 0.562 (0.152–2.083) |
+| MVP/PROSA assessed denominators | GG≥2 / assessed | 4 | RR 1.291 (0.572–2.913) |
 
-| Family                          | k   | RR (95% CI)        |
-| ------------------------------- | --- | ------------------ |
-| A. Invitation vs no screening   | 5   | 1.16 (0.76 – 1.77) |
-| B. Diagnostic / biopsy strategy | 4   | 1.29 (0.57 – 2.93) |
-| Subgroup difference             |     | p = 0.71           |
+PROBASE standalone GG≥2 continuity-correction sensitivity:
 
+| Added value | RR (95% CI) |
+| ---: | ---: |
+| 0.1 | 330.433 (0.666–164009.952) |
+| 0.5 | 66.885 (4.098–1091.529) |
+| 1.0 | 33.942 (4.647–247.929) |
 
-No detectable difference in clinically significant cancer detection in either family, and
-no difference between families. Read alongside §2.1, this is the central asymmetry:
-screening invitation raised GG1 detection by ~76% while csPCa detection was essentially
-unchanged (RR 1.05, 0.99, 1.04 in ERSPC, PLCO, CAP respectively) — i.e. the excess
-detection was almost entirely low grade.
+## 6. Additional checks and limitations
 
-Pooled csPCa per 100 men screened: MRI-first 4.55% (3.16 – 6.52), PSA + DRE 3.39%,
-Biomarker → MRI 2.37% (2.14 – 2.62), PSA → MRI 1.94% (1.72 – 2.19), no screening 1.69%,
-PSA 0.47%. The same denominator caveat as §2.3 applies to the PSA and no-screening rows.
+The analysis generated 131 leave-one-out refits. Complete results are in
+[output/table3_leave_one_out.csv](output/table3_leave_one_out.csv).
 
-### 3.2 Biopsies performed — Figures 5 and 9
+Publication-bias analysis was not performed because the largest model contains
+five studies, below the protocol threshold of ten. Curative treatment,
+procedural harms, adverse events, RoB 2, and PRISMA flow were not analyzed.
 
-Comparative analysis is limited to the 5 trials reporting biopsies in **both** arms
-(ERSPC, CAP and ProScreen report the intervention arm only; PLCO reports neither):
+## 7. Output files
 
-
-| Family                          | k   | RR (95% CI)        |
-| ------------------------------- | --- | ------------------ |
-| A (PROBASE only)                | 1   | 3.24 (2.24 – 4.68) |
-| B. Diagnostic / biopsy strategy | 4   | 0.71 (0.24 – 2.15) |
-| Subgroup difference             |     | p = 0.00013        |
-
-
-Within family B the direction splits sharply by design: the two triage-tightening trials
-cut biopsies by more than half (STHLM3-MRI 0.48, GÖTEBORG-2 0.43) while the two
-MRI-first trials increased them (PROSA 2.06, MVP 0.88). Pooled biopsies per 100 men
-screened: MRI-first 10.41% (8.23 – 13.08), PSA → MRI 5.70%, PSA 3.80%,
-Biomarker → MRI 3.72% (3.27 – 4.24).
-
-### 3.3 Curative treatment — not analysable
-
-The protocol lists "percentage of patients receiving curative treatment over follow-up"
-as a secondary outcome. These data are not present in the extraction and this outcome
-could not be analysed. Adverse-event / procedural-harm data (protocol §5, §9) are
-likewise absent from the extraction.
-
----
-
-
-
-## 4. Heterogeneity, sensitivity, publication bias
-
-**Heterogeneity** was significant by Cochran's Q (p < 0.05) in every pooled analysis,
-with I² from 68.9% to 99.9%. Per protocol §8 this triggered exploratory analysis, which
-is what the family and strategy stratifications above provide.
-
-**Leave-one-out** was run on every pooled estimate (see `output/results.txt`). No
-conclusion depends on a single trial.
-
-**Targeted sensitivity analyses:**
-
-
-| Analysis                                                                                                            | Effect                                                                                                                                     |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Exclude **PROBASE** (delayed-screening comparator; control csPCa = 0 was *inferred by the extractor, not reported*) | Family A GG1 RR 1.76 → 1.67 (1.12 – 2.49); family A grade-mix RR 1.08 → 1.21 (1.00 – 1.47), subgroup difference strengthens to p = 0.00025 |
-| Exclude **ERSPC** (Gleason counts back-calculated from published percentages)                                       | Family A GG1 RR 1.76 → 1.50 (0.96 – 2.34) — loses significance                                                                             |
-| **MVP / PROSA on randomized** rather than analysed denominators                                                     | No material change (GG1 RR 1.167 both ways)                                                                                                |
-| Continuity correction **0.1 / 0.5 / 1.0** on the single zero cell                                                   | Family A csPCa RR 1.14 / 1.16 / 1.17 — robust                                                                                              |
-| Proportions on **ITT rather than per-screened** denominators (Figs. S1, S2)                                         | Reorders the per-man rate tables; the grade-mix ranking in §2.3 is unaffected, as it uses detected cancers as denominator                  |
-
-
-**Publication bias was not assessed.** The protocol restricts Peters' regression and
-funnel plots to analyses with ≥10 studies; the largest here has k = 9. Small-study
-effects cannot be excluded — relevant given that the two trials opposing the family-B
-GG1 reduction (MVP, PROSA) are also the two smallest.
-
-**Protocol deviation:** §8 specifies a 0.5 continuity correction for zero cells in both
-the risk-ratio and proportion analyses. It was applied to the risk-ratio models only.
-The GLMM proportion models use a logit-normal likelihood that accommodates zero counts
-directly, and adding 0.5 would bias those estimates; this is standard practice.
-
----
-
-
-
-## 5. Interpretation
-
-1. **Invitation to screening increases low-grade detection without a matching increase
-  in significant cancer** (GG1 RR 1.76 vs csPCa RR 1.16), and shifts the detected-cancer
-   mix toward GG1 (RR 1.21 excluding PROBASE). This is overdiagnosis quantified.
-2. **Modern triage reverses the grade mix.** GG1 fell from 65.7% of detected cancers
-  under PSA + DRE and 49.4% under PSA to 31.7% (MRI-first) and 16.4%
-   (biomarker → MRI), p < 0.0001 between strategies; within-trial RR 0.57 in family B.
-   The two biomarker → MRI arms agree closely (I² = 0%).
-3. **The cost side differs by strategy type.** Biomarker-triaged pathways reduce GG1
-  detection *and* biopsies (STHLM3-MRI, GÖTEBORG-2: biopsy RR 0.48 and 0.43).
-   MRI-first pathways achieve the lowest GG1 share but at the highest biopsy rate
-   (10.4 per 100 screened) — though on only 615 men across two small, early-terminated
-   or single-round trials.
-4. **The main threat to these conclusions is between-trial comparability, not sampling
-  error.** Trials differ by 9–10 years vs one round of follow-up, by age 45 vs 55–69,
-   and in control-arm contamination (PLCO's control arm had 40–52% PSA uptake, which
-   biases its RRs toward 1). Per-man detection rates are therefore not interpretable
-   across trials; the grade-mix outcome is, and it carries the review's message.
-
----
-
-
-
-## 6. Output files
-
-
-| File                                                                     | Contents                                                                                        |
-| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| [output/results.txt](output/results.txt)                                 | Complete numeric output, all models, all leave-one-out runs                                     |
-| [output/table1_descriptives.csv](output/table1_descriptives.csv)         | Arm-level extracted data with derived rates                                                     |
-| [output/table2_pooled_estimates.csv](output/table2_pooled_estimates.csv) | All pooled estimates with Q, df, p, I²                                                          |
-| `output/fig1`–`fig5` (pdf + png)                                         | Risk-ratio forest plots: GG1, csPCa, any PCa, grade mix, biopsies                               |
-| `output/fig6`–`fig9` (pdf + png)                                         | Proportion forest plots by strategy: GG1/screened, csPCa/screened, GG1 share, biopsies/screened |
-| `output/figS1`–`figS2` (pdf + png)                                       | Sensitivity: proportions on ITT denominators                                                    |
-| [arm_level_data.csv](arm_level_data.csv)                                 | Analysis dataset, with per-arm provenance and caveat flags                                      |
-
-
+- [output/table1_descriptives.csv](output/table1_descriptives.csv): arm-level data.
+- [output/table1b_study_strategy_units.csv](output/table1b_study_strategy_units.csv):
+  strategy-proportion inputs.
+- [output/table2_pooled_estimates.csv](output/table2_pooled_estimates.csv): pooled
+  estimates, heterogeneity, and prediction intervals.
+- [output/table3_leave_one_out.csv](output/table3_leave_one_out.csv): leave-one-out
+  results.
+- `output/fig1_*`–`output/fig6_*`: comparative and timing RR forest plots.
+- `output/fig7_*`–`output/fig13_*`: strategy-proportion forest plots.

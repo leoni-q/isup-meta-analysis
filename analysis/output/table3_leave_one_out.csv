@@ -1,0 +1,132 @@
+"analysis","group","omitted_study","k_remaining","scale","estimate","ci_lower","ci_upper","I2_pct"
+"GG1 detection per randomized/invited participant","A. Screening invitation vs no screening / usual care","ERSPC",3,"RR",1.3358,1.0714,1.6656,68.4
+"GG1 detection per randomized/invited participant","A. Screening invitation vs no screening / usual care","PLCO",3,"RR",1.765,0.9265,3.3624,99.1
+"GG1 detection per randomized/invited participant","A. Screening invitation vs no screening / usual care","CAP",3,"RR",1.7177,0.8171,3.611,99
+"GG1 detection per randomized/invited participant","A. Screening invitation vs no screening / usual care","ProScreen",3,"RR",1.573,0.726,3.4082,99.3
+"GG1 detection per randomized/invited participant","B. Diagnostic / biopsy strategy (both arms screened)","STHLM3-MRI",3,"RR",0.899,0.1019,7.9288,77.2
+"GG1 detection per randomized/invited participant","B. Diagnostic / biopsy strategy (both arms screened)","MVP",3,"RR",0.5154,0.0573,4.6356,80.3
+"GG1 detection per randomized/invited participant","B. Diagnostic / biopsy strategy (both arms screened)","GOTEBORG-2",3,"RR",0.8294,0.0629,10.9364,83
+"GG1 detection per randomized/invited participant","B. Diagnostic / biopsy strategy (both arms screened)","PROSA",3,"RR",0.3996,0.1686,0.9468,40.9
+"GG1 among all detected prostate cancers","A. Screening invitation vs no screening / usual care","ERSPC",3,"RR",1.1523,0.8617,1.5408,94
+"GG1 among all detected prostate cancers","A. Screening invitation vs no screening / usual care","PLCO",3,"RR",1.2911,1.148,1.4522,54
+"GG1 among all detected prostate cancers","A. Screening invitation vs no screening / usual care","CAP",3,"RR",1.1623,0.8196,1.6482,96.6
+"GG1 among all detected prostate cancers","A. Screening invitation vs no screening / usual care","ProScreen",3,"RR",1.2234,0.952,1.5722,96.7
+"GG1 among all detected prostate cancers","B. Diagnostic / biopsy strategy (both arms screened)","STHLM3-MRI",3,"RR",0.6933,0.5337,0.9006,0
+"GG1 among all detected prostate cancers","B. Diagnostic / biopsy strategy (both arms screened)","MVP",3,"RR",0.5754,0.1871,1.7699,79.2
+"GG1 among all detected prostate cancers","B. Diagnostic / biopsy strategy (both arms screened)","GOTEBORG-2",3,"RR",0.5007,0.1521,1.6486,44.1
+"GG1 among all detected prostate cancers","B. Diagnostic / biopsy strategy (both arms screened)","PROSA",3,"RR",0.5174,0.2157,1.2409,76.8
+"GG>=2 detection per randomized/invited participant","A. Screening invitation vs no screening / usual care","ERSPC",3,"RR",1.1675,0.4892,2.7862,95.4
+"GG>=2 detection per randomized/invited participant","A. Screening invitation vs no screening / usual care","PLCO",3,"RR",1.1838,0.5193,2.6986,95.7
+"GG>=2 detection per randomized/invited participant","A. Screening invitation vs no screening / usual care","CAP",3,"RR",1.2086,0.534,2.7354,94.3
+"GG>=2 detection per randomized/invited participant","A. Screening invitation vs no screening / usual care","ProScreen",3,"RR",0.9932,0.8864,1.1129,64.6
+"GG>=2 detection per randomized/invited participant","B. Diagnostic / biopsy strategy (both arms screened)","STHLM3-MRI",3,"RR",1.6247,0.2892,9.1266,78.4
+"GG>=2 detection per randomized/invited participant","B. Diagnostic / biopsy strategy (both arms screened)","MVP",3,"RR",1.1661,0.3816,3.5632,76.7
+"GG>=2 detection per randomized/invited participant","B. Diagnostic / biopsy strategy (both arms screened)","GOTEBORG-2",3,"RR",1.7235,0.5368,5.533,52.7
+"GG>=2 detection per randomized/invited participant","B. Diagnostic / biopsy strategy (both arms screened)","PROSA",3,"RR",1.128,0.3807,3.3421,74
+"GG>=2 among all detected prostate cancers","A. Screening invitation vs no screening / usual care","ERSPC",3,"RR",0.9024,0.7591,1.0727,72.9
+"GG>=2 among all detected prostate cancers","A. Screening invitation vs no screening / usual care","PLCO",3,"RR",0.8153,0.438,1.5175,98.9
+"GG>=2 among all detected prostate cancers","A. Screening invitation vs no screening / usual care","CAP",3,"RR",0.801,0.4383,1.4638,98.1
+"GG>=2 among all detected prostate cancers","A. Screening invitation vs no screening / usual care","ProScreen",3,"RR",0.7761,0.4686,1.2856,98.8
+"GG>=2 among all detected prostate cancers","B. Diagnostic / biopsy strategy (both arms screened)","STHLM3-MRI",3,"RR",1.3287,1.0429,1.6929,0
+"GG>=2 among all detected prostate cancers","B. Diagnostic / biopsy strategy (both arms screened)","MVP",3,"RR",1.3866,1.1386,1.6886,0
+"GG>=2 among all detected prostate cancers","B. Diagnostic / biopsy strategy (both arms screened)","GOTEBORG-2",3,"RR",1.4078,1.1085,1.7879,0
+"GG>=2 among all detected prostate cancers","B. Diagnostic / biopsy strategy (both arms screened)","PROSA",3,"RR",1.4038,1.289,1.5289,0
+"GG1 among participants biopsied","B. Diagnostic / biopsy strategy (both arms screened)","STHLM3-MRI",3,"RR",1.0018,0.8882,1.1298,0
+"GG1 among participants biopsied","B. Diagnostic / biopsy strategy (both arms screened)","MVP",3,"RR",0.8582,0.4532,1.6254,41.3
+"GG1 among participants biopsied","B. Diagnostic / biopsy strategy (both arms screened)","GOTEBORG-2",3,"RR",0.725,0.3789,1.3874,0
+"GG1 among participants biopsied","B. Diagnostic / biopsy strategy (both arms screened)","PROSA",3,"RR",0.854,0.449,1.6242,40.9
+"GG>=2 among participants biopsied","B. Diagnostic / biopsy strategy (both arms screened)","STHLM3-MRI",3,"RR",1.8749,0.8606,4.0847,25.3
+"GG>=2 among participants biopsied","B. Diagnostic / biopsy strategy (both arms screened)","MVP",3,"RR",2.0409,1.111,3.7491,58.1
+"GG>=2 among participants biopsied","B. Diagnostic / biopsy strategy (both arms screened)","GOTEBORG-2",3,"RR",2.1039,0.7458,5.9347,47.6
+"GG>=2 among participants biopsied","B. Diagnostic / biopsy strategy (both arms screened)","PROSA",3,"RR",2.192,1.5119,3.1782,27.9
+"GG1 detection per randomized/invited participant","No screening / usual care","ERSPC",3,"Proportion (%)",1.0329,0.1959,5.2575,99.9
+"GG1 detection per randomized/invited participant","No screening / usual care","PLCO",3,"Proportion (%)",0.8502,0.2006,3.5299,99.8
+"GG1 detection per randomized/invited participant","No screening / usual care","CAP",3,"Proportion (%)",1.2259,0.2151,6.6688,99.8
+"GG1 detection per randomized/invited participant","No screening / usual care","ProScreen",3,"Proportion (%)",2.7024,1.6339,4.4382,99.9
+"GG1 detection per randomized/invited participant","PSA","ERSPC",4,"Proportion (%)",0.7145,0.1743,2.8802,98.5
+"GG1 detection per randomized/invited participant","PSA","STHLM3-MRI",4,"Proportion (%)",1.0426,0.1908,5.4888,99.9
+"GG1 detection per randomized/invited participant","PSA","MVP",4,"Proportion (%)",1.0622,0.2014,5.4029,99.9
+"GG1 detection per randomized/invited participant","PSA","PROBASE",4,"Proportion (%)",2.3939,1.301,4.3643,99.9
+"GG1 detection per randomized/invited participant","PSA","CAP",4,"Proportion (%)",0.9326,0.1767,4.7679,99.4
+"GG1 detection per randomized/invited participant","PSA -> MRI","GOTEBORG-2",1,"Proportion (%)",1.039,0.2838,2.6387,NA
+"GG1 detection per randomized/invited participant","PSA -> MRI","PROSA",1,"Proportion (%)",1.7258,1.5102,1.9632,NA
+"GG1 detection per randomized/invited participant","Biomarker -> MRI","STHLM3-MRI",1,"Proportion (%)",0.2566,0.1825,0.3506,NA
+"GG1 detection per randomized/invited participant","Biomarker -> MRI","ProScreen",1,"Proportion (%)",0.4468,0.3096,0.6239,NA
+"GG1 detection per randomized/invited participant","MRI-first","MVP",1,"Proportion (%)",2.4064,1.1061,4.5188,NA
+"GG1 detection per randomized/invited participant","MRI-first","PROSA",1,"Proportion (%)",1.5444,0.4224,3.9069,NA
+"GG1 among all detected prostate cancers","No screening / usual care","ERSPC",3,"Proportion (%)",33.4456,16.6927,55.7585,99.8
+"GG1 among all detected prostate cancers","No screening / usual care","PLCO",3,"Proportion (%)",31.8303,17.2971,51.0388,99.8
+"GG1 among all detected prostate cancers","No screening / usual care","CAP",3,"Proportion (%)",42.8642,22.2903,66.2407,98.9
+"GG1 among all detected prostate cancers","No screening / usual care","ProScreen",3,"Proportion (%)",46.7298,30.2396,63.9668,99.9
+"GG1 among all detected prostate cancers","PSA","ERSPC",4,"Proportion (%)",34.3158,33.48,35.1615,31.7
+"GG1 among all detected prostate cancers","PSA","STHLM3-MRI",4,"Proportion (%)",47.167,29.0242,66.0904,99.9
+"GG1 among all detected prostate cancers","PSA","MVP",4,"Proportion (%)",45.2196,29.1156,62.3909,99.9
+"GG1 among all detected prostate cancers","PSA","PROBASE",4,"Proportion (%)",49.5889,32.8669,66.4034,99.9
+"GG1 among all detected prostate cancers","PSA","CAP",4,"Proportion (%)",49.4834,31.9004,67.1951,97.1
+"GG1 among all detected prostate cancers","PSA -> MRI","GOTEBORG-2",1,"Proportion (%)",36.3636,10.9263,69.2095,NA
+"GG1 among all detected prostate cancers","PSA -> MRI","PROSA",1,"Proportion (%)",46.9979,42.4736,51.5592,NA
+"GG1 among all detected prostate cancers","Biomarker -> MRI","STHLM3-MRI",1,"Proportion (%)",17.8082,12.9805,23.5303,NA
+"GG1 among all detected prostate cancers","Biomarker -> MRI","ProScreen",1,"Proportion (%)",15.0442,10.649,20.3833,NA
+"GG1 among all detected prostate cancers","MRI-first","MVP",1,"Proportion (%)",34.6154,17.2144,55.6672,NA
+"GG1 among all detected prostate cancers","MRI-first","PROSA",1,"Proportion (%)",26.6667,7.7872,55.1003,NA
+"GG>=2 detection per randomized/invited participant","No screening / usual care","ERSPC",3,"Proportion (%)",1.8886,0.7707,4.554,99.8
+"GG>=2 detection per randomized/invited participant","No screening / usual care","PLCO",3,"Proportion (%)",1.7121,0.7338,3.9432,99.8
+"GG>=2 detection per randomized/invited participant","No screening / usual care","CAP",3,"Proportion (%)",1.5864,0.7397,3.3695,99.6
+"GG>=2 detection per randomized/invited participant","No screening / usual care","ProScreen",3,"Proportion (%)",2.8575,2.2447,3.6313,99.6
+"GG>=2 detection per randomized/invited participant","PSA","ERSPC",4,"Proportion (%)",1.0877,0.3126,3.7125,99.2
+"GG>=2 detection per randomized/invited participant","PSA","STHLM3-MRI",4,"Proportion (%)",1.1193,0.3174,3.868,99.5
+"GG>=2 detection per randomized/invited participant","PSA","MVP",4,"Proportion (%)",1.252,0.3617,4.2405,99.5
+"GG>=2 detection per randomized/invited participant","PSA","PROBASE",4,"Proportion (%)",2.4768,1.898,3.2262,98.9
+"GG>=2 detection per randomized/invited participant","PSA","CAP",4,"Proportion (%)",0.9698,0.3059,3.0305,98.8
+"GG>=2 detection per randomized/invited participant","PSA -> MRI","GOTEBORG-2",1,"Proportion (%)",1.8182,0.7341,3.7101,NA
+"GG>=2 detection per randomized/invited participant","PSA -> MRI","PROSA",1,"Proportion (%)",1.9463,1.7171,2.1971,NA
+"GG>=2 detection per randomized/invited participant","Biomarker -> MRI","STHLM3-MRI",1,"Proportion (%)",1.1315,0.9695,1.3126,NA
+"GG>=2 detection per randomized/invited participant","Biomarker -> MRI","ProScreen",1,"Proportion (%)",2.5233,2.1826,2.901,NA
+"GG>=2 detection per randomized/invited participant","MRI-first","MVP",1,"Proportion (%)",4.5455,2.6699,7.1781,NA
+"GG>=2 detection per randomized/invited participant","MRI-first","PROSA",1,"Proportion (%)",4.2471,2.1389,7.472,NA
+"GG>=2 among all detected prostate cancers","No screening / usual care","ERSPC",3,"Proportion (%)",60.7634,39.6819,78.4737,99.7
+"GG>=2 among all detected prostate cancers","No screening / usual care","PLCO",3,"Proportion (%)",63.1489,45.7033,77.7216,99.5
+"GG>=2 among all detected prostate cancers","No screening / usual care","CAP",3,"Proportion (%)",55.249,33.1212,75.4763,99
+"GG>=2 among all detected prostate cancers","No screening / usual care","ProScreen",3,"Proportion (%)",48.2616,36.8868,59.8195,99.7
+"GG>=2 among all detected prostate cancers","PSA","ERSPC",4,"Proportion (%)",55.454,54.5721,56.3324,33.6
+"GG>=2 among all detected prostate cancers","PSA","STHLM3-MRI",4,"Proportion (%)",49.3511,32.4458,66.406,99.7
+"GG>=2 among all detected prostate cancers","PSA","MVP",4,"Proportion (%)",51.7542,36.092,67.0791,99.7
+"GG>=2 among all detected prostate cancers","PSA","PROBASE",4,"Proportion (%)",47.0552,32.7721,61.8375,99.7
+"GG>=2 among all detected prostate cancers","PSA","CAP",4,"Proportion (%)",50.5165,32.8047,68.0996,97.1
+"GG>=2 among all detected prostate cancers","PSA -> MRI","GOTEBORG-2",1,"Proportion (%)",63.6364,30.7905,89.0737,NA
+"GG>=2 among all detected prostate cancers","PSA -> MRI","PROSA",1,"Proportion (%)",53.0021,48.4408,57.5264,NA
+"GG>=2 among all detected prostate cancers","Biomarker -> MRI","STHLM3-MRI",1,"Proportion (%)",78.5388,72.5033,83.7843,NA
+"GG>=2 among all detected prostate cancers","Biomarker -> MRI","ProScreen",1,"Proportion (%)",84.9558,79.6167,89.351,NA
+"GG>=2 among all detected prostate cancers","MRI-first","MVP",1,"Proportion (%)",65.3846,44.3328,82.7856,NA
+"GG>=2 among all detected prostate cancers","MRI-first","PROSA",1,"Proportion (%)",73.3333,44.8997,92.2128,NA
+"GG1 among participants biopsied","PSA","ERSPC",3,"Proportion (%)",15.6997,12.9735,18.8744,0
+"GG1 among participants biopsied","PSA","STHLM3-MRI",3,"Proportion (%)",18.1643,11.5387,27.4154,81
+"GG1 among participants biopsied","PSA","MVP",3,"Proportion (%)",18.4139,13.2161,25.0655,91.4
+"GG1 among participants biopsied","PSA","PROBASE",3,"Proportion (%)",20.1712,15.1793,26.2957,87.5
+"GG1 among participants biopsied","PSA -> MRI","GOTEBORG-2",1,"Proportion (%)",20,5.7334,43.6614,NA
+"GG1 among participants biopsied","PSA -> MRI","PROSA",1,"Proportion (%)",26.9596,23.9879,30.0935,NA
+"GG1 among participants biopsied","Biomarker -> MRI","STHLM3-MRI",1,"Proportion (%)",14.8855,10.8041,19.7825,NA
+"GG1 among participants biopsied","Biomarker -> MRI","ProScreen",1,"Proportion (%)",10.9325,7.6908,14.9411,NA
+"GG1 among participants biopsied","MRI-first","MVP",1,"Proportion (%)",22.5,10.8397,38.4512,NA
+"GG1 among participants biopsied","MRI-first","PROSA",1,"Proportion (%)",16.6667,4.7354,37.3842,NA
+"GG>=2 among participants biopsied","PSA","ERSPC",3,"Proportion (%)",24.4027,21.0946,28.0452,5.9
+"GG>=2 among participants biopsied","PSA","STHLM3-MRI",3,"Proportion (%)",15.4712,8.3695,26.8341,94.9
+"GG>=2 among participants biopsied","PSA","MVP",3,"Proportion (%)",18.4951,10.542,30.4087,98.5
+"GG>=2 among participants biopsied","PSA","PROBASE",3,"Proportion (%)",14.97,8.6188,24.7347,97.9
+"GG>=2 among participants biopsied","PSA -> MRI","GOTEBORG-2",1,"Proportion (%)",35,15.3909,59.2189,NA
+"GG>=2 among participants biopsied","PSA -> MRI","PROSA",1,"Proportion (%)",30.4038,27.3105,33.6349,NA
+"GG>=2 among participants biopsied","Biomarker -> MRI","STHLM3-MRI",1,"Proportion (%)",65.6489,59.5555,71.3835,NA
+"GG>=2 among participants biopsied","Biomarker -> MRI","ProScreen",1,"Proportion (%)",58.006,52.4862,63.3813,NA
+"GG>=2 among participants biopsied","MRI-first","MVP",1,"Proportion (%)",42.5,27.0429,59.1099,NA
+"GG>=2 among participants biopsied","MRI-first","PROSA",1,"Proportion (%)",45.8333,25.553,67.1792,NA
+"Biopsies per screened/assessed participant","PSA","ERSPC",4,"Proportion (%)",4.5091,1.3165,14.32,99.7
+"Biopsies per screened/assessed participant","PSA","STHLM3-MRI",4,"Proportion (%)",6.4345,1.3989,25.0004,100
+"Biopsies per screened/assessed participant","PSA","MVP",4,"Proportion (%)",6.0152,1.3391,23.1839,100
+"Biopsies per screened/assessed participant","PSA","PROBASE",4,"Proportion (%)",12.4626,7.0007,21.2139,100
+"Biopsies per screened/assessed participant","PSA","CAP",4,"Proportion (%)",6.5978,1.4309,25.5806,99.9
+"Biopsies per screened/assessed participant","PSA -> MRI","GOTEBORG-2",1,"Proportion (%)",5.2219,3.2185,7.9499,NA
+"Biopsies per screened/assessed participant","PSA -> MRI","PROSA",1,"Proportion (%)",6.4016,5.9891,6.8334,NA
+"Biopsies per screened/assessed participant","Biomarker -> MRI","STHLM3-MRI",1,"Proportion (%)",3.3833,2.9918,3.8103,NA
+"Biopsies per screened/assessed participant","Biomarker -> MRI","ProScreen",1,"Proportion (%)",4.0873,3.6535,4.5566,NA
+"Biopsies per screened/assessed participant","MRI-first","MVP",1,"Proportion (%)",10.8401,7.8581,14.4678,NA
+"Biopsies per screened/assessed participant","MRI-first","PROSA",1,"Proportion (%)",9.7561,6.3514,14.1681,NA

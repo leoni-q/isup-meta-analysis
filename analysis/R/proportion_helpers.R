@@ -6,13 +6,23 @@ fit_proportion <- function(
   event_column,
   total_column,
   title,
-  include_subgroups = TRUE
+  include_subgroups = FALSE
 ) {
   has_event_and_total <- (
     !is.na(source_data[[event_column]]) &
       !is.na(source_data[[total_column]])
   )
   analysis_data <- source_data[has_event_and_total, ]
+  stopifnot(
+    nrow(analysis_data) > 0,
+    all(analysis_data[[event_column]] <= analysis_data[[total_column]])
+  )
+
+  source_arm_labels <- if ("source_arms" %in% names(analysis_data)) {
+    analysis_data$source_arms
+  } else {
+    analysis_data$arm
+  }
 
   model_arguments <- list(
     event = analysis_data[[event_column]],
@@ -22,7 +32,7 @@ fit_proportion <- function(
       " ",
       analysis_data$year,
       " (",
-      analysis_data$arm,
+      source_arm_labels,
       ")"
     ),
     sm = "PLOGIT",
@@ -30,6 +40,7 @@ fit_proportion <- function(
     method.tau = "ML",
     random = TRUE,
     common = FALSE,
+    prediction = TRUE,
     title = title
   )
 
@@ -42,89 +53,51 @@ fit_proportion <- function(
 }
 
 # GLMM estimates are logits; plogis() converts them back to proportions.
-report_proportion <- function(model, title) {
+report_proportion <- function(model, title, group_name) {
   log_section(title)
   log_line(
     sprintf(
       paste0(
-        "k = %d arms | model: random effects GLMM (logit-normal), ",
+        "k = %d studies | model: random effects GLMM (logit-normal), ",
         "back-transformed"
       ),
       model$k
     )
   )
+  result <- extract_proportion_result(model)
+  interval_label <- if (model$k == 1) "exact 95% CI" else "95% CI"
   log_line(
     sprintf(
-      "  Overall pooled proportion = %.4f%% (95%% CI %.4f%% to %.4f%%)",
-      100 * plogis(model$TE.random),
-      100 * plogis(model$lower.random),
-      100 * plogis(model$upper.random)
+      "  %s: %.4f%% (%s %.4f%% to %.4f%%)",
+      group_name,
+      result$estimate,
+      interval_label,
+      result$lower,
+      result$upper
     )
   )
-  log_line(format_heterogeneity(model))
-
-  if (!is.null(model$subgroup)) {
-    log_line("  By screening strategy (random effects):")
-
-    for (subgroup_index in seq_along(model$subgroup.levels)) {
-      if (model$k.w[subgroup_index] == 1) {
-        arm_index <- which(
-          as.character(model$subgroup) == model$subgroup.levels[subgroup_index]
-        )
-        exact_confidence_interval <- binom.test(
-          model$event[arm_index],
-          model$n[arm_index]
-        )$conf.int
-
-        log_line(
-          sprintf(
-            paste0(
-              "    %-28s k=1  %.4f%% ",
-              "(exact 95%% CI %.4f%% to %.4f%%)  [%s]"
-            ),
-            model$subgroup.levels[subgroup_index],
-            100 * model$event[arm_index] / model$n[arm_index],
-            100 * exact_confidence_interval[1],
-            100 * exact_confidence_interval[2],
-            model$studlab[arm_index]
-          )
-        )
-      } else {
-        subgroup_q_p_value <- first_or_na(model$pval.Q.w[subgroup_index])
-        subgroup_q_p_value_text <- if (is.na(subgroup_q_p_value)) {
-          "NA"
-        } else {
-          format.pval(subgroup_q_p_value, digits = 3, eps = 1e-4)
-        }
-
-        log_line(
-          sprintf(
-            paste0(
-              "    %-28s k=%d  %.4f%% ",
-              "(95%% CI %.4f%% to %.4f%%)  Q p = %s"
-            ),
-            model$subgroup.levels[subgroup_index],
-            model$k.w[subgroup_index],
-            100 * plogis(model$TE.random.w[subgroup_index]),
-            100 * plogis(model$lower.random.w[subgroup_index]),
-            100 * plogis(model$upper.random.w[subgroup_index]),
-            subgroup_q_p_value_text
-          )
-        )
-      }
-    }
+  if (model$k > 1) {
+    log_line(format_heterogeneity(model))
   }
-
-  log_line("  Per-arm observed proportions:")
-  for (arm_index in seq_len(model$k.all)) {
+  if (!is.na(result$pi_lower)) {
     log_line(
       sprintf(
-        "    %-26s %-28s %7d/%-7d = %.4f%%",
-        model$studlab[arm_index],
-        as.character(model$subgroup)[arm_index],
-        model$event[arm_index],
-        model$n[arm_index],
-        100 * model$event[arm_index] / model$n[arm_index]
+        "  95%% prediction interval: %.4f%% to %.4f%%",
+        result$pi_lower,
+        result$pi_upper
+      )
+    )
+  }
+
+  log_line("  Per-study observed proportions:")
+  for (study_index in seq_len(model$k.all)) {
+    log_line(
+      sprintf(
+        "    %-28s %7d/%-7d = %.4f%%",
+        model$studlab[study_index],
+        model$event[study_index],
+        model$n[study_index],
+        100 * model$event[study_index] / model$n[study_index]
       )
     )
   }
@@ -132,29 +105,78 @@ report_proportion <- function(model, title) {
   invisible(model)
 }
 
-report_leave_one_out_proportion <- function(model, title) {
-  if (model$k < 3) {
+report_leave_one_out_proportion <- function(
+  source_data,
+  event_column,
+  total_column,
+  analysis_name,
+  group_name
+) {
+  has_event_and_total <- (
+    !is.na(source_data[[event_column]]) &
+      !is.na(source_data[[total_column]])
+  )
+  analysis_data <- source_data[has_event_and_total, ]
+
+  if (nrow(analysis_data) < 2) {
+    log_line(
+      sprintf(
+        "  Leave-one-study-out skipped for %s / %s (k = %d < 2).",
+        analysis_name,
+        group_name,
+        nrow(analysis_data)
+      )
+    )
     return(invisible(NULL))
   }
 
-  leave_one_out_model <- suppressWarnings(
-    metainf(model, pooled = "random")
+  log_line(
+    sprintf(
+      "  Leave-one-study-out (%s; %s):",
+      analysis_name,
+      group_name
+    )
   )
-  log_line(sprintf("  Leave-one-out (random effects, %s):", title))
+  leave_one_out_models <- vector("list", nrow(analysis_data))
 
-  for (arm_index in seq_len(model$k)) {
+  for (study_index in seq_len(nrow(analysis_data))) {
+    omitted_study <- analysis_data$trial[study_index]
+    remaining_data <- analysis_data[-study_index, , drop = FALSE]
+    sensitivity_model <- suppressWarnings(
+      fit_proportion(
+        source_data = remaining_data,
+        event_column = event_column,
+        total_column = total_column,
+        title = paste0(analysis_name, " omitting ", omitted_study),
+        include_subgroups = FALSE
+      )
+    )
+    leave_one_out_models[[study_index]] <- sensitivity_model
+    result <- extract_proportion_result(sensitivity_model)
+
     log_line(
       sprintf(
-        "    omitting %-26s %.4f%% (%.4f%% to %.4f%%)",
-        leave_one_out_model$studlab[arm_index],
-        100 * plogis(leave_one_out_model$TE[arm_index]),
-        100 * plogis(leave_one_out_model$lower[arm_index]),
-        100 * plogis(leave_one_out_model$upper[arm_index])
+        "    omitting %-22s %.4f%% (%.4f%% to %.4f%%)",
+        omitted_study,
+        result$estimate,
+        result$lower,
+        result$upper
       )
+    )
+    append_leave_one_out_row(
+      analysis = analysis_name,
+      group = group_name,
+      omitted_study = omitted_study,
+      remaining_studies = sensitivity_model$k,
+      scale = "Proportion (%)",
+      estimate = result$estimate,
+      confidence_interval_lower = result$lower,
+      confidence_interval_upper = result$upper,
+      i_squared_percent = result$I2
     )
   }
 
-  invisible(leave_one_out_model)
+  invisible(leave_one_out_models)
 }
 
 save_proportion_forest_plot <- function(
@@ -197,7 +219,7 @@ save_proportion_forest_plot <- function(
       pscale = 100,
       smlab = summary_label,
       leftcols = c("studlab", "event", "n", "effect", "ci"),
-      leftlabs = c("Trial (arm)", "Events", "N", "%", "95% CI"),
+      leftlabs = c("Study (source arms)", "Events", "N", "%", "95% CI"),
       rightcols = FALSE,
       print.subgroup.name = FALSE,
       col.subgroup = "black",

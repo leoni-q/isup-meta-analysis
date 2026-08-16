@@ -8,12 +8,17 @@ log_line(
 log_line("funnel plots) to analyses containing 10 or more studies. The largest")
 log_line(
   sprintf(
-    "comparative analysis here contains k = %d trials, and every strategy",
-    nrow(trial_data)
+    "reported pooled analysis here contains k = %d studies, and every model",
+    max(
+      c(
+        vapply(risk_ratio_models, function(model) model$k, numeric(1)),
+        vapply(proportion_models, function(model) model$k, numeric(1))
+      )
+    )
   )
 )
 log_line(
-  "subgroup contains fewer still. Publication bias was therefore NOT assessed,"
+  "contains fewer than 10 studies. Publication bias was therefore NOT assessed,"
 )
 log_line("and small-study effects cannot be excluded.")
 
@@ -27,9 +32,28 @@ summary_table$ci_upper <- round(summary_table$ci_upper, 4)
 summary_table$Q <- round(summary_table$Q, 3)
 summary_table$p_Q <- signif(summary_table$p_Q, 4)
 summary_table$I2_pct <- round(summary_table$I2_pct, 1)
+summary_table$pi_lower <- round(summary_table$pi_lower, 4)
+summary_table$pi_upper <- round(summary_table$pi_upper, 4)
 write.csv(
   summary_table,
   file.path(OUTPUT_DIR, "table2_pooled_estimates.csv"),
+  row.names = FALSE
+)
+
+leave_one_out_table <- do.call(rbind, leave_one_out_rows)
+leave_one_out_table$estimate <- round(leave_one_out_table$estimate, 4)
+leave_one_out_table$ci_lower <- round(leave_one_out_table$ci_lower, 4)
+leave_one_out_table$ci_upper <- round(leave_one_out_table$ci_upper, 4)
+leave_one_out_table$I2_pct <- round(leave_one_out_table$I2_pct, 1)
+write.csv(
+  leave_one_out_table,
+  file.path(OUTPUT_DIR, "table3_leave_one_out.csv"),
+  row.names = FALSE
+)
+
+write.csv(
+  proportion_data,
+  file.path(OUTPUT_DIR, "table1b_study_strategy_units.csv"),
   row.names = FALSE
 )
 

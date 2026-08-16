@@ -77,6 +77,7 @@ first_or_na <- function(values) {
 # Summary rows are accumulated as each model runs. `<<-` assigns into the
 # enclosing script scope (the R equivalent of mutating a captured variable).
 summary_rows <- list()
+leave_one_out_rows <- list()
 
 append_summary_row <- function(
   analysis,
@@ -89,7 +90,9 @@ append_summary_row <- function(
   cochrans_q,
   q_degrees_of_freedom,
   q_p_value,
-  i_squared_percent
+  i_squared_percent,
+  prediction_interval_lower = NA_real_,
+  prediction_interval_upper = NA_real_
 ) {
   summary_rows[[length(summary_rows) + 1]] <<- data.frame(
     analysis = analysis,
@@ -103,15 +106,57 @@ append_summary_row <- function(
     df_Q = q_degrees_of_freedom,
     p_Q = q_p_value,
     I2_pct = i_squared_percent,
+    pi_lower = prediction_interval_lower,
+    pi_upper = prediction_interval_upper,
     stringsAsFactors = FALSE
   )
 }
 
-collect_risk_ratio_results <- function(model, analysis_name) {
+append_leave_one_out_row <- function(
+  analysis,
+  group,
+  omitted_study,
+  remaining_studies,
+  scale,
+  estimate,
+  confidence_interval_lower,
+  confidence_interval_upper,
+  i_squared_percent = NA_real_
+) {
+  leave_one_out_rows[[length(leave_one_out_rows) + 1]] <<- data.frame(
+    analysis = analysis,
+    group = group,
+    omitted_study = omitted_study,
+    k_remaining = remaining_studies,
+    scale = scale,
+    estimate = estimate,
+    ci_lower = confidence_interval_lower,
+    ci_upper = confidence_interval_upper,
+    I2_pct = i_squared_percent,
+    stringsAsFactors = FALSE
+  )
+}
+
+collect_risk_ratio_results <- function(model, analysis_name, group_name) {
+  prediction_interval_lower <- if (
+    model$k >= 3 && length(model$lower.predict) > 0
+  ) {
+    exp(first_or_na(model$lower.predict))
+  } else {
+    NA_real_
+  }
+  prediction_interval_upper <- if (
+    model$k >= 3 && length(model$upper.predict) > 0
+  ) {
+    exp(first_or_na(model$upper.predict))
+  } else {
+    NA_real_
+  }
+
   append_summary_row(
     analysis_name,
     "RR",
-    "Overall (not interpreted across families)",
+    group_name,
     model$k,
     exp(model$TE.random),
     exp(model$lower.random),
@@ -119,82 +164,70 @@ collect_risk_ratio_results <- function(model, analysis_name) {
     model$Q,
     model$df.Q,
     model$pval.Q,
-    100 * model$I2
+    100 * model$I2,
+    prediction_interval_lower,
+    prediction_interval_upper
   )
-
-  if (!is.null(model$subgroup)) {
-    for (subgroup_index in seq_along(model$subgroup.levels)) {
-      append_summary_row(
-        analysis_name,
-        "RR",
-        model$subgroup.levels[subgroup_index],
-        model$k.w[subgroup_index],
-        exp(model$TE.random.w[subgroup_index]),
-        exp(model$lower.random.w[subgroup_index]),
-        exp(model$upper.random.w[subgroup_index]),
-        model$Q.w[subgroup_index],
-        model$df.Q.w[subgroup_index],
-        model$pval.Q.w[subgroup_index],
-        100 * model$I2.w[subgroup_index]
-      )
-    }
-  }
 }
 
-collect_proportion_results <- function(model, analysis_name) {
+extract_proportion_result <- function(model) {
+  if (model$k == 1) {
+    exact_confidence_interval <- binom.test(model$event[1], model$n[1])$conf.int
+    return(
+      list(
+        estimate = 100 * model$event[1] / model$n[1],
+        lower = 100 * exact_confidence_interval[1],
+        upper = 100 * exact_confidence_interval[2],
+        Q = NA_real_,
+        df_Q = NA_real_,
+        p_Q = NA_real_,
+        I2 = NA_real_,
+        pi_lower = NA_real_,
+        pi_upper = NA_real_
+      )
+    )
+  }
+
+  list(
+    estimate = 100 * plogis(model$TE.random),
+    lower = 100 * plogis(model$lower.random),
+    upper = 100 * plogis(model$upper.random),
+    Q = first_or_na(model$Q),
+    df_Q = first_or_na(model$df.Q),
+    p_Q = first_or_na(model$pval.Q),
+    I2 = 100 * first_or_na(model$I2),
+    pi_lower = if (
+      model$k >= 3 && length(model$lower.predict) > 0
+    ) {
+      100 * plogis(first_or_na(model$lower.predict))
+    } else {
+      NA_real_
+    },
+    pi_upper = if (
+      model$k >= 3 && length(model$upper.predict) > 0
+    ) {
+      100 * plogis(first_or_na(model$upper.predict))
+    } else {
+      NA_real_
+    }
+  )
+}
+
+collect_proportion_results <- function(model, analysis_name, group_name) {
+  result <- extract_proportion_result(model)
   append_summary_row(
     analysis_name,
     "Proportion (%)",
-    "All arms pooled",
+    group_name,
     model$k,
-    100 * plogis(model$TE.random),
-    100 * plogis(model$lower.random),
-    100 * plogis(model$upper.random),
-    first_or_na(model$Q),
-    first_or_na(model$df.Q),
-    first_or_na(model$pval.Q),
-    100 * first_or_na(model$I2)
+    result$estimate,
+    result$lower,
+    result$upper,
+    result$Q,
+    result$df_Q,
+    result$p_Q,
+    result$I2,
+    result$pi_lower,
+    result$pi_upper
   )
-
-  if (!is.null(model$subgroup)) {
-    for (subgroup_index in seq_along(model$subgroup.levels)) {
-      if (model$k.w[subgroup_index] == 1) {
-        arm_index <- which(
-          as.character(model$subgroup) == model$subgroup.levels[subgroup_index]
-        )
-        exact_confidence_interval <- binom.test(
-          model$event[arm_index],
-          model$n[arm_index]
-        )$conf.int
-
-        append_summary_row(
-          analysis_name,
-          "Proportion (%)",
-          model$subgroup.levels[subgroup_index],
-          1,
-          100 * model$event[arm_index] / model$n[arm_index],
-          100 * exact_confidence_interval[1],
-          100 * exact_confidence_interval[2],
-          NA,
-          NA,
-          NA,
-          NA
-        )
-      } else {
-        append_summary_row(
-          analysis_name,
-          "Proportion (%)",
-          model$subgroup.levels[subgroup_index],
-          model$k.w[subgroup_index],
-          100 * plogis(model$TE.random.w[subgroup_index]),
-          100 * plogis(model$lower.random.w[subgroup_index]),
-          100 * plogis(model$upper.random.w[subgroup_index]),
-          first_or_na(model$Q.w[subgroup_index]),
-          first_or_na(model$df.Q.w[subgroup_index]),
-          first_or_na(model$pval.Q.w[subgroup_index]),
-          100 * first_or_na(model$I2.w[subgroup_index])
-        )
-      }
-    }
-  }
 }

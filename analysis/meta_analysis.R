@@ -5,9 +5,9 @@
 # Models per protocol:
 #   - Risk ratios: inverse-variance, DerSimonian-Laird tau, Hartung-Knapp CI,
 #     0.5 continuity correction for zero cells, random effects.
-#   - Proportions: generalized linear mixed models (logit), random effects.
+#   - Proportions: study-strategy GLMMs (logit), fitted separately by strategy.
 #   - Heterogeneity: Cochran's Q (p < 0.05 significant), plus tau^2 / I^2.
-#   - Leave-one-out sensitivity analysis on every pooled estimate.
+#   - Leave-one-study-out sensitivity analysis within every pooled group.
 #   - Publication bias: NOT assessed (no analysis reaches k >= 10, the
 #     protocol-specified threshold).
 ###############################################################################

@@ -3,6 +3,22 @@
 # Random-effects RR: inverse variance + DL tau + Hartung-Knapp CI, incr 0.5
 # The meta package calls intervention fields "experimental" (.e) and
 # comparator fields "control" (.c), hence names such as event.e and event.c.
+complete_rr_data <- function(
+  source_data,
+  intervention_event_column,
+  intervention_total_column,
+  comparator_event_column,
+  comparator_total_column
+) {
+  is_complete <- (
+    !is.na(source_data[[intervention_event_column]]) &
+      !is.na(source_data[[intervention_total_column]]) &
+      !is.na(source_data[[comparator_event_column]]) &
+      !is.na(source_data[[comparator_total_column]])
+  )
+  source_data[is_complete, , drop = FALSE]
+}
+
 fit_risk_ratio <- function(
   source_data,
   intervention_event_column,
@@ -12,11 +28,20 @@ fit_risk_ratio <- function(
   title,
   include_subgroups = TRUE
 ) {
-  has_both_event_counts <- (
-    !is.na(source_data[[intervention_event_column]]) &
-      !is.na(source_data[[comparator_event_column]])
+  analysis_data <- complete_rr_data(
+    source_data,
+    intervention_event_column,
+    intervention_total_column,
+    comparator_event_column,
+    comparator_total_column
   )
-  analysis_data <- source_data[has_both_event_counts, ]
+  stopifnot(
+    nrow(analysis_data) > 0,
+    all(analysis_data[[intervention_event_column]] <=
+      analysis_data[[intervention_total_column]]),
+    all(analysis_data[[comparator_event_column]] <=
+      analysis_data[[comparator_total_column]])
+  )
 
   model_arguments <- list(
     event.e = analysis_data[[intervention_event_column]],
@@ -30,8 +55,10 @@ fit_risk_ratio <- function(
     method.random.ci = "HK",
     incr = 0.5,
     method.incr = "only0",
+    RR.Cochrane = TRUE,
     random = TRUE,
     common = FALSE,
+    prediction = TRUE,
     title = title
   )
 
@@ -69,6 +96,19 @@ report_risk_ratio <- function(model, title) {
     )
   )
   log_line(format_heterogeneity(model))
+  if (
+    model$k >= 3 &&
+      length(model$lower.predict) > 0 &&
+      !is.na(first_or_na(model$lower.predict))
+  ) {
+    log_line(
+      sprintf(
+        "  95%% prediction interval: %.3f to %.3f",
+        exp(first_or_na(model$lower.predict)),
+        exp(first_or_na(model$upper.predict))
+      )
+    )
+  }
 
   if (!is.null(model$subgroup)) {
     log_line("  Subgroup estimates (random effects):")
@@ -118,41 +158,96 @@ report_risk_ratio <- function(model, title) {
   invisible(model)
 }
 
-report_leave_one_out_risk_ratio <- function(model, title) {
-  if (model$k < 3) {
+report_leave_one_out_risk_ratio <- function(
+  source_data,
+  intervention_event_column,
+  intervention_total_column,
+  comparator_event_column,
+  comparator_total_column,
+  analysis_name,
+  group_name
+) {
+  analysis_data <- complete_rr_data(
+    source_data,
+    intervention_event_column,
+    intervention_total_column,
+    comparator_event_column,
+    comparator_total_column
+  )
+
+  if (nrow(analysis_data) < 2) {
     log_line(
       sprintf(
-        "  Leave-one-out skipped for %s (k = %d < 3).",
-        title,
-        model$k
+        "  Leave-one-out skipped for %s / %s (k = %d < 2).",
+        analysis_name,
+        group_name,
+        nrow(analysis_data)
       )
     )
     return(invisible(NULL))
   }
 
-  leave_one_out_model <- metainf(model, pooled = "random")
-  log_line(sprintf("  Leave-one-out (random effects, %s):", title))
+  log_line(
+    sprintf(
+      "  Leave-one-study-out (%s; %s):",
+      analysis_name,
+      group_name
+    )
+  )
 
-  for (trial_index in seq_len(model$k)) {
-    i_squared_text <- if (is.na(leave_one_out_model$I2[trial_index])) {
+  leave_one_out_models <- vector("list", nrow(analysis_data))
+
+  for (trial_index in seq_len(nrow(analysis_data))) {
+    omitted_trial <- analysis_data$trial[trial_index]
+    remaining_data <- analysis_data[-trial_index, , drop = FALSE]
+    sensitivity_model <- suppressWarnings(
+      fit_risk_ratio(
+        source_data = remaining_data,
+        intervention_event_column = intervention_event_column,
+        intervention_total_column = intervention_total_column,
+        comparator_event_column = comparator_event_column,
+        comparator_total_column = comparator_total_column,
+        title = paste0(analysis_name, " omitting ", omitted_trial),
+        include_subgroups = FALSE
+      )
+    )
+    leave_one_out_models[[trial_index]] <- sensitivity_model
+
+    i_squared <- if (sensitivity_model$k > 1) {
+      100 * first_or_na(sensitivity_model$I2)
+    } else {
+      NA_real_
+    }
+    i_squared_text <- if (is.na(i_squared)) {
       "NA"
     } else {
-      sprintf("%.1f%%", 100 * leave_one_out_model$I2[trial_index])
+      sprintf("%.1f%%", i_squared)
     }
 
     log_line(
       sprintf(
         "    omitting %-22s RR = %.3f (%.3f to %.3f)  I2 = %s",
-        leave_one_out_model$studlab[trial_index],
-        exp(leave_one_out_model$TE[trial_index]),
-        exp(leave_one_out_model$lower[trial_index]),
-        exp(leave_one_out_model$upper[trial_index]),
+        omitted_trial,
+        exp(sensitivity_model$TE.random),
+        exp(sensitivity_model$lower.random),
+        exp(sensitivity_model$upper.random),
         i_squared_text
       )
     )
+    append_leave_one_out_row(
+      analysis = analysis_name,
+      group = group_name,
+      omitted_study = omitted_trial,
+      remaining_studies = sensitivity_model$k,
+      scale = "RR",
+      estimate = exp(sensitivity_model$TE.random),
+      confidence_interval_lower = exp(sensitivity_model$lower.random),
+      confidence_interval_upper = exp(sensitivity_model$upper.random),
+      i_squared_percent = i_squared
+    )
   }
 
-  invisible(leave_one_out_model)
+  invisible(leave_one_out_models)
 }
 
 save_risk_ratio_forest_plot <- function(

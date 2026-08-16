@@ -1,139 +1,139 @@
 ###############################################################################
-# PART 2. SINGLE-ARM POOLED PROPORTIONS BY SCREENING STRATEGY
+# PART 2. STUDY-LEVEL POOLED PROPORTIONS BY SCREENING STRATEGY
 ###############################################################################
 log_section("PART 2. POOLED PROPORTIONS BY SCREENING STRATEGY (GLMM)")
-log_line(
-  "Arms are classified by the triage test that triggers work-up. Denominators"
-)
-log_line("are the number of men actually screened where reported; control arms of")
-log_line("invitation trials were not screened and retain the invited/randomized N.")
+log_line("Each trial contributes at most one independent unit to a strategy.")
+log_line("Same-strategy arms within a trial are combined before model fitting.")
+log_line("PROBASE contributes only its immediate-PSA arm.")
+log_line("GG1 and GG>=2 detection rates use the full randomized/invited arm.")
+log_line("Grade mix uses all detected prostate cancers as denominator.")
+log_line("Biopsy yield uses outcome-specific biopsy denominators from the CSV.")
+log_line("Strategies are fitted separately; no all-strategy estimate or test is run.")
 log_line("")
-log_line("IMPORTANT CAVEAT: in ERSPC, PLCO and CAP the numerators are cancers")
-log_line("accrued across the whole randomized arm over 9-10 years of follow-up,")
-log_line("whereas the per-screened denominator counts only men actually tested.")
-log_line("These per-screened rates are therefore upward-biased for those three")
-log_line("trials. Part 3 repeats the analysis on ITT denominators.")
-log_line("")
-log_line("Arms per strategy group:")
+log_line("Study-strategy units:")
 
-for (strategy in levels(droplevels(arm_data$strategy))) {
-  uses_strategy <- arm_data$strategy == strategy
-  arm_labels <- paste0(
-    arm_data$trial[uses_strategy],
-    "-",
-    arm_data$arm[uses_strategy]
+for (strategy in levels(droplevels(proportion_data$strategy))) {
+  uses_strategy <- proportion_data$strategy == strategy
+  study_labels <- paste0(
+    proportion_data$trial[uses_strategy],
+    " (",
+    proportion_data$source_arms[uses_strategy],
+    ")"
   )
-
   log_line(
     sprintf(
       "  %-28s %s",
       strategy,
-      paste(arm_labels, collapse = ", ")
+      paste(study_labels, collapse = ", ")
     )
   )
 }
 
-gg1_per_screened_proportion <- fit_proportion(
-  source_data = arm_data,
-  event_column = "gg1",
-  total_column = "n_screened",
-  title = "ISUP GG1 detection rate per man screened, by screening strategy"
-)
-report_proportion(
-  gg1_per_screened_proportion,
-  "2.1 PRIMARY - GG1 detection rate per man screened, by strategy"
-)
-report_leave_one_out_proportion(
-  gg1_per_screened_proportion,
-  "GG1 rate per screened man"
-)
-collect_proportion_results(
-  gg1_per_screened_proportion,
-  "GG1 rate per man screened (proportion)"
-)
-save_proportion_forest_plot(
-  gg1_per_screened_proportion,
-  "fig6_prop_gg1_per_screened",
-  "ISUP GG1 detected per 100 men screened (%)"
-)
-
-cspca_per_screened_proportion <- fit_proportion(
-  source_data = arm_data,
-  event_column = "cs",
-  total_column = "n_screened",
-  title = "ISUP >=2 detection rate per man screened, by screening strategy"
-)
-report_proportion(
-  cspca_per_screened_proportion,
-  "2.2 SECONDARY - csPCa detection rate per man screened, by strategy"
-)
-report_leave_one_out_proportion(
-  cspca_per_screened_proportion,
-  "csPCa rate per screened man"
-)
-collect_proportion_results(
-  cspca_per_screened_proportion,
-  "csPCa rate per man screened (proportion)"
-)
-save_proportion_forest_plot(
-  cspca_per_screened_proportion,
-  "fig7_prop_cspca_per_screened",
-  "ISUP >=2 detected per 100 men screened (%)"
-)
-
-gg1_share_proportion <- fit_proportion(
-  source_data = arm_data,
-  event_column = "gg1",
-  total_column = "pca",
-  title = paste0(
-    "ISUP GG1 as a proportion of all detected ",
-    "prostate cancers, by strategy"
+PROPORTION_OUTCOMES <- list(
+  gg1_detection = list(
+    section = "2.1",
+    analysis_name = "GG1 detection per randomized/invited participant",
+    event_column = "gg1",
+    total_column = "n_itt",
+    file_stem = "fig7_prop_gg1_per_randomized",
+    axis_label = "ISUP GG1 detected per 100 randomized/invited (%)"
+  ),
+  gg1_share = list(
+    section = "2.2",
+    analysis_name = "GG1 among all detected prostate cancers",
+    event_column = "gg1",
+    total_column = "pca",
+    file_stem = "fig8_prop_gg1_share_of_pca",
+    axis_label = "ISUP GG1 as % of all detected prostate cancers"
+  ),
+  gg2plus_detection = list(
+    section = "2.3",
+    analysis_name = "GG>=2 detection per randomized/invited participant",
+    event_column = "cs",
+    total_column = "n_itt",
+    file_stem = "fig9_prop_gg2plus_per_randomized",
+    axis_label = "ISUP GG>=2 detected per 100 randomized/invited (%)"
+  ),
+  gg2plus_share = list(
+    section = "2.4",
+    analysis_name = "GG>=2 among all detected prostate cancers",
+    event_column = "cs",
+    total_column = "pca",
+    file_stem = "fig10_prop_gg2plus_share_of_pca",
+    axis_label = "ISUP GG>=2 as % of all detected prostate cancers"
+  ),
+  gg1_per_biopsy = list(
+    section = "2.5",
+    analysis_name = "GG1 among participants biopsied",
+    event_column = "gg1",
+    total_column = "gg1_bx_n",
+    file_stem = "fig11_prop_gg1_per_biopsy",
+    axis_label = "ISUP GG1 per 100 participants biopsied (%)"
+  ),
+  gg2plus_per_biopsy = list(
+    section = "2.6",
+    analysis_name = "GG>=2 among participants biopsied",
+    event_column = "cs",
+    total_column = "cs_bx_n",
+    file_stem = "fig12_prop_gg2plus_per_biopsy",
+    axis_label = "ISUP GG>=2 per 100 participants biopsied (%)"
+  ),
+  biopsies = list(
+    section = "2.7",
+    analysis_name = "Biopsies per screened/assessed participant",
+    event_column = "bx",
+    total_column = "n_screened",
+    file_stem = "fig13_prop_biopsies_per_screened",
+    axis_label = "Biopsies per 100 screened/assessed (%)"
   )
 )
-report_proportion(
-  gg1_share_proportion,
-  "2.3 PRIMARY (grade mix) - GG1 share of all detected PCa, by strategy"
-)
-report_leave_one_out_proportion(
-  gg1_share_proportion,
-  "GG1 share of detected PCa"
-)
-collect_proportion_results(
-  gg1_share_proportion,
-  "GG1 share of detected PCa (proportion)"
-)
-save_proportion_forest_plot(
-  gg1_share_proportion,
-  "fig8_prop_gg1_share_of_pca",
-  "ISUP GG1 as % of all detected prostate cancers"
-)
 
-biopsies_per_screened_proportion <- fit_proportion(
-  source_data = arm_data,
-  event_column = "bx",
-  total_column = "n_screened",
-  title = "Prostate biopsies per man screened, by screening strategy"
-)
-report_proportion(
-  biopsies_per_screened_proportion,
-  "2.4 SECONDARY - Biopsies per man screened, by strategy"
-)
-log_line(
-  paste0(
-    "  Arms with biopsy counts NR are excluded ",
-    "(ERSPC-C, PLCO both arms, CAP-C, ProScreen-C)."
+proportion_models <- list()
+
+strategy_slug <- function(strategy) {
+  slug <- gsub("[^a-z0-9]+", "_", tolower(strategy))
+  gsub("^_|_$", "", slug)
+}
+
+for (outcome_name in names(PROPORTION_OUTCOMES)) {
+  outcome <- PROPORTION_OUTCOMES[[outcome_name]]
+  is_complete <- (
+    !is.na(proportion_data[[outcome$event_column]]) &
+      !is.na(proportion_data[[outcome$total_column]])
   )
-)
-report_leave_one_out_proportion(
-  biopsies_per_screened_proportion,
-  "biopsies per screened man"
-)
-collect_proportion_results(
-  biopsies_per_screened_proportion,
-  "Biopsies per man screened (proportion)"
-)
-save_proportion_forest_plot(
-  biopsies_per_screened_proportion,
-  "fig9_prop_biopsies_per_screened",
-  "Biopsies per 100 men screened (%)"
-)
+  outcome_data <- proportion_data[is_complete, ]
+  included_strategies <- levels(droplevels(outcome_data$strategy))
+
+  for (strategy in included_strategies) {
+    strategy_data <- outcome_data[outcome_data$strategy == strategy, ]
+    model <- fit_proportion(
+      source_data = strategy_data,
+      event_column = outcome$event_column,
+      total_column = outcome$total_column,
+      title = paste(outcome$analysis_name, strategy, sep = " - "),
+      include_subgroups = FALSE
+    )
+    model_key <- paste(outcome_name, strategy_slug(strategy), sep = "__")
+    proportion_models[[model_key]] <- model
+
+    report_proportion(
+      model,
+      paste(outcome$section, toupper(outcome$analysis_name), "-", strategy),
+      strategy
+    )
+    collect_proportion_results(model, outcome$analysis_name, strategy)
+    report_leave_one_out_proportion(
+      source_data = strategy_data,
+      event_column = outcome$event_column,
+      total_column = outcome$total_column,
+      analysis_name = outcome$analysis_name,
+      group_name = strategy
+    )
+    save_proportion_forest_plot(
+      model,
+      paste(outcome$file_stem, strategy_slug(strategy), sep = "_"),
+      outcome$axis_label,
+      summary_label = paste("Pooled", strategy, "(%)")
+    )
+  }
+}
