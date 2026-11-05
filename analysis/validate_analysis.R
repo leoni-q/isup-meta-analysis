@@ -44,6 +44,12 @@ stopifnot(
   identical(cap_data$pca, c(12013L, 12958L))
 )
 
+# ProScreen is excluded from every analysis.
+stopifnot(
+  !"ProScreen" %in% study_strategy_units$trial,
+  !"ProScreen" %in% leave_one_out_table$omitted_study
+)
+
 # One independent contribution per trial and strategy.
 stopifnot(
   !any(duplicated(study_strategy_units[c("trial", "strategy")])),
@@ -109,17 +115,27 @@ stopifnot(
         "GG>=2 detection per randomized/invited participant",
         "GG>=2 among all detected prostate cancers",
         "GG1 among participants biopsied",
-        "GG>=2 among participants biopsied"
+        "GG>=2 among participants biopsied",
+        "Biopsies performed per randomized/invited participant"
       )
     )
   ),
   !any(grepl("Overall", main_rr$group, fixed = TRUE)),
+  all(main_rr$k[grepl("^A\\.", main_rr$group)] == 3),
   all(main_rr$k[
-    grepl("^A\\.", main_rr$group)
+    grepl("^B\\.", main_rr$group) &
+      !main_rr$analysis %in% c(
+        "GG1 among participants biopsied",
+        "GG>=2 among participants biopsied"
+      )
   ] == 4),
   all(main_rr$k[
-    grepl("^B\\.", main_rr$group)
-  ] == 4),
+    grepl("^B\\.", main_rr$group) &
+      main_rr$analysis %in% c(
+        "GG1 among participants biopsied",
+        "GG>=2 among participants biopsied"
+      )
+  ] == 3),
   all(main_rr$k[
     grepl("^T\\.", main_rr$group)
   ] == 1),
@@ -129,8 +145,10 @@ stopifnot(
   )
 )
 
-# Every pooled estimate with at least two studies omits every contributing
-# study exactly once. Single-study estimates correctly have no LOO row.
+# Every estimate with at least three studies omits every contributing study
+# exactly once. Analyses with k < 3 have no leave-one-out rows, because
+# omitting a study there would leave a single trial rather than a pooled
+# estimate.
 main_summary <- summary_table[!grepl("^SENS ", summary_table$analysis), ]
 for (row_index in seq_len(nrow(main_summary))) {
   result_row <- main_summary[row_index, ]
@@ -138,17 +156,35 @@ for (row_index in seq_len(nrow(main_summary))) {
     leave_one_out_table$analysis == result_row$analysis &
       leave_one_out_table$group == result_row$group,
   ]
-  expected_rows <- if (result_row$k >= 2) result_row$k else 0
+  expected_rows <- if (result_row$k >= 3) result_row$k else 0
   stopifnot(
     nrow(matching_loo) == expected_rows,
     !any(duplicated(matching_loo$omitted_study))
   )
 }
 
-# Cochran Q degrees of freedom are group-specific, not reused overall values.
+# No leave-one-out row may report a single remaining study as a pooled result.
+stopifnot(all(leave_one_out_table$k_remaining >= 2))
+
+# Cochran Q degrees of freedom are group-specific, not reused overall values,
+# and single-study rows report no heterogeneity test at all on either scale.
 pooled_rows <- summary_table$k >= 2
+single_study_rows <- summary_table$k == 1
 stopifnot(
-  all(summary_table$df_Q[pooled_rows] == summary_table$k[pooled_rows] - 1)
+  all(summary_table$df_Q[pooled_rows] == summary_table$k[pooled_rows] - 1),
+  all(is.na(summary_table$Q[single_study_rows])),
+  all(is.na(summary_table$df_Q[single_study_rows])),
+  all(is.na(summary_table$I2_pct[single_study_rows]))
+)
+
+# The protocol's per-screened detection rates (s.9) are reported alongside the
+# per-randomized ones, and the biopsy-burden secondary endpoint (s.6) is
+# estimated wherever both arms report biopsy counts.
+stopifnot(
+  "GG1 detection per screened participant" %in% summary_table$analysis,
+  "GG>=2 detection per screened participant" %in% summary_table$analysis,
+  "Biopsies performed per randomized/invited participant" %in%
+    summary_table$analysis
 )
 
 message(

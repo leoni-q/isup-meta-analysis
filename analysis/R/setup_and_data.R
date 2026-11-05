@@ -11,15 +11,21 @@ OUTPUT_DIR <- file.path(ANALYSIS_DIR, "output")
 RESULTS_LOG_PATH <- file.path(OUTPUT_DIR, "results.txt")
 
 dir.create(OUTPUT_DIR, showWarnings = FALSE, recursive = TRUE)
-obsolete_plot_paths <- list.files(
-  OUTPUT_DIR,
-  pattern = "^fig.*\\.(pdf|png)$",
-  full.names = TRUE
-)
-if (length(obsolete_plot_paths) > 0) {
-  unlink(obsolete_plot_paths)
+
+# Clearing previous outputs is deferred until the data checks below have passed
+# (see clear_previous_outputs()), so an aborted run leaves the last good
+# figures and results.txt intact instead of an empty output directory.
+clear_previous_outputs <- function() {
+  obsolete_plot_paths <- list.files(
+    OUTPUT_DIR,
+    pattern = "^fig.*\\.(pdf|png)$",
+    full.names = TRUE
+  )
+  if (length(obsolete_plot_paths) > 0) {
+    unlink(obsolete_plot_paths)
+  }
+  cat("", file = RESULTS_LOG_PATH)
 }
-cat("", file = RESULTS_LOG_PATH)
 
 log_line <- function(...) {
   text <- paste0(...)
@@ -43,6 +49,13 @@ arm_data <- read.csv(
   file.path(ANALYSIS_DIR, "arm_level_data.csv"),
   stringsAsFactors = FALSE
 )
+
+# ProScreen is excluded from every analysis. Its rows stay in the CSV so the
+# extraction remains complete, and are dropped here before any cohort,
+# study-strategy unit or descriptive table is built.
+EXCLUDED_TRIALS <- c("ProScreen")
+stopifnot(all(EXCLUDED_TRIALS %in% arm_data$trial))
+arm_data <- arm_data[!arm_data$trial %in% EXCLUDED_TRIALS, ]
 
 STRATEGY_LEVELS <- c(
   "No screening / usual care",
@@ -123,7 +136,7 @@ timing_trial_data <- trial_data[trial_data$family == "T", ]
 stopifnot(
   identical(
     sort(invitation_trial_data$trial),
-    sort(c("CAP", "ERSPC", "PLCO", "ProScreen"))
+    sort(c("CAP", "ERSPC", "PLCO"))
   ),
   identical(
     sort(diagnostic_trial_data$trial),
@@ -219,10 +232,20 @@ stopifnot(
     proportion_data$cs_bx_n[!is.na(proportion_data$cs_bx_n)])
 )
 
+# Every structural check on the extracted data has now passed, so replacing the
+# previous run's outputs is safe.
+clear_previous_outputs()
+
 # ---------------------------------------------------------------------------
 # Descriptives
 # ---------------------------------------------------------------------------
 log_section("TABLE 1. Extracted data, internal consistency check")
+log_line(
+  sprintf(
+    "Excluded from all analyses: %s",
+    paste(EXCLUDED_TRIALS, collapse = ", ")
+  )
+)
 descriptive_columns <- c(
   "trial",
   "arm",

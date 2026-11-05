@@ -14,8 +14,14 @@ run_rr_sensitivity_set <- function(
 
   for (outcome_name in names(outcomes)) {
     outcome <- outcomes[[outcome_name]]
+    excluded_trials <- if (is.null(outcome$exclude_trials)) {
+      character(0)
+    } else {
+      outcome$exclude_trials
+    }
+    outcome_data <- source_data[!source_data$trial %in% excluded_trials, ]
     complete_data <- complete_rr_data(
-      source_data,
+      outcome_data,
       outcome$intervention_event_column,
       outcome$intervention_total_column,
       outcome$comparator_event_column,
@@ -32,7 +38,7 @@ run_rr_sensitivity_set <- function(
     }
 
     model <- fit_risk_ratio(
-      source_data = source_data,
+      source_data = outcome_data,
       intervention_event_column = outcome$intervention_event_column,
       intervention_total_column = outcome$intervention_total_column,
       comparator_event_column = outcome$comparator_event_column,
@@ -96,7 +102,16 @@ diagnostic_assessed_data$comparator_n[uses_assessed_denominator] <- (
   diagnostic_assessed_data$comparator_n_screened[uses_assessed_denominator]
 )
 
+# The main outcome names say "per randomized/invited participant", which is
+# exactly what this sensitivity replaces; reusing them verbatim would label the
+# rows with the denominator they do not use.
 detection_outcomes <- RR_OUTCOMES[c("gg1_detection", "gg2plus_detection")]
+detection_outcomes$gg1_detection$analysis_name <- (
+  "GG1 detection per assessed participant"
+)
+detection_outcomes$gg2plus_detection$analysis_name <- (
+  "GG>=2 detection per assessed participant"
+)
 sensitivity_models$assessed_denominators <- run_rr_sensitivity_set(
   source_data = diagnostic_assessed_data,
   sensitivity_name = "MVP/PROSA assessed denominators",

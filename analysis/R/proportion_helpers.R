@@ -55,14 +55,23 @@ fit_proportion <- function(
 # GLMM estimates are logits; plogis() converts them back to proportions.
 report_proportion <- function(model, title, group_name) {
   log_section(title)
+  # A single study is reported exactly rather than through the GLMM, so the
+  # header must not claim a pooled logit-normal estimate for it.
   log_line(
-    sprintf(
+    if (model$k == 1) {
       paste0(
-        "k = %d studies | model: random effects GLMM (logit-normal), ",
-        "back-transformed"
-      ),
-      model$k
-    )
+        "k = 1 study | single study: no pooling; observed proportion with an ",
+        "exact binomial (Clopper-Pearson) interval"
+      )
+    } else {
+      sprintf(
+        paste0(
+          "k = %d studies | model: random effects GLMM (logit-normal), ",
+          "back-transformed"
+        ),
+        model$k
+      )
+    }
   )
   result <- extract_proportion_result(model)
   interval_label <- if (model$k == 1) "exact 95% CI" else "95% CI"
@@ -118,10 +127,15 @@ report_leave_one_out_proportion <- function(
   )
   analysis_data <- source_data[has_event_and_total, ]
 
-  if (nrow(analysis_data) < 2) {
+  # Same rule as the risk-ratio side: a single remaining study is not a pooled
+  # estimate, so leave-one-out needs at least three contributing studies.
+  if (nrow(analysis_data) < 3) {
     log_line(
       sprintf(
-        "  Leave-one-study-out skipped for %s / %s (k = %d < 2).",
+        paste0(
+          "  Leave-one-study-out skipped for %s / %s (k = %d < 3; omitting a ",
+          "study would leave no pooled estimate)."
+        ),
         analysis_name,
         group_name,
         nrow(analysis_data)
@@ -223,9 +237,11 @@ save_proportion_forest_plot <- function(
       rightcols = FALSE,
       print.subgroup.name = FALSE,
       col.subgroup = "black",
-      print.I2 = TRUE,
-      print.Q = TRUE,
-      print.pval.Q = TRUE,
+      # Standard heterogeneity line disabled: it labels Q as chi^2 and
+      # reports I^2. Replaced by a Cochran's Q line without I^2.
+      hetstat = FALSE,
+      text.addline1 = format_forest_heterogeneity_label(model),
+      fs.addline = 10,
       digits = 2,
       col.diamond = "#b2182b",
       col.diamond.lines = "black",

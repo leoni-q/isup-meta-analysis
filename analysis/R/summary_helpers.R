@@ -64,6 +64,41 @@ format_heterogeneity <- function(model) {
   )
 }
 
+format_forest_heterogeneity_label <- function(model) {
+  # Heterogeneity line drawn under each forest plot. meta::forest() can only
+  # label the Q statistic as chi-squared, so the plots use this custom text:
+  # Cochran's Q test (statistic, df, p) plus tau^2, with I^2 deliberately
+  # omitted. GLMM fits return Q of length 2; [1] is Cochran's Q.
+  cochrans_q <- model$Q[1]
+  q_degrees_of_freedom <- model$df.Q[1]
+  q_p_value <- model$pval.Q[1]
+
+  if (is.na(cochrans_q) || is.na(q_degrees_of_freedom)) {
+    return("Heterogeneity: Cochran's Q not estimable (k = 1)")
+  }
+
+  p_value_text <- if (is.na(q_p_value)) {
+    "p = NA"
+  } else if (q_p_value < 0.0001) {
+    "p < 0.0001"
+  } else {
+    sprintf("p = %.4f", q_p_value)
+  }
+  tau_squared_text <- if (is.na(model$tau2[1])) {
+    ""
+  } else {
+    sprintf("; Tau\u00b2 = %.4f", model$tau2[1])
+  }
+
+  sprintf(
+    "Heterogeneity: Cochran's Q = %.2f, df = %d, %s%s",
+    cochrans_q,
+    as.integer(round(q_degrees_of_freedom)),
+    p_value_text,
+    tau_squared_text
+  )
+}
+
 first_or_na <- function(values) {
   if (length(values) == 0) {
     return(NA)
@@ -153,6 +188,16 @@ collect_risk_ratio_results <- function(model, analysis_name, group_name) {
     NA_real_
   }
 
+  # metabin returns Q = 0, df = 0 for a single contrast, which would read as a
+  # heterogeneity test that was actually never run. The proportion collector
+  # already reports NA in that situation; match it so the exported table
+  # encodes single-study rows the same way on both scales.
+  has_heterogeneity_test <- model$k > 1
+  cochrans_q <- if (has_heterogeneity_test) model$Q else NA_real_
+  q_degrees_of_freedom <- if (has_heterogeneity_test) model$df.Q else NA_real_
+  q_p_value <- if (has_heterogeneity_test) model$pval.Q else NA_real_
+  i_squared_percent <- if (has_heterogeneity_test) 100 * model$I2 else NA_real_
+
   append_summary_row(
     analysis_name,
     "RR",
@@ -161,10 +206,10 @@ collect_risk_ratio_results <- function(model, analysis_name, group_name) {
     exp(model$TE.random),
     exp(model$lower.random),
     exp(model$upper.random),
-    model$Q,
-    model$df.Q,
-    model$pval.Q,
-    100 * model$I2,
+    cochrans_q,
+    q_degrees_of_freedom,
+    q_p_value,
+    i_squared_percent,
     prediction_interval_lower,
     prediction_interval_upper
   )

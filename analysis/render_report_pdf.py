@@ -29,6 +29,13 @@ PROPORTION_VARIANTS = (
     ("biomarker_mri", "biomarker → MRI"),
     ("mri_first", "MRI-first"),
 )
+# Biopsy yield has no biomarker → MRI unit: STHLM3-MRI is excluded from those
+# outcomes and ProScreen from every analysis.
+BIOPSY_YIELD_VARIANTS = tuple(
+    variant
+    for variant in PROPORTION_VARIANTS[2:]
+    if variant[0] != "biomarker_mri"
+)
 FIGURE_GROUPS = {
     "fig1_rr_gg1_detection": (
         "GG1 detection per randomized/invited participant",
@@ -54,31 +61,43 @@ FIGURE_GROUPS = {
         "GG≥2 among participants biopsied",
         RR_VARIANTS[1:],
     ),
-    "fig7_prop_gg1_per_randomized": (
+    "fig7_rr_biopsies_per_participant": (
+        "Biopsies performed per randomized/invited participant",
+        RR_VARIANTS[1:],
+    ),
+    "fig8_prop_gg1_per_screened": (
+        "GG1 per screened participant",
+        PROPORTION_VARIANTS,
+    ),
+    "fig9_prop_gg1_per_randomized": (
         "GG1 per randomized/invited participant",
         PROPORTION_VARIANTS,
     ),
-    "fig8_prop_gg1_share_of_pca": (
+    "fig10_prop_gg1_share_of_pca": (
         "GG1 among all detected prostate cancers",
         PROPORTION_VARIANTS,
     ),
-    "fig9_prop_gg2plus_per_randomized": (
+    "fig11_prop_gg2plus_per_screened": (
+        "GG≥2 per screened participant",
+        PROPORTION_VARIANTS,
+    ),
+    "fig12_prop_gg2plus_per_randomized": (
         "GG≥2 per randomized/invited participant",
         PROPORTION_VARIANTS,
     ),
-    "fig10_prop_gg2plus_share_of_pca": (
+    "fig13_prop_gg2plus_share_of_pca": (
         "GG≥2 among all detected prostate cancers",
         PROPORTION_VARIANTS,
     ),
-    "fig11_prop_gg1_per_biopsy": (
+    "fig14_prop_gg1_per_biopsy": (
         "GG1 among participants biopsied",
-        PROPORTION_VARIANTS[2:],
+        BIOPSY_YIELD_VARIANTS,
     ),
-    "fig12_prop_gg2plus_per_biopsy": (
+    "fig15_prop_gg2plus_per_biopsy": (
         "GG≥2 among participants biopsied",
-        PROPORTION_VARIANTS[2:],
+        BIOPSY_YIELD_VARIANTS,
     ),
-    "fig13_prop_biopsies_per_screened": (
+    "fig16_prop_biopsies_per_screened": (
         "Biopsies per screened/assessed participant",
         PROPORTION_VARIANTS[2:],
     ),

@@ -238,7 +238,41 @@ expect(
 )
 
 ###############################################################################
-cat("6. format_heterogeneity\n")
+cat("6. risk_ratio_x_ticks: the axis never cuts off a point estimate\n")
+###############################################################################
+tick_model <- function(estimates) {
+  list(TE = log(estimates), TE.random = log(estimates[1]))
+}
+narrow_preferred <- c(0.2, 0.35, 0.5, 0.7, 1, 1.5, 2)
+expect(
+  "preferred ticks are kept when they already cover every estimate",
+  identical(
+    risk_ratio_x_ticks(tick_model(c(0.8, 1.4)), narrow_preferred),
+    narrow_preferred
+  )
+)
+for (extreme in c(2.3125, 3.21, 4.102, 7.4871, 21.041, 66.885, 500)) {
+  chosen_ticks <- risk_ratio_x_ticks(tick_model(extreme), narrow_preferred)
+  expect(
+    sprintf("axis covers an estimate of %.3f", extreme),
+    extreme >= min(chosen_ticks) && extreme <= max(chosen_ticks)
+  )
+  expect(
+    sprintf("axis for %.3f still includes the null line at 1", extreme),
+    min(chosen_ticks) <= 1 && max(chosen_ticks) >= 1
+  )
+}
+spread_ticks <- risk_ratio_x_ticks(
+  tick_model(c(1.25, 2.40, 3.21, 2.094)), narrow_preferred
+)
+expect(
+  "axis covers a whole spread of study estimates, not just the pooled one",
+  max(c(1.25, 2.40, 3.21, 2.094)) <= max(spread_ticks) &&
+    min(c(1.25, 2.40, 3.21, 2.094)) >= min(spread_ticks)
+)
+
+###############################################################################
+cat("7. format_heterogeneity\n")
 ###############################################################################
 heterogeneity_text <- format_heterogeneity(meta_model)
 expect(
@@ -252,9 +286,18 @@ expect(
   grepl("significant heterogeneity", heterogeneity_text) ==
     (meta_model$pval.Q[1] < 0.05)
 )
+forest_label <- format_forest_heterogeneity_label(meta_model)
+expect(
+  "forest-plot heterogeneity line reports Cochran's Q, df, p and tau2 but not I2",
+  grepl("Cochran's Q = ", forest_label, fixed = TRUE) &&
+    grepl(sprintf("df = %d", meta_model$df.Q[1]), forest_label) &&
+    grepl("p [<=] ", forest_label) &&
+    grepl("Tau", forest_label) &&
+    !grepl("I2|I\u00b2", forest_label)
+)
 
 ###############################################################################
-cat("7. Protocol settings on the fitted RR model object\n")
+cat("8. Protocol settings on the fitted RR model object\n")
 ###############################################################################
 expect(
   "RR model uses inverse variance, DL tau, Hartung-Knapp, incr 0.5/only0",
@@ -267,7 +310,7 @@ expect(
 )
 
 ###############################################################################
-cat("8. Data preparation (setup_and_data.R) in a sandbox\n")
+cat("9. Data preparation (setup_and_data.R) in a sandbox\n")
 ###############################################################################
 # setup_and_data.R deletes figures and writes tables in ANALYSIS_DIR/output,
 # so run it against a temporary copy of the CSV, never the real output dir.
@@ -290,8 +333,8 @@ expect(
     erspc_row$intervention_n == 72890 && erspc_row$comparator_n == 89353
 )
 expect(
-  "RR cohorts split by family: A=4, B=4, T=PROBASE only",
-  nrow(invitation_trial_data) == 4 &&
+  "RR cohorts split by family: A=3 (ProScreen excluded), B=4, T=PROBASE only",
+  nrow(invitation_trial_data) == 3 &&
     nrow(diagnostic_trial_data) == 4 &&
     identical(timing_trial_data$trial, "PROBASE")
 )
@@ -320,7 +363,7 @@ expect(
 )
 
 ###############################################################################
-cat("9. Reproducibility: refits match published table2 values\n")
+cat("10. Reproducibility: refits match published table2 values\n")
 ###############################################################################
 published <- read.csv(
   file.path(REAL_ANALYSIS_DIR, "output", "table2_pooled_estimates.csv"),
@@ -369,14 +412,14 @@ expect_close(
 )
 
 refit_gg2_diag_bx <- fit_risk_ratio(
-  diagnostic_trial_data,
+  diagnostic_trial_data[diagnostic_trial_data$trial != "STHLM3-MRI", ],
   "intervention_cs", "intervention_cs_bx_n",
   "comparator_cs", "comparator_cs_bx_n",
   title = "test", include_subgroups = FALSE
 )
 gg2_bx_row <- published_row("GG>=2 among participants biopsied", "B.")
 expect_close(
-  "GG>=2 biopsy-yield RR (diagnostic family) reproduces table2",
+  "GG>=2 biopsy-yield RR (diagnostic family, STHLM3-MRI excluded) reproduces table2",
   exp(refit_gg2_diag_bx$TE.random), gg2_bx_row$estimate,
   tolerance = 1e-3
 )

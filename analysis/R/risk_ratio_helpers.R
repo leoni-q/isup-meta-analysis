@@ -77,14 +77,24 @@ fit_risk_ratio <- function(
 # `meta` stores risk ratios on the log scale; exp() converts them back to RRs.
 report_risk_ratio <- function(model, title) {
   log_section(title)
+  # With a single contrast there is nothing to pool: `meta` reports the study's
+  # own log-RR with a normal-approximation interval, so neither the DL tau
+  # estimator nor the Hartung-Knapp adjustment is in effect.
   log_line(
-    sprintf(
+    if (model$k == 1) {
       paste0(
-        "k = %d trials | model: random effects, inverse variance, ",
-        "DL tau, Hartung-Knapp CI"
-      ),
-      model$k
-    )
+        "k = 1 trial | single-study contrast: no pooling, no tau estimated; ",
+        "CI is the normal-approximation (Wald) interval on the log scale"
+      )
+    } else {
+      sprintf(
+        paste0(
+          "k = %d trials | model: random effects, inverse variance, ",
+          "DL tau, Hartung-Knapp CI"
+        ),
+        model$k
+      )
+    }
   )
   log_line(
     sprintf(
@@ -95,7 +105,9 @@ report_risk_ratio <- function(model, title) {
       format.pval(model$pval.random, digits = 4, eps = 1e-4)
     )
   )
-  log_line(format_heterogeneity(model))
+  if (model$k > 1) {
+    log_line(format_heterogeneity(model))
+  }
   if (
     model$k >= 3 &&
       length(model$lower.predict) > 0 &&
@@ -175,10 +187,15 @@ report_leave_one_out_risk_ratio <- function(
     comparator_total_column
   )
 
-  if (nrow(analysis_data) < 2) {
+  # Omitting one of two studies leaves a single trial, whose own estimate is not
+  # a pooled result; publishing it as one would misrepresent the sensitivity.
+  if (nrow(analysis_data) < 3) {
     log_line(
       sprintf(
-        "  Leave-one-out skipped for %s / %s (k = %d < 2).",
+        paste0(
+          "  Leave-one-study-out skipped for %s / %s (k = %d < 3; omitting a ",
+          "study would leave no pooled estimate)."
+        ),
         analysis_name,
         group_name,
         nrow(analysis_data)
@@ -250,6 +267,51 @@ report_leave_one_out_risk_ratio <- function(
   invisible(leave_one_out_models)
 }
 
+# Preferred ticks are tuned for the pooled cohorts; single-trial contrasts such
+# as PROBASE can sit far outside them. Widening the axis to cover every point
+# estimate keeps squares and diamonds on the plot - wide confidence intervals
+# are still drawn as arrows, which is the conventional forest-plot behaviour.
+# Progressively wider tick sets. The first one that spans every point estimate
+# is used, so the axis stays as tight as the data allows while never cutting an
+# estimate off. Each set includes 1 so the null line is always drawn.
+FOREST_TICK_SETS <- list(
+  c(0.2, 0.35, 0.5, 0.7, 1, 1.5, 2, 3),
+  c(0.2, 0.5, 1, 2, 5),
+  c(0.1, 0.2, 0.5, 1, 2, 5, 10),
+  c(0.5, 1, 2, 5, 10, 25),
+  c(0.1, 0.5, 1, 2, 5, 10, 50),
+  c(0.1, 0.5, 1, 5, 20, 100),
+  c(0.1, 1, 10, 100, 500),
+  c(0.01, 0.1, 1, 10, 100, 1000)
+)
+
+risk_ratio_x_ticks <- function(model, preferred_ticks) {
+  point_estimates <- exp(c(model$TE, model$TE.random))
+  point_estimates <- point_estimates[
+    is.finite(point_estimates) & point_estimates > 0
+  ]
+  if (length(point_estimates) == 0) {
+    return(preferred_ticks)
+  }
+
+  covers_estimates <- function(ticks) {
+    min(point_estimates) >= min(ticks) && max(point_estimates) <= max(ticks)
+  }
+  if (covers_estimates(preferred_ticks)) {
+    return(preferred_ticks)
+  }
+  for (candidate_ticks in FOREST_TICK_SETS) {
+    if (covers_estimates(candidate_ticks)) {
+      return(candidate_ticks)
+    }
+  }
+
+  # Beyond the widest prepared set, fall back to a padded log-spaced axis.
+  lower_limit <- min(c(point_estimates, 1)) / 2
+  upper_limit <- max(c(point_estimates, 1)) * 2
+  signif(exp(seq(log(lower_limit), log(upper_limit), length.out = 5)), 1)
+}
+
 save_risk_ratio_forest_plot <- function(
   model,
   file_stem,
@@ -257,6 +319,7 @@ save_risk_ratio_forest_plot <- function(
   right_label,
   x_ticks = c(0.2, 0.5, 1, 2, 5, 10)
 ) {
+  x_ticks <- risk_ratio_x_ticks(model, x_ticks)
   subgroup_count <- if (is.null(model$subgroup)) {
     0
   } else {
@@ -295,10 +358,11 @@ save_risk_ratio_forest_plot <- function(
       at = x_ticks,
       print.subgroup.name = FALSE,
       col.subgroup = "black",
-      print.I2 = TRUE,
-      print.tau2 = TRUE,
-      print.Q = TRUE,
-      print.pval.Q = TRUE,
+      # Standard heterogeneity line disabled: it labels Q as Chi^2 and
+      # reports I^2. Replaced by a Cochran's Q line without I^2.
+      hetstat = FALSE,
+      text.addline1 = format_forest_heterogeneity_label(model),
+      fs.addline = 10,
       digits = 2,
       col.diamond = "#2166ac",
       col.diamond.lines = "black",
